@@ -39,14 +39,19 @@ public class login {
 	private JButton btnEntrar;
 	private JLabel lblUser;
 	private JLabel lblPassword;
-	
+
 	private final String user = "Jairo";
 	private final String password = "1234";
-	private Color colorBlanco = new Color (255,255,255);
-	private Color colorResaltado = new Color (255,255,210);
+	private Color colorBlanco = new Color(255, 255, 255);
+	private Color colorResaltado = new Color(255, 255, 210);
 	private Border bordeRojo = BorderFactory.createLineBorder(Color.RED);
 	private Border bordeVerde = BorderFactory.createLineBorder(Color.GREEN);
-	private JTextField txtPassword;
+	private JPasswordField pwdfPassword;
+	
+	
+	public String getUser() {
+		return user;
+	}
 
 	/**
 	 * Launch the application.
@@ -78,22 +83,22 @@ public class login {
 		frmLogin = new JFrame();
 		frmLogin.addWindowListener(new FrmInicioWindowListener());
 		frmLogin.setTitle("INICIO SESIÓN");
-		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/presentacion/choza.png")));
+		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/presentacion/Icon/choza.png")));
 		frmLogin.setBounds(100, 100, 500, 350);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
 			panel = new JPanel();
 			frmLogin.getContentPane().add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{62, 80, 55, 147, 82, 65, 0};
-			gbl_panel.rowHeights = new int[]{21, 70, 21, 18, 0, 47, 0, 0};
-			gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.columnWidths = new int[] { 62, 80, 55, 147, 82, 65, 0 };
+			gbl_panel.rowHeights = new int[] { 21, 70, 21, 18, 0, 47, 0, 0 };
+			gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+			gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 			panel.setLayout(gbl_panel);
 			{
 				lblUserIcon = new JLabel("");
 				lblUserIcon.setForeground(Color.BLACK);
-				lblUserIcon.setIcon(new ImageIcon(login.class.getResource("/presentacion/user.png")));
+				lblUserIcon.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/user.png")));
 				GridBagConstraints gbc_lblUserIcon = new GridBagConstraints();
 				gbc_lblUserIcon.insets = new Insets(0, 0, 5, 5);
 				gbc_lblUserIcon.gridx = 1;
@@ -124,7 +129,7 @@ public class login {
 			}
 			{
 				lblPasswordIcon = new JLabel("");
-				lblPasswordIcon.setIcon(new ImageIcon(login.class.getResource("/presentacion/candado.png")));
+				lblPasswordIcon.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/candado.png")));
 				GridBagConstraints gbc_lblPasswordIcon = new GridBagConstraints();
 				gbc_lblPasswordIcon.anchor = GridBagConstraints.EAST;
 				gbc_lblPasswordIcon.insets = new Insets(0, 0, 5, 5);
@@ -143,18 +148,17 @@ public class login {
 				panel.add(lblPassword, gbc_lblPassword);
 			}
 			{
-				txtPassword = new JTextField();
-				txtPassword.setEnabled(false);
-				txtPassword.addKeyListener(new TxtPasswordKeyListener());
-				txtPassword.addFocusListener(new MiFocusListener());
-				GridBagConstraints gbc_txtPassword = new GridBagConstraints();
-				gbc_txtPassword.gridwidth = 2;
-				gbc_txtPassword.insets = new Insets(0, 0, 5, 5);
-				gbc_txtPassword.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtPassword.gridx = 3;
-				gbc_txtPassword.gridy = 3;
-				panel.add(txtPassword, gbc_txtPassword);
-				txtPassword.setColumns(10);
+				pwdfPassword = new JPasswordField();
+				pwdfPassword.addKeyListener(new PwdfPasswordKeyListener());
+				pwdfPassword.setEnabled(false);
+				pwdfPassword.addFocusListener(new MiFocusListener());
+				GridBagConstraints gbc_pwdfPassword = new GridBagConstraints();
+				gbc_pwdfPassword.gridwidth = 2;
+				gbc_pwdfPassword.insets = new Insets(0, 0, 5, 5);
+				gbc_pwdfPassword.fill = GridBagConstraints.HORIZONTAL;
+				gbc_pwdfPassword.gridx = 3;
+				gbc_pwdfPassword.gridy = 3;
+				panel.add(pwdfPassword, gbc_pwdfPassword);
 			}
 			{
 				chckbxRecuerdame = new JCheckBox("Recuerdame");
@@ -168,7 +172,7 @@ public class login {
 				btnEntrar = new JButton("Entrar");
 				btnEntrar.addActionListener(new BtnEntrarActionListener());
 				btnEntrar.setEnabled(false);
-				btnEntrar.setIcon(new ImageIcon(login.class.getResource("/presentacion/login.png")));
+				btnEntrar.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/login.png")));
 				GridBagConstraints gbc_btnEntrar = new GridBagConstraints();
 				gbc_btnEntrar.insets = new Insets(0, 0, 5, 5);
 				gbc_btnEntrar.gridx = 4;
@@ -180,66 +184,68 @@ public class login {
 
 	private class TxtUserActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			//Activamos la contraseña
+			// Activamos la contraseña
 			lblPassword.setEnabled(true);
-			txtPassword.setEnabled(true);
-			//Pasamos el cursor al campo de la contraseña
-			txtPassword.requestFocus();
+			pwdfPassword.setEnabled(true);
+			// Pasamos el cursor al campo de la contraseña
+			pwdfPassword.requestFocus();
 		}
 	}
-	
-	private class MiFocusListener extends FocusAdapter {//Metodo global para los JTextField a la hora de rellenar un campo
+
+	private class MiFocusListener extends FocusAdapter {// Metodo global para los JTextField a la hora de rellenar un campo
 		@Override
 		public void focusGained(FocusEvent e) {
 			e.getComponent().setBackground(colorResaltado);
 		}
+
 		@Override
 		public void focusLost(FocusEvent e) {
 			e.getComponent().setBackground(colorBlanco);
 		}
 	}
-	private class TxtPasswordKeyListener extends KeyAdapter {
-		@Override
-		public void keyReleased(KeyEvent e) {
-			if (txtPassword.getText().equals(password) && txtUser.getText().equals(user))
-			{
-				txtPassword.setBorder(bordeVerde);
-				btnEntrar.setEnabled(true);
-			} else
-			{
-				txtPassword.setBorder(bordeRojo);
-				btnEntrar.setEnabled(false);
-			}
-		}
-	}
+
 	private class TxtUserKeyListener extends KeyAdapter {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (txtPassword.getText().equals(password) && txtUser.getText().equals(user))
-			{
+			if (String.valueOf(pwdfPassword.getPassword()).equals(password) && txtUser.getText().equals(user)) {
 				btnEntrar.setEnabled(true);
-			} else
-			{
+			} else {
 				btnEntrar.setEnabled(false);
 			}
 		}
 	}
+
+	private class PwdfPasswordKeyListener extends KeyAdapter {
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			if (String.valueOf(pwdfPassword.getPassword()).equals(password)&& txtUser.getText().equals(user)) {
+				pwdfPassword.setBorder(bordeVerde);
+				btnEntrar.setEnabled(true);
+			} else {
+				pwdfPassword.setBorder(bordeRojo);
+				btnEntrar.setEnabled(false);
+			}
+		}
+	}
+
 	private class BtnEntrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//Se crea una instancia de la segunda ventana (JFrame)
+			// Se crea una instancia de la segunda ventana (JFrame)
 			GestionPropiedades otraVentana = new GestionPropiedades();
-			//se hace visible
+			// se hace visible
 			otraVentana.setVisible(true);
-			//se destruye la ventana actual (atributo a nivel de clase)
+			// se destruye la ventana actual (atributo a nivel de clase)
 			frmLogin.setVisible(false);
 		}
 	}
+
 	private class FrmInicioWindowListener extends WindowAdapter {
 		@Override
 		public void windowClosing(WindowEvent arg0) {
 			JOptionPane.showMessageDialog(frmLogin, "Gracias por utilizar nuestra aplicación", "Cerrar la aplicación",JOptionPane.PLAIN_MESSAGE);
 		}
 	}
+
 	public void setVisible(boolean b) {
 		frmLogin.setVisible(b);
 	}
