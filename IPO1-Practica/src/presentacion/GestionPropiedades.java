@@ -14,6 +14,17 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JSplitPane;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import java.awt.CardLayout;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class GestionPropiedades {
 
@@ -28,6 +39,10 @@ public class GestionPropiedades {
 	private login log= new login();
 	private JLabel lblFechaUltimoAcceso;
 	private JLabel lblFotoUsuario;
+	private JSplitPane splitPane;
+	private JScrollPane scrollPane;
+	private JTree tree;
+	private JPanel panelCard;
 
 	/**
 	 * Launch the application.
@@ -111,6 +126,50 @@ public class GestionPropiedades {
 				lblFotoUsuario.setIcon(new ImageIcon(GestionPropiedades.class.getResource("/presentacion/Imagenes/perfil.png")));
 				lblFotoUsuario.setBounds(25, 207, 30, 30);
 				panel.add(lblFotoUsuario);
+			}
+			{
+				splitPane = new JSplitPane();
+				splitPane.setBounds(10, 11, 564, 191);
+				panel.add(splitPane);
+				{
+					scrollPane = new JScrollPane();
+					scrollPane.setMinimumSize(new Dimension(150, 23));
+					splitPane.setLeftComponent(scrollPane);
+					{
+						tree = new JTree();
+						tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+						tree.setModel(new DefaultTreeModel(
+							new DefaultMutableTreeNode("Gestion ") {
+								{
+									DefaultMutableTreeNode node_1;
+									node_1 = new DefaultMutableTreeNode("Propiedades");
+										node_1.add(new DefaultMutableTreeNode("Añadir"));
+										node_1.add(new DefaultMutableTreeNode("Modificar"));
+									add(node_1);
+									node_1 = new DefaultMutableTreeNode("Personal");
+										node_1.add(new DefaultMutableTreeNode("Añadir"));
+										node_1.add(new DefaultMutableTreeNode("Modificar"));
+									add(node_1);
+									node_1 = new DefaultMutableTreeNode("Actividades");
+										node_1.add(new DefaultMutableTreeNode("Añadir"));
+										node_1.add(new DefaultMutableTreeNode("Modificar"));
+									add(node_1);
+									node_1 = new DefaultMutableTreeNode("Rutas");
+										node_1.add(new DefaultMutableTreeNode("Añadir"));
+										node_1.add(new DefaultMutableTreeNode("Modificar"));
+									add(node_1);
+								}
+							}
+						));
+						scrollPane.setViewportView(tree);
+						tree.setCellRenderer(new MiRenderizadoArbol());
+					}
+				}
+				{
+					panelCard = new JPanel();
+					splitPane.setRightComponent(panelCard);
+					panelCard.setLayout(new CardLayout(0, 0));
+				}
 			}
 		}
 	}
