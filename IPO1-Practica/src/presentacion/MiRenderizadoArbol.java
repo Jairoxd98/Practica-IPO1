@@ -1,5 +1,6 @@
 package presentacion;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.Component;
@@ -11,6 +12,10 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 			int row, boolean hasFocus) {
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 		DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) value;
+		
+		setBackground(new Color(0, 128, 0));
+		setOpaque(true);
+		
 		String c = (String) (nodo.getUserObject());
 		switch (c) {
 		case "Gestion":
