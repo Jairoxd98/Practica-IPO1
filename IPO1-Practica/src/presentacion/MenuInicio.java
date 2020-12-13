@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
@@ -32,7 +34,11 @@ import javax.swing.JToolBar;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-public class GestionPropiedades {
+import dominio.Usuario;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+
+public class MenuInicio {
 
 	private JFrame frmGestionPropiedades;
 	private JPanel panel;
@@ -51,6 +57,9 @@ public class GestionPropiedades {
 	private JPanel panelBotones;
 	private JLabel lblNombreUsuario;
 	private JLabel lblFotoUsuario;
+	private JPanel pnlDatosPersonales;
+	private JPanel pnlPersonalizacion;
+	private JPanel pnlGestionPropiedades;
 
 	/**
 	 * Launch the application.
@@ -59,7 +68,8 @@ public class GestionPropiedades {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GestionPropiedades window = new GestionPropiedades();
+					Usuario usuario = new Usuario("Jairo", "Celada", "09065128T", "987654321", "Calle", "Jairo@gmail.es", "España", "26-09-1998", "Jairo", "1234");
+					MenuInicio window = new MenuInicio(usuario);
 					window.frmGestionPropiedades.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,17 +81,17 @@ public class GestionPropiedades {
 	/**
 	 * Create the application.
 	 */
-	public GestionPropiedades() {
-		initialize();
+	public MenuInicio(Usuario usuario) {
+		initialize(usuario);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Usuario usuario) {
 		frmGestionPropiedades = new JFrame();
-		frmGestionPropiedades.setIconImage(Toolkit.getDefaultToolkit().getImage(GestionPropiedades.class.getResource("/presentacion/Icon/choza.png")));
-		frmGestionPropiedades.setBounds(100, 100, 600, 450);
+		frmGestionPropiedades.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuInicio.class.getResource("/presentacion/Icon/choza.png")));
+		frmGestionPropiedades.setBounds(100, 100, 700, 450);
 		frmGestionPropiedades.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
 			panel = new JPanel();
@@ -92,12 +102,24 @@ public class GestionPropiedades {
 				splitPane = new JSplitPane();
 				splitPane.setDividerSize(0);
 				splitPane.setBorder(null);
-				splitPane.setBounds(10, 11, 564, 389);
+				splitPane.setBounds(10, 11, 664, 389);
 				panel.add(splitPane);
 				{
 					panelCard = new JPanel();
 					splitPane.setRightComponent(panelCard);
 					panelCard.setLayout(new CardLayout(0, 0));
+					{
+						pnlDatosPersonales = new panelDatosPersonales(usuario);
+						panelCard.add(pnlDatosPersonales, "Datos Personales");
+					}
+					{
+						pnlPersonalizacion = new panelPersonalizacion();
+						panelCard.add(pnlPersonalizacion, "Personalizacion");
+					}
+					{
+						pnlGestionPropiedades = new panelGestionPropiedades();
+						panelCard.add(pnlGestionPropiedades, "Propiedades");
+					}
 				}
 				{
 					splitPaneIzquierda = new JSplitPane();
@@ -113,10 +135,11 @@ public class GestionPropiedades {
 						splitPaneIzquierda.setLeftComponent(scrollPane);
 						{
 							tree = new JTree();
+							tree.addTreeSelectionListener(new TreeTreeSelectionListener());
 							tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 							tree.setForeground(new Color(0, 128, 0));
 							tree.setModel(new DefaultTreeModel(
-								new DefaultMutableTreeNode("Gestion ") {
+								new DefaultMutableTreeNode("Gestion") {
 									{
 										DefaultMutableTreeNode node_1;
 										node_1 = new DefaultMutableTreeNode("Propiedades");
@@ -147,7 +170,7 @@ public class GestionPropiedades {
 					{
 						panelBotones = new JPanel();
 						panelBotones.setForeground(new Color(0, 128, 0));
-						panelBotones.setMinimumSize(new Dimension(150, 225));
+						panelBotones.setMinimumSize(new Dimension(165, 225));
 						panelBotones.setBorder(null);
 						panelBotones.setBackground(new Color(0, 128, 0));
 						splitPaneIzquierda.setRightComponent(panelBotones);
@@ -157,36 +180,43 @@ public class GestionPropiedades {
 							lblFechaUltimoAcceso.setBounds(10, 58, 135, 14);
 							panelBotones.add(lblFechaUltimoAcceso);
 							lblFechaUltimoAcceso.setHorizontalAlignment(SwingConstants.CENTER);
+							lblFechaUltimoAcceso.setForeground(Color.BLACK);
 						}
 						{
 							btnDatosPersonales = new JButton("Datos Personales");
-							btnDatosPersonales.setBounds(10, 83, 135, 23);
+							btnDatosPersonales.addActionListener(new BtnDatosPersonalesActionListener());
+							btnDatosPersonales.setBounds(0, 83, 155, 23);
 							panelBotones.add(btnDatosPersonales);
-							btnDatosPersonales.setIcon(new ImageIcon(GestionPropiedades.class.getResource("/presentacion/Icon/usuario.png")));
+							btnDatosPersonales.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Icon/usuario.png")));
 							btnDatosPersonales.setBackground(Color.ORANGE);
+							btnDatosPersonales.setForeground(Color.BLACK);
 						}
 						{
 							btnPersonalizacion = new JButton("Personalizacion");
-							btnPersonalizacion.setBounds(10, 117, 135, 23);
+							btnPersonalizacion.addActionListener(new BtnPersonalizacionActionListener());
+							btnPersonalizacion.setBounds(0, 117, 155, 23);
 							panelBotones.add(btnPersonalizacion);
-							btnPersonalizacion.setIcon(new ImageIcon(GestionPropiedades.class.getResource("/presentacion/Icon/personalizacion.png")));
+							btnPersonalizacion.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Icon/personalizacion.png")));
 							btnPersonalizacion.setBackground(Color.ORANGE);
+							btnPersonalizacion.setForeground(Color.BLACK);
 						}
 						{
 							btnAyuda = new JButton("Ayuda");
-							btnAyuda.setBounds(10, 151, 135, 23);
+							btnAyuda.addActionListener(new BtnAyudaActionListener());
+							btnAyuda.setBounds(0, 151, 155, 23);
 							panelBotones.add(btnAyuda);
 							btnAyuda.setBackground(Color.ORANGE);
-							btnAyuda.setIcon(new ImageIcon(GestionPropiedades.class.getResource("/presentacion/Icon/informacion.png")));
+							btnAyuda.setForeground(Color.BLACK);
+							btnAyuda.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Icon/informacion.png")));
 						}
 						{
 							btnCerrarSesion = new JButton("Cerrar Sesion");
-							btnCerrarSesion.setBounds(10, 185, 135, 23);
+							btnCerrarSesion.setBounds(0, 185, 155, 23);
 							panelBotones.add(btnCerrarSesion);
 							btnCerrarSesion.setBackground(Color.ORANGE);
 							btnCerrarSesion.addActionListener(new BtnCerrarSesionActionListener());
 							btnCerrarSesion.setForeground(Color.BLACK);
-							btnCerrarSesion.setIcon(new ImageIcon(GestionPropiedades.class.getResource("/presentacion/Icon/logout (1).png")));
+							btnCerrarSesion.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Icon/logout (1).png")));
 						}
 						{
 							lblNombreUsuario = new JLabel("Jairo");
@@ -198,7 +228,7 @@ public class GestionPropiedades {
 						}
 						{
 							lblFotoUsuario = new JLabel("");
-							lblFotoUsuario.setIcon(new ImageIcon(GestionPropiedades.class.getResource("/presentacion/Imagenes/perfil.png")));
+							lblFotoUsuario.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Imagenes/Jairo.png")));
 							lblFotoUsuario.setBounds(20, 17, 30, 30);
 							panelBotones.add(lblFotoUsuario);
 						}
@@ -235,6 +265,44 @@ public class GestionPropiedades {
 		@Override
 		public void windowClosing(WindowEvent arg0) {
 			JOptionPane.showMessageDialog(frmGestionPropiedades, "Gracias por utilizar nuestra aplicación", "Cerrar la aplicación",JOptionPane.PLAIN_MESSAGE);
+		}
+	}
+	private class BtnAyudaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			if(java.awt.Desktop.isDesktopSupported()) {
+				java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+				if(desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+					try {
+						java.net.URI urlAyuda = new java.net.URI("https://www.youtube.com/watch?v=dxeG2vdlFeA");
+						desktop.browse(urlAyuda);
+					} catch (IOException | URISyntaxException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	private class BtnDatosPersonalesActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			((CardLayout) panelCard.getLayout()).show(panelCard, "Datos Personales");
+		}
+	}
+	private class TreeTreeSelectionListener implements TreeSelectionListener {
+		public void valueChanged(TreeSelectionEvent e) {
+			String nodo = (e.getPath().getLastPathComponent()).toString();
+			switch (nodo)
+			{
+			case "Propiedades":
+			//case "Personal":
+			//case "Actividades":
+			//case "Ruta":
+			((CardLayout) panelCard.getLayout()).show(panelCard, nodo);
+			}
+		}
+	}
+	private class BtnPersonalizacionActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			((CardLayout) panelCard.getLayout()).show(panelCard, "Personalizacion");
 		}
 	}
 }

@@ -28,6 +28,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import dominio.Usuario;
+
 public class login {
 
 	private JFrame frmLogin;
@@ -47,7 +49,8 @@ public class login {
 	private Border bordeRojo = BorderFactory.createLineBorder(Color.RED);
 	private Border bordeVerde = BorderFactory.createLineBorder(Color.GREEN);
 	private JPasswordField pwdfPassword;
-	
+	private JButton btnVerPassword;
+	private boolean verPass;
 	
 	public String getUser() {
 		return user;
@@ -161,6 +164,19 @@ public class login {
 				panel.add(pwdfPassword, gbc_pwdfPassword);
 			}
 			{
+				btnVerPassword = new JButton("");
+				btnVerPassword.setEnabled(false);
+				btnVerPassword.addActionListener(new BtnVerPasswordActionListener());
+				btnVerPassword.setBorder(null);
+				btnVerPassword.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/nover.png")));
+				GridBagConstraints gbc_btnVerPassword = new GridBagConstraints();
+				gbc_btnVerPassword.anchor = GridBagConstraints.WEST;
+				gbc_btnVerPassword.insets = new Insets(0, 0, 5, 0);
+				gbc_btnVerPassword.gridx = 5;
+				gbc_btnVerPassword.gridy = 3;
+				panel.add(btnVerPassword, gbc_btnVerPassword);
+			}
+			{
 				chckbxRecuerdame = new JCheckBox("Recuerdame");
 				GridBagConstraints gbc_chckbxRecuerdame = new GridBagConstraints();
 				gbc_chckbxRecuerdame.insets = new Insets(0, 0, 5, 5);
@@ -187,6 +203,7 @@ public class login {
 			// Activamos la contraseña
 			lblPassword.setEnabled(true);
 			pwdfPassword.setEnabled(true);
+			btnVerPassword.setEnabled(true);
 			// Pasamos el cursor al campo de la contraseña
 			pwdfPassword.requestFocus();
 		}
@@ -230,8 +247,9 @@ public class login {
 
 	private class BtnEntrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			Usuario usuario = new Usuario("Jairo", "Celada", "09065128T", "987654321", "Calle", "Jairo@gmail.es", "España", "26-09-1998", "Jairo", "1234");
 			// Se crea una instancia de la segunda ventana (JFrame)
-			GestionPropiedades otraVentana = new GestionPropiedades();
+			MenuInicio otraVentana = new MenuInicio(usuario);
 			// se hace visible
 			otraVentana.setVisible(true);
 			// se destruye la ventana actual (atributo a nivel de clase)
@@ -243,6 +261,23 @@ public class login {
 		@Override
 		public void windowClosing(WindowEvent arg0) {
 			JOptionPane.showMessageDialog(frmLogin, "Gracias por utilizar nuestra aplicación", "Cerrar la aplicación",JOptionPane.PLAIN_MESSAGE);
+		}
+	}
+	private class BtnVerPasswordActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if (verPass) {
+				// Ocultar la contraseña
+				pwdfPassword.setEchoChar('\u2022');
+				btnVerPassword.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/nover.png")));
+				btnVerPassword.setToolTipText("Mostrar Constraseña");
+				verPass = false;
+			} else {
+				// Mostrar la contraseña
+				pwdfPassword.setEchoChar((char) 0);
+				btnVerPassword.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/ver.png")));
+				btnVerPassword.setToolTipText("Ocultar Constraseña");
+				verPass = true;
+			}
 		}
 	}
 

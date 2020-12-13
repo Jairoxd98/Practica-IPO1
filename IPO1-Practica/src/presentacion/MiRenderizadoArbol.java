@@ -15,6 +15,7 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 		
 		setBackground(new Color(0, 128, 0));
 		setOpaque(true);
+		setForeground(Color.BLACK);
 		
 		String c = (String) (nodo.getUserObject());
 		switch (c) {
