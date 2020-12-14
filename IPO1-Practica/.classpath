@@ -3,5 +3,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/User/Desktop/UNIVERSIDAD/OneDrive - Universidad de Castilla-La Mancha/1ºCuatri/IPO 1/Practicas/HITO 2/UCanAccess-5.0.0-bin/ucanaccess-5.0.0.jar"/>
+	<classpathentry kind="lib" path="UCanAccess-5.0.0-bin/ucanaccess-5.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
