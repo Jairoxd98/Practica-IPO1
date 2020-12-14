@@ -305,4 +305,6 @@ public class MenuInicio {
 			((CardLayout) panelCard.getLayout()).show(panelCard, "Personalizacion");
 		}
 	}
+	
+	
 }

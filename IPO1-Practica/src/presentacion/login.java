@@ -27,6 +27,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import dominio.Usuario;
 
@@ -42,8 +43,6 @@ public class login {
 	private JLabel lblUser;
 	private JLabel lblPassword;
 
-	private final String user = "Jairo";
-	private final String password = "1234";
 	private Color colorBlanco = new Color(255, 255, 255);
 	private Color colorResaltado = new Color(255, 255, 210);
 	private Border bordeRojo = BorderFactory.createLineBorder(Color.RED);
@@ -51,10 +50,8 @@ public class login {
 	private JPasswordField pwdfPassword;
 	private JButton btnVerPassword;
 	private boolean verPass;
-	
-	public String getUser() {
-		return user;
-	}
+	private ArrayList<Usuario> usuarios = cargarUsuario();
+	private Usuario user= new Usuario();
 
 	/**
 	 * Launch the application.
@@ -197,7 +194,31 @@ public class login {
 			}
 		}
 	}
+	
+	private ArrayList<Usuario> cargarUsuario() {
 
+		Usuario usuario = new Usuario();
+		boolean correcto = false;
+
+		correcto = usuario.readAll();
+
+		if (correcto) {
+			return (usuario.getUsuarioDAO().getListaUsuarios());
+		} else {
+			return null;
+		}
+	}
+	
+	private boolean esUsuario(String usuario, String contrasena) {
+		for (int i = 0; i < usuarios.size(); i++) {
+			if(usuario == usuarios.get(i).getUsuario() && contrasena == usuarios.get(i).getContrasena()) {
+				user=usuarios.get(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private class TxtUserActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			// Activamos la contraseña
@@ -221,7 +242,7 @@ public class login {
 		}
 	}
 
-	private class TxtUserKeyListener extends KeyAdapter {
+	/*private class TxtUserKeyListener extends KeyAdapter {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			if (String.valueOf(pwdfPassword.getPassword()).equals(password) && txtUser.getText().equals(user)) {
@@ -230,9 +251,19 @@ public class login {
 				btnEntrar.setEnabled(false);
 			}
 		}
+	}*/
+	private class TxtUserKeyListener extends KeyAdapter {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			if (esUsuario(txtUser.getText(),String.valueOf(pwdfPassword.getPassword()))) {
+				btnEntrar.setEnabled(true);
+			} else {
+				btnEntrar.setEnabled(false);
+			}
+		}
 	}
 
-	private class PwdfPasswordKeyListener extends KeyAdapter {
+	/*private class PwdfPasswordKeyListener extends KeyAdapter {
 		@Override
 		public void keyReleased(KeyEvent arg0) {
 			if (String.valueOf(pwdfPassword.getPassword()).equals(password)&& txtUser.getText().equals(user)) {
@@ -243,13 +274,27 @@ public class login {
 				btnEntrar.setEnabled(false);
 			}
 		}
+	}*/
+	private class PwdfPasswordKeyListener extends KeyAdapter {
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			if (esUsuario(txtUser.getText(),String.valueOf(pwdfPassword.getPassword()))) {
+				pwdfPassword.setBorder(bordeVerde);
+				btnEntrar.setEnabled(true);
+			} else {
+				pwdfPassword.setBorder(bordeRojo);
+				btnEntrar.setEnabled(false);
+			}
+		}
 	}
-
+	
+	
 	private class BtnEntrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Usuario usuario = new Usuario("Jairo", "Celada", "09065128T", "987654321", "Calle", "Jairo@gmail.es", "España", "26-09-1998", "Jairo", "1234");
+			//Usuario usuario = new Usuario("Jairo", "Celada", "09065128T", "987654321", "Calle", "Jairo@gmail.es", "España", "26-09-1998", "Jairo", "1234");
+			
 			// Se crea una instancia de la segunda ventana (JFrame)
-			MenuInicio otraVentana = new MenuInicio(usuario);
+			MenuInicio otraVentana = new MenuInicio(user);
 			// se hace visible
 			otraVentana.setVisible(true);
 			// se destruye la ventana actual (atributo a nivel de clase)
