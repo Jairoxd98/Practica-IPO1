@@ -7,10 +7,14 @@ import javax.swing.JOptionPane;
 import java.awt.Rectangle;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Image;
+
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
@@ -22,12 +26,15 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import dominio.Empleado;
 import javax.swing.ListSelectionModel;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 
 public class panelGestionEmpleados extends JPanel {
 	private JToolBar toolBar;
@@ -329,6 +336,24 @@ public class panelGestionEmpleados extends JPanel {
 	
 	private class BtnPonerFotoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			JFileChooser fcAbrir = new JFileChooser();
+			fcAbrir.setFileFilter(new ImageFilter());
+			int valorDevuelto = fcAbrir.showOpenDialog(btnPonerFoto);
+			//Recoger el nombre del fichero seleccionado por el usuario
+			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
+				File file = fcAbrir.getSelectedFile();
+				//lblFoto.setIcon(new ImageIcon(file.getAbsolutePath()));
+				Image imagenOriginal;
+				try {
+					imagenOriginal = ImageIO.read(file);
+					Image imagenEscalada = imagenOriginal.getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), java.awt.Image.SCALE_SMOOTH);
+					ImageIcon iconoLabel = new ImageIcon(imagenEscalada);
+					lblFoto.setIcon(iconoLabel);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 	}
 	private class BtnEliminarFotoActionListener implements ActionListener {
@@ -378,10 +403,14 @@ public class panelGestionEmpleados extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(comprobarVacio()) {//Si hay algun campo vacio
 				JOptionPane.showMessageDialog(btnGuardar, "No has rellanado todos los campos.","Campos sin rellenar",JOptionPane.ERROR_MESSAGE);
-			}else {//Si no los guarda, 	Falta-->tambien en el Jtable y en la BBDD
-				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+			}else {//Si no los guarda, 	
+				
+				//Falta-->tambien en el Jtable y en la BBDD
 				//modeloTablaEmpleados.setValueAt(value, row, col);//Actualizar Jtable
-				modeloTablaEmpleados.fireTableDataChanged();
+				//MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+				//modeloTablaEmpleados.fireTableDataChanged();
+				
+				
 				enableText(false);
 			}
 		}
