@@ -1,6 +1,7 @@
 package dominio;
 
 public class Parcela {
+	private int id;
 	private String tipo;
 	private double precio; 
 	private String temporada;
@@ -9,9 +10,10 @@ public class Parcela {
 	private String caracteristicas;
 	private String disponibilidad;
 	
-	public Parcela(String tipo, double precio, String temporada, String tamano, String ubicacion,
+	public Parcela(int id, String tipo, double precio, String temporada, String tamano, String ubicacion,
 			String caracteristicas, String disponibilidad) {
 		super();
+		this.id= id;
 		this.tipo = tipo;
 		this.precio = precio;
 		this.temporada = temporada;
@@ -63,10 +65,16 @@ public class Parcela {
 	public void setDisponibilidad(String disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {
-		return "Parcela [tipo=" + tipo + ", precio=" + precio + ", temporada=" + temporada + ", tamano=" + tamano
+		return "Parcela [id="+id+", tipo=" + tipo + ", precio=" + precio + ", temporada=" + temporada + ", tamano=" + tamano
 				+ ", ubicacion=" + ubicacion + ", caracteristicas=" + caracteristicas + ", disponibilidad="
 				+ disponibilidad + "]";
 	}

@@ -11,11 +11,10 @@ public class Ruta {
 	private String encuentro;
 	private int minParticipantes;
 	private int maxParticipantes;
-	private String dificultad;
 	private String descripcion;
 	//Mapa
 	public Ruta(String nombre, String horaInicio, String horaFin, Date dia, String monitor, String encuentro,
-			int minParticipantes, int maxParticipantes, String dificultad, String descripcion) {
+			int minParticipantes, int maxParticipantes, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.horaInicio = horaInicio;
@@ -25,7 +24,6 @@ public class Ruta {
 		this.encuentro = encuentro;
 		this.minParticipantes = minParticipantes;
 		this.maxParticipantes = maxParticipantes;
-		this.dificultad = dificultad;
 		this.descripcion = descripcion;
 	}
 	public String getNombre() {
@@ -76,12 +74,6 @@ public class Ruta {
 	public void setMaxParticipantes(int maxParticipantes) {
 		this.maxParticipantes = maxParticipantes;
 	}
-	public String getDificultad() {
-		return dificultad;
-	}
-	public void setDificultad(String dificultad) {
-		this.dificultad = dificultad;
-	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -92,7 +84,7 @@ public class Ruta {
 	public String toString() {
 		return "Ruta [nombre=" + nombre + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", dia=" + dia
 				+ ", monitor=" + monitor + ", encuentro=" + encuentro + ", minParticipantes=" + minParticipantes
-				+ ", maxParticipantes=" + maxParticipantes + ", dificultad=" + dificultad + ", descripcion="
+				+ ", maxParticipantes=" + maxParticipantes + ", descripcion="
 				+ descripcion + "]";
 	}
 	

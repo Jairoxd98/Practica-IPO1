@@ -22,10 +22,13 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 		case "Gestion":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/Gestion.png")));
 			break;
+		case "Reservas":
+			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("")));
+			break;
 		case "Propiedades":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("")));
 			break;
-		case "Personal":
+		case "Empleados":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("")));
 			break;
 		case "Actividades":

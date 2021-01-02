@@ -1,17 +1,14 @@
 package dominio;
 
-import java.util.Date;
-
 import persistencia.UsuarioDAO;
 
 public class Usuario implements CRUD{
+	private String DNI;
 	private String nombre;
 	private String apellidos;
-	private String DNI;
 	private String telefono;
 	private String domicilio;
 	private String correo;
-	private String nacionalidad;
 	private String fecha;
 	private String usuario;
 	private String contrasena;
@@ -21,16 +18,14 @@ public class Usuario implements CRUD{
 		this.usuarioDAO=new UsuarioDAO();
 	}
 	
-	public Usuario(String nombre, String apellidos, String dNI, String telefono, String domicilio, String correo,
-			String nacionalidad, String fecha, String usuario, String contrasena) {
-		super();
+	public Usuario(String DNI, String nombre, String apellidos,String telefono, String domicilio, String correo,
+			String fecha, String usuario, String contrasena) {
+		this.DNI = DNI;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-		DNI = dNI;
 		this.telefono = telefono;
 		this.domicilio = domicilio;
 		this.correo = correo;
-		this.nacionalidad = nacionalidad;
 		this.fecha = fecha;
 		this.usuario = usuario;
 		this.contrasena = contrasena;
@@ -107,14 +102,6 @@ public class Usuario implements CRUD{
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-	
-	public String getNacionalidad() {
-		return nacionalidad;
-	}
-
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
-	}
 
 	public String getFecha() {
 		return fecha;
@@ -147,14 +134,6 @@ public class Usuario implements CRUD{
 	@Override
 	public boolean readAll() {
 		return usuarioDAO.readAll();
-	}
-	
-	public boolean login() {
-		return usuarioDAO.login(this);
-	}
-	
-	public boolean Autenticado() {
-		return usuarioDAO.login(this);
 	}
 	
 }

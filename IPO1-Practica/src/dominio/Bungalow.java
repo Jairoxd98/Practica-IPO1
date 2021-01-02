@@ -1,22 +1,24 @@
 package dominio;
 
 public class Bungalow {
+	private int id;
 	private String tamano;
-	private int cpacidadMax;
+	private int capacidadMax;
 	private double precio;
 	private int estanciaMin;
-	private String eqipamiento;
+	private String equipamiento;
 	private String descripcion;
 	private String disponibilidad;
 	//Galeria
-	public Bungalow(String tamano, int cpacidadMax, double precio, int estanciaMin, String eqipamiento,
+	public Bungalow(int id, String tamano, int capacidadMax, double precio, int estanciaMin, String equipamiento,
 			String descripcion, String disponibilidad) {
 		super();
+		this.id = id;
 		this.tamano = tamano;
-		this.cpacidadMax = cpacidadMax;
+		this.capacidadMax = capacidadMax;
 		this.precio = precio;
 		this.estanciaMin = estanciaMin;
-		this.eqipamiento = eqipamiento;
+		this.equipamiento = equipamiento;
 		this.descripcion = descripcion;
 		this.disponibilidad = disponibilidad;
 	}
@@ -26,11 +28,11 @@ public class Bungalow {
 	public void setTamano(String tamano) {
 		this.tamano = tamano;
 	}
-	public int getCpacidadMax() {
-		return cpacidadMax;
+	public int getCapacidadMax() {
+		return capacidadMax;
 	}
-	public void setCpacidadMax(int cpacidadMax) {
-		this.cpacidadMax = cpacidadMax;
+	public void setCapacidadMax(int capacidadMax) {
+		this.capacidadMax = capacidadMax;
 	}
 	public double getPrecio() {
 		return precio;
@@ -44,11 +46,11 @@ public class Bungalow {
 	public void setEstanciaMin(int estanciaMin) {
 		this.estanciaMin = estanciaMin;
 	}
-	public String getEqipamiento() {
-		return eqipamiento;
+	public String getEquipamiento() {
+		return equipamiento;
 	}
-	public void setEqipamiento(String eqipamiento) {
-		this.eqipamiento = eqipamiento;
+	public void setEquipamiento(String equipamiento) {
+		this.equipamiento = equipamiento;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -62,10 +64,17 @@ public class Bungalow {
 	public void setDisponibilidad(String disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
-		return "Bungalow [tamano=" + tamano + ", cpacidadMax=" + cpacidadMax + ", precio=" + precio + ", estanciaMin="
-				+ estanciaMin + ", eqipamiento=" + eqipamiento + ", descripcion=" + descripcion + ", disponibilidad="
+		return "Bungalow [id="+id+", tamano=" + tamano + ", capacidadMax=" + capacidadMax + ", precio=" + precio + ", estanciaMin="
+				+ estanciaMin + ", equipamiento=" + equipamiento + ", descripcion=" + descripcion + ", disponibilidad="
 				+ disponibilidad + "]";
 	}
 	

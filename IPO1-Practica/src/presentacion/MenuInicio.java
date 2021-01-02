@@ -40,7 +40,7 @@ import javax.swing.event.TreeSelectionEvent;
 
 public class MenuInicio {
 
-	private JFrame frmGestionPropiedades;
+	private JFrame frmMenuInicio;
 	private JPanel panel;
 	private JButton btnCerrarSesion;
 	private JButton btnAyuda;
@@ -59,7 +59,8 @@ public class MenuInicio {
 	private JLabel lblFotoUsuario;
 	private JPanel pnlDatosPersonales;
 	private JPanel pnlPersonalizacion;
-	private JPanel pnlGestionPropiedades;
+	private JPanel pnlGestionReservas;
+	private JPanel pnlGestionPersonal;
 
 	/**
 	 * Launch the application.
@@ -67,10 +68,10 @@ public class MenuInicio {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					Usuario usuario = new Usuario("Jairo", "Celada", "09065128T", "987654321", "Calle", "Jairo@gmail.es", "España", "26-09-1998", "Jairo", "1234");
+				try {							//Cuando se ejecuta solo esta ventana sin entrar por el login
+					Usuario usuario = new Usuario("01234567T", "Alba", "Arias", "987654321", "Calle", "Alba@gmail.es", "03-01-2000", "Alba", "123");
 					MenuInicio window = new MenuInicio(usuario);
-					window.frmGestionPropiedades.setVisible(true);
+					window.frmMenuInicio.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -89,25 +90,34 @@ public class MenuInicio {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(Usuario usuario) {
-		frmGestionPropiedades = new JFrame();
-		frmGestionPropiedades.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuInicio.class.getResource("/presentacion/Icon/choza.png")));
-		frmGestionPropiedades.setBounds(100, 100, 700, 450);
-		frmGestionPropiedades.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMenuInicio = new JFrame();
+		frmMenuInicio.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuInicio.class.getResource("/presentacion/Icon/choza.png")));
+		frmMenuInicio.setBounds(100, 100, 850, 500);
+		frmMenuInicio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		{
 			panel = new JPanel();
 			panel.setBackground(new Color(0, 128, 0));
-			frmGestionPropiedades.getContentPane().add(panel, BorderLayout.CENTER);
+			frmMenuInicio.getContentPane().add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
 				splitPane = new JSplitPane();
 				splitPane.setDividerSize(0);
 				splitPane.setBorder(null);
-				splitPane.setBounds(10, 11, 664, 389);
+				splitPane.setBounds(10, 11, 814, 439);
 				panel.add(splitPane);
 				{
 					panelCard = new JPanel();
 					splitPane.setRightComponent(panelCard);
 					panelCard.setLayout(new CardLayout(0, 0));
+					{
+						pnlGestionReservas = new panelGestionReservas();
+						panelCard.add(pnlGestionReservas, "Reservas");
+					}
+					{
+						pnlGestionPersonal = new panelGestionEmpleados();
+						panelCard.add(pnlGestionPersonal, "Empleados");
+					}
 					{
 						pnlDatosPersonales = new panelDatosPersonales(usuario);
 						panelCard.add(pnlDatosPersonales, "Datos Personales");
@@ -115,10 +125,6 @@ public class MenuInicio {
 					{
 						pnlPersonalizacion = new panelPersonalizacion();
 						panelCard.add(pnlPersonalizacion, "Personalizacion");
-					}
-					{
-						pnlGestionPropiedades = new panelGestionPropiedades();
-						panelCard.add(pnlGestionPropiedades, "Propiedades");
 					}
 				}
 				{
@@ -142,11 +148,15 @@ public class MenuInicio {
 								new DefaultMutableTreeNode("Gestion") {
 									{
 										DefaultMutableTreeNode node_1;
+										node_1 = new DefaultMutableTreeNode("Reservas");
+											node_1.add(new DefaultMutableTreeNode("Añadir"));
+											node_1.add(new DefaultMutableTreeNode("Modificar"));
+										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Propiedades");
 											node_1.add(new DefaultMutableTreeNode("Añadir"));
 											node_1.add(new DefaultMutableTreeNode("Modificar"));
 										add(node_1);
-										node_1 = new DefaultMutableTreeNode("Personal");
+										node_1 = new DefaultMutableTreeNode("Empleados");
 											node_1.add(new DefaultMutableTreeNode("Añadir"));
 											node_1.add(new DefaultMutableTreeNode("Modificar"));
 										add(node_1);
@@ -219,7 +229,7 @@ public class MenuInicio {
 							btnCerrarSesion.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Icon/logout (1).png")));
 						}
 						{
-							lblNombreUsuario = new JLabel("Jairo");
+							lblNombreUsuario = new JLabel(usuario.getNombre());
 							lblNombreUsuario.setOpaque(true);
 							lblNombreUsuario.setForeground(new Color(0, 0, 0));
 							lblNombreUsuario.setBackground(new Color(0, 128, 0));
@@ -228,7 +238,7 @@ public class MenuInicio {
 						}
 						{
 							lblFotoUsuario = new JLabel("");
-							lblFotoUsuario.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Imagenes/Jairo.png")));
+							lblFotoUsuario.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Imagenes/"+usuario.getNombre()+".png")));
 							lblFotoUsuario.setBounds(20, 17, 30, 30);
 							panelBotones.add(lblFotoUsuario);
 						}
@@ -250,21 +260,26 @@ public class MenuInicio {
 		
 		return hora + ":" + minutos + ":" + segundos + " - " + dia + "/" + mes + "/" + año;
 	}
+	
+	public void setVisibleHora(boolean v) {
+		lblFechaUltimoAcceso.setVisible(v);
+	}
+	
 	public void setVisible(boolean b) {
-		frmGestionPropiedades.setVisible(b);
+		frmMenuInicio.setVisible(b);
 	}
 	private class BtnCerrarSesionActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			//se hace visible
 			log.setVisible(true);
 			//se destruye la ventana actual (atributo a nivel de clase)
-			frmGestionPropiedades.setVisible(false);
+			frmMenuInicio.setVisible(false);
 		}
 	}
 	private class FrmInicioWindowListener extends WindowAdapter {
 		@Override
 		public void windowClosing(WindowEvent arg0) {
-			JOptionPane.showMessageDialog(frmGestionPropiedades, "Gracias por utilizar nuestra aplicación", "Cerrar la aplicación",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(frmMenuInicio, "Gracias por utilizar nuestra aplicación", "Cerrar la aplicación",JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	private class BtnAyudaActionListener implements ActionListener {
@@ -273,7 +288,7 @@ public class MenuInicio {
 				java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
 				if(desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
 					try {
-						java.net.URI urlAyuda = new java.net.URI("https://www.youtube.com/watch?v=dxeG2vdlFeA");
+						java.net.URI urlAyuda = new java.net.URI("https://youtu.be/64XoTxV73fY");
 						desktop.browse(urlAyuda);
 					} catch (IOException | URISyntaxException e) {
 						e.printStackTrace();
@@ -292,8 +307,9 @@ public class MenuInicio {
 			String nodo = (e.getPath().getLastPathComponent()).toString();
 			switch (nodo)
 			{
-			case "Propiedades":
-			//case "Personal":
+			case "Reservas":
+			//case "Propiedades":
+			case "Empleados":
 			//case "Actividades":
 			//case "Ruta":
 			((CardLayout) panelCard.getLayout()).show(panelCard, nodo);

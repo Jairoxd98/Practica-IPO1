@@ -24,9 +24,9 @@ public class UsuarioDAO {
 		boolean correcto=false;
 		
 		try {
-			Agente.getAgente().modificar("INSERT INTO usuarios VALUES('"+usuario.getDNI()+"','"+usuario.getNombre()+"',"
+			Agente.getAgente().modificar("INSERT INTO usuario VALUES('"+usuario.getDNI()+"','"+usuario.getNombre()+"',"
 					+usuario.getApellidos()+"',"+ usuario.getTelefono()+"',"+usuario.getDomicilio()+"',"
-					+ usuario.getCorreo()+"',"+usuario.getNacionalidad()+"',"+ usuario.getFecha()+"',"
+					+ usuario.getCorreo()+"',"+ usuario.getFecha()+"',"
 					+ usuario.getUsuario()+"',"+ usuario.getContrasena()+";");
 			correcto=true;
 		
@@ -46,7 +46,7 @@ public class UsuarioDAO {
 		try {
 			Agente.getAgente().modificar("UPDATE usuario SET nombre='"+usuario.getNombre()+"',"
 					+usuario.getApellidos()+"',"+ usuario.getTelefono()+"',"+usuario.getDomicilio()+"',"
-					+ usuario.getCorreo()+"',"+usuario.getNacionalidad()+"',"+ usuario.getFecha()+"',"
+					+ usuario.getCorreo()+"',"+ usuario.getFecha()+"',"
 					+ usuario.getUsuario()+"',"+ usuario.getContrasena()+"' WHERE DNI='"+usuario.getDNI()+"';");
 			correcto=true;
 		
@@ -65,7 +65,7 @@ public class UsuarioDAO {
 		boolean correcto = false;
 		
 		try {
-			Agente.getAgente().modificar("DELETE FROM usuarios WHERE DNI='"+usuario.getDNI()+"';");
+			Agente.getAgente().modificar("DELETE FROM usuario WHERE DNI='"+usuario.getDNI()+"';");
 			correcto=true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,44 +77,6 @@ public class UsuarioDAO {
 		
 		return correcto;
 		
-	}
-	
-	public boolean login(Usuario usuario) {
-		ResultSet resultado;
-		boolean correcto = false;
-
-		
-		try {
-			String SQL = "SELECT * FROM usuario WHERE usuario='"+usuario.getUsuario()+"' AND contrasena='"+usuario.getContrasena()+"'";
-			
-			
-			Agente.getAgente();
-			resultado=Agente.getAgente().leer(SQL);
-			while(resultado.next()) {
-				correcto=true;
-				usuario.setDNI(resultado.getString(1));
-				usuario.setNombre(resultado.getString(2));
-				usuario.setApellidos(resultado.getString(3));
-				usuario.setTelefono(resultado.getString(4));
-				usuario.setDomicilio(resultado.getString(5));
-				usuario.setCorreo(resultado.getString(6));
-				usuario.setNacionalidad(resultado.getString(7));
-				usuario.setFecha(resultado.getString(8));
-				usuario.setUsuario(resultado.getString(9));
-				usuario.setContrasena(resultado.getString(10));
-			}
-			
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return correcto;
 	}
 	
 	public boolean read(Usuario usuario) {
@@ -129,10 +91,9 @@ public class UsuarioDAO {
 				usuario.setTelefono(resultado.getString(4));
 				usuario.setDomicilio(resultado.getString(5));
 				usuario.setCorreo(resultado.getString(6));
-				usuario.setNacionalidad(resultado.getString(7));
-				usuario.setFecha(resultado.getString(8));
-				usuario.setUsuario(resultado.getString(9));
-				usuario.setContrasena(resultado.getString(10));
+				usuario.setFecha(resultado.getString(7));
+				usuario.setUsuario(resultado.getString(8));
+				usuario.setContrasena(resultado.getString(9));
 			}
 			correcto=true;
 		} catch (SQLException e) {
@@ -151,7 +112,7 @@ public class UsuarioDAO {
 		ResultSet resultado;
 		
 		try {
-			resultado=Agente.getAgente().leer("SELECT * FROM usuarios;");
+			resultado=Agente.getAgente().leer("SELECT * FROM usuario;");
 			
 			while(resultado.next()) {
 				Usuario usuario=new Usuario();
@@ -161,10 +122,9 @@ public class UsuarioDAO {
 				usuario.setTelefono(resultado.getString(4));
 				usuario.setDomicilio(resultado.getString(5));
 				usuario.setCorreo(resultado.getString(6));
-				usuario.setNacionalidad(resultado.getString(7));
-				usuario.setFecha(resultado.getString(8));
-				usuario.setUsuario(resultado.getString(9));
-				usuario.setContrasena(resultado.getString(10));
+				usuario.setFecha(resultado.getString(7));
+				usuario.setUsuario(resultado.getString(8));
+				usuario.setContrasena(resultado.getString(9));
 				
 				listaUsuarios.add(usuario);
 				

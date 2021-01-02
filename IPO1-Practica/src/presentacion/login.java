@@ -50,8 +50,8 @@ public class login {
 	private JPasswordField pwdfPassword;
 	private JButton btnVerPassword;
 	private boolean verPass;
-	private ArrayList<Usuario> usuarios = cargarUsuario();
-	private Usuario user= new Usuario();
+	private static ArrayList<Usuario> usuarios = cargarUsuario();
+	private static Usuario user= new Usuario();
 
 	/**
 	 * Launch the application.
@@ -62,6 +62,13 @@ public class login {
 				try {
 					login window = new login();
 					window.frmLogin.setVisible(true);
+					//
+					System.out.println(usuarios);
+					System.out.println(usuarios.get(1).getUsuario() +" "+usuarios.get(1).getContrasena());/////////////////////////
+					System.out.println(usuarios.get(1).getDNI());
+					System.out.println(usuarios.get(1));
+					System.out.println(user);
+					//
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -86,6 +93,7 @@ public class login {
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/presentacion/Icon/choza.png")));
 		frmLogin.setBounds(100, 100, 500, 350);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		{
 			panel = new JPanel();
 			frmLogin.getContentPane().add(panel, BorderLayout.CENTER);
@@ -195,7 +203,7 @@ public class login {
 		}
 	}
 	
-	private ArrayList<Usuario> cargarUsuario() {
+	private static ArrayList<Usuario> cargarUsuario() {
 
 		Usuario usuario = new Usuario();
 		boolean correcto = false;
@@ -211,7 +219,7 @@ public class login {
 	
 	private boolean esUsuario(String usuario, String contrasena) {
 		for (int i = 0; i < usuarios.size(); i++) {
-			if(usuario == usuarios.get(i).getUsuario() && contrasena == usuarios.get(i).getContrasena()) {
+			if(usuario.equals(usuarios.get(i).getUsuario()) && contrasena.equals(usuarios.get(i).getContrasena())) {
 				user=usuarios.get(i);
 				return true;
 			}
@@ -242,16 +250,6 @@ public class login {
 		}
 	}
 
-	/*private class TxtUserKeyListener extends KeyAdapter {
-		@Override
-		public void keyReleased(KeyEvent e) {
-			if (String.valueOf(pwdfPassword.getPassword()).equals(password) && txtUser.getText().equals(user)) {
-				btnEntrar.setEnabled(true);
-			} else {
-				btnEntrar.setEnabled(false);
-			}
-		}
-	}*/
 	private class TxtUserKeyListener extends KeyAdapter {
 		@Override
 		public void keyReleased(KeyEvent e) {
@@ -263,18 +261,6 @@ public class login {
 		}
 	}
 
-	/*private class PwdfPasswordKeyListener extends KeyAdapter {
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-			if (String.valueOf(pwdfPassword.getPassword()).equals(password)&& txtUser.getText().equals(user)) {
-				pwdfPassword.setBorder(bordeVerde);
-				btnEntrar.setEnabled(true);
-			} else {
-				pwdfPassword.setBorder(bordeRojo);
-				btnEntrar.setEnabled(false);
-			}
-		}
-	}*/
 	private class PwdfPasswordKeyListener extends KeyAdapter {
 		@Override
 		public void keyReleased(KeyEvent arg0) {
@@ -287,12 +273,12 @@ public class login {
 			}
 		}
 	}
-	
+	public Usuario EsEsteUser() {
+		return user;
+	}
 	
 	private class BtnEntrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//Usuario usuario = new Usuario("Jairo", "Celada", "09065128T", "987654321", "Calle", "Jairo@gmail.es", "España", "26-09-1998", "Jairo", "1234");
-			
 			// Se crea una instancia de la segunda ventana (JFrame)
 			MenuInicio otraVentana = new MenuInicio(user);
 			// se hace visible

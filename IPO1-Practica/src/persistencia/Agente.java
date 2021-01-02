@@ -12,7 +12,7 @@ public class Agente {
 
     protected static Agente mInstancia = null;
     protected static Connection mBD;
-    private static String url = "jdbc:ucanaccess://IPO1_BBDD.accdb";
+    private static String url = "jdbc:ucanaccess://src\\IPO1_BBDD.accdb";
     private static String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
   
 

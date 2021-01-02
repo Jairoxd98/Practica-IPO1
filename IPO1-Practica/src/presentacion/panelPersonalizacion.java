@@ -13,6 +13,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ButtonGroup;
 
 public class panelPersonalizacion extends JPanel {
 	private JLabel lblSeleccionaElIdioma;
@@ -25,7 +29,9 @@ public class panelPersonalizacion extends JPanel {
 	private JComboBox cmbTipoLetra;
 	private JButton btnSpain;
 	private JButton btnEnglish;
-
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -37,56 +43,79 @@ public class panelPersonalizacion extends JPanel {
 		
 		{
 			lblSeleccionaElIdioma = new JLabel("Selecciona el idioma:");
-			lblSeleccionaElIdioma.setBounds(20, 30, 103, 14);
+			lblSeleccionaElIdioma.setBounds(78, 58, 138, 14);
 			add(lblSeleccionaElIdioma);
 		}
 		{
 			lblSeleccionaElTipo = new JLabel("Selecciona el tipo de letra de la pagina:");
-			lblSeleccionaElTipo.setBounds(20, 115, 192, 14);
+			lblSeleccionaElTipo.setBounds(78, 169, 230, 14);
 			add(lblSeleccionaElTipo);
 		}
 		{
 			lblCambiaElColor = new JLabel("Cambia el color del fondo de la pagina:");
-			lblCambiaElColor.setBounds(20, 182, 185, 14);
+			lblCambiaElColor.setBounds(78, 246, 230, 14);
 			add(lblCambiaElColor);
 		}
 		{
 			lbldeseaQueAprezca = new JLabel("¿Desea que aprezca la fecha de ultima acceso?");
-			lbldeseaQueAprezca.setBounds(20, 245, 230, 14);
+			lbldeseaQueAprezca.setBounds(78, 333, 277, 14);
 			add(lbldeseaQueAprezca);
 		}
 		{
 			rdbtnSi = new JRadioButton("Si");
-			rdbtnSi.setBounds(275, 241, 39, 23);
+			rdbtnSi.addActionListener(new RdbtnSiActionListener());
+			buttonGroup.add(rdbtnSi);
+			rdbtnSi.setSelected(true);
+			rdbtnSi.setBounds(356, 329, 49, 23);
 			add(rdbtnSi);
 		}
 		{
 			rdbtnNo = new JRadioButton("No");
-			rdbtnNo.setBounds(340, 241, 39, 23);
+			rdbtnNo.addActionListener(new RdbtnNoActionListener());
+			buttonGroup.add(rdbtnNo);
+			rdbtnNo.setBounds(425, 329, 53, 23);
 			add(rdbtnNo);
 		}
 		{
 			cmbColor = new JComboBox();
-			cmbColor.setBounds(257, 179, 122, 20);
+			cmbColor.setModel(new DefaultComboBoxModel(new String[] {"Verde", "Azul", "Amarillo"}));
+			cmbColor.setBounds(356, 243, 122, 20);
 			add(cmbColor);
 		}
 		{
 			cmbTipoLetra = new JComboBox();
-			cmbTipoLetra.setBounds(257, 112, 122, 20);
+			cmbTipoLetra.setModel(new DefaultComboBoxModel(new String[] {"Normal", "Times New Roman", "Arial"}));
+			cmbTipoLetra.setBounds(356, 166, 122, 20);
 			add(cmbTipoLetra);
 		}
 		{
 			btnSpain = new JButton("");
 			btnSpain.setIcon(new ImageIcon(panelPersonalizacion.class.getResource("/presentacion/Icon/espana.png")));
-			btnSpain.setBounds(168, 30, 64, 43);
+			btnSpain.setBounds(276, 50, 64, 43);
 			add(btnSpain);
 		}
 		{
 			btnEnglish = new JButton("");
 			btnEnglish.setIcon(new ImageIcon(panelPersonalizacion.class.getResource("/presentacion/Icon/reino-unido.png")));
-			btnEnglish.setBounds(275, 30, 64, 43);
+			btnEnglish.setBounds(385, 50, 64, 43);
 			add(btnEnglish);
 		}
 		
+	}
+
+	private class RdbtnSiActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+	private class RdbtnNoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			/*Usuario usuario = new Usuario();
+			login log = new login();
+			usuario=log.EsEsteUser();
+			System.out.println(usuario);
+			MenuInicio mInicio= new MenuInicio(usuario);
+			mInicio.setVisibleHora(false);*/
+		}
 	}
 }

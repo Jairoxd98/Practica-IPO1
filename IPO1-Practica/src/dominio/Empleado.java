@@ -1,21 +1,36 @@
 package dominio;
 
-public class Empleado {
+import persistencia.EmpleadoDAO;
+
+public class Empleado implements CRUD{
+	private String DNI;
 	private String nombre;
 	private String apellidos;
 	private String telefono;
 	private String correo;
 	private String idiomas;
 	private String formacion;
+	private EmpleadoDAO empleadoDAO;
 	//Foto
-	public Empleado(String nombre, String apellidos, String telefono, String correo, String idiomas, String formacion) {
+	public Empleado(String DNI, String nombre, String apellidos, String telefono, String correo, String idiomas, String formacion) {
 		super();
+		this.DNI=DNI;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.correo = correo;
 		this.idiomas = idiomas;
 		this.formacion = formacion;
+	}
+	public Empleado() {
+		this.empleadoDAO = new EmpleadoDAO();
+	}
+	
+	public String getDNI() {
+		return DNI;
+	}
+	public void setDNI(String dNI) {
+		DNI = dNI;
 	}
 	public String getNombre() {
 		return nombre;
@@ -53,10 +68,42 @@ public class Empleado {
 	public void setFormacion(String formacion) {
 		this.formacion = formacion;
 	}
+	public EmpleadoDAO getEmpleadoDAO() {
+		return empleadoDAO;
+	}
+	public void setEmpleadoDAO(EmpleadoDAO empleadoDAO) {
+		this.empleadoDAO = empleadoDAO;
+	}
+	
 	@Override
 	public String toString() {
-		return "Empleado [nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", correo="
-				+ correo + ", idiomas=" + idiomas + ", formacion=" + formacion + "]";
+		return "Empleado [DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono
+				+ ", correo=" + correo + ", idiomas=" + idiomas + ", formacion=" + formacion + ", empleadoDAO="
+				+ empleadoDAO + "]";
+	}
+	@Override
+	public boolean insert() {
+		return empleadoDAO.insert(this);
+	}
+
+	@Override
+	public boolean update() {
+		return empleadoDAO.update(this);
+	}
+
+	@Override
+	public boolean delete() {
+		return empleadoDAO.delete(this);
+	}
+
+	@Override
+	public boolean read() {
+		return empleadoDAO.read(this);
+	}
+
+	@Override
+	public boolean readAll() {
+		return empleadoDAO.readAll();
 	}
 	
 	
