@@ -2,7 +2,10 @@ package dominio;
 
 import java.util.Date;
 
-public class Ruta {
+import persistencia.RutaDAO;
+
+public class Ruta implements CRUD{
+	private int id;
 	private String nombre;
 	private String horaInicio;
 	private String horaFin;
@@ -12,10 +15,12 @@ public class Ruta {
 	private int minParticipantes;
 	private int maxParticipantes;
 	private String descripcion;
+	private RutaDAO rutaDAO;
 	//Mapa
-	public Ruta(String nombre, String horaInicio, String horaFin, Date dia, String monitor, String encuentro,
+	public Ruta(int id, String nombre, String horaInicio, String horaFin, Date dia, String monitor, String encuentro,
 			int minParticipantes, int maxParticipantes, String descripcion) {
 		super();
+		this.id=id;
 		this.nombre = nombre;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
@@ -25,6 +30,22 @@ public class Ruta {
 		this.minParticipantes = minParticipantes;
 		this.maxParticipantes = maxParticipantes;
 		this.descripcion = descripcion;
+	}
+	public Ruta() {
+		this.rutaDAO=new RutaDAO();
+	}
+	
+	public RutaDAO getRutaDAO() {
+		return rutaDAO;
+	}
+	public void setRutaDAO(RutaDAO rutaDAO) {
+		this.rutaDAO = rutaDAO;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -82,10 +103,33 @@ public class Ruta {
 	}
 	@Override
 	public String toString() {
-		return "Ruta [nombre=" + nombre + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", dia=" + dia
+		return "Ruta [id=" +id+", nombre=" + nombre + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", dia=" + dia
 				+ ", monitor=" + monitor + ", encuentro=" + encuentro + ", minParticipantes=" + minParticipantes
 				+ ", maxParticipantes=" + maxParticipantes + ", descripcion="
 				+ descripcion + "]";
 	}
-	
+	@Override
+	public boolean insert() {
+		return rutaDAO.insert(this);
+	}
+
+	@Override
+	public boolean update() {
+		return rutaDAO.update(this);
+	}
+
+	@Override
+	public boolean delete() {
+		return rutaDAO.delete(this);
+	}
+
+	@Override
+	public boolean read() {
+		return rutaDAO.read(this);
+	}
+
+	@Override
+	public boolean readAll() {
+		return rutaDAO.readAll();
+	}
 }
