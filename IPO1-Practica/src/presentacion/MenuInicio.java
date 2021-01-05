@@ -60,7 +60,9 @@ public class MenuInicio {
 	private JPanel pnlDatosPersonales;
 	private JPanel pnlPersonalizacion;
 	private JPanel pnlGestionReservas;
-	private JPanel pnlGestionPersonal;
+	private JPanel pnlGestionEmpleados;
+	private JPanel pnlGestionRutas;
+	private JPanel pnlDiseñoRutas;
 
 	/**
 	 * Launch the application.
@@ -115,8 +117,16 @@ public class MenuInicio {
 						panelCard.add(pnlGestionReservas, "Reservas");
 					}
 					{
-						pnlGestionPersonal = new panelGestionEmpleados();
-						panelCard.add(pnlGestionPersonal, "Empleados");
+						pnlGestionEmpleados = new panelGestionEmpleados();
+						panelCard.add(pnlGestionEmpleados, "Empleados");
+					}
+					{
+						pnlGestionRutas = new panelGestionRutas();
+						panelCard.add(pnlGestionRutas, "Rutas");
+					}
+					{
+						pnlDiseñoRutas = new panelDiseñoRutas();
+						panelCard.add(pnlDiseñoRutas, "Diseño rutas");
 					}
 					{
 						pnlDatosPersonales = new panelDatosPersonales(usuario);
@@ -165,8 +175,7 @@ public class MenuInicio {
 											node_1.add(new DefaultMutableTreeNode("Modificar"));
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Rutas");
-											node_1.add(new DefaultMutableTreeNode("Añadir"));
-											node_1.add(new DefaultMutableTreeNode("Modificar"));
+											node_1.add(new DefaultMutableTreeNode("Diseño rutas"));
 										add(node_1);
 									}
 								}
@@ -311,7 +320,8 @@ public class MenuInicio {
 			//case "Propiedades":
 			case "Empleados":
 			//case "Actividades":
-			//case "Ruta":
+			case "Rutas":
+			case "Diseño rutas":
 			((CardLayout) panelCard.getLayout()).show(panelCard, nodo);
 			}
 		}

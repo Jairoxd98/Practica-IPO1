@@ -37,6 +37,9 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 		case "Rutas":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("")));
 			break;
+		case "Diseño rutas":
+			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/chozaPequeña2.png")));
+			break;
 		case "Añadir":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/anadir.png")));
 			break;
