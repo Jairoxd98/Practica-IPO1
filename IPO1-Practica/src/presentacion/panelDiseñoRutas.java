@@ -177,6 +177,8 @@ public class panelDiseñoRutas extends JPanel {
 					//Se suscriben el oyente de eventos de ratón
 					miAreaDibujo.addMouseMotionListener(new MiAreaDibujoMouseMotionListener());
 					miAreaDibujo.addMouseListener(new MiAreaDibujoMouseListener());
+					
+					ponerMapa("Mapa1");
 				}
 			}
 			{
@@ -323,14 +325,26 @@ public class panelDiseñoRutas extends JPanel {
 			}
 		}
 	}
+	private void ponerMapa(String nombre) {
+		ImageIcon miniatura = null;
+		try {
+			miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Imagenes/"+nombre+".png"));
+
+		} catch (Exception e) {
+			miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Icon/cargarMapa.png"));
+		} finally {
+			Image image = miniatura.getImage();
+			imagen = new ImageIcon(image);
+		}
+
+		miAreaDibujo.setIcon(imagen);
+	}
 	private class LstRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
 			if(lstRutas.getSelectedValue()== "Ruta 1-Bosque") {
-				miAreaDibujo.setIcon(new ImageIcon(panelDiseñoRutas.class.getResource("/presentacion/Imagenes/mapa1.png")));
-				scrollPaneMapa.setViewportView(miAreaDibujo);
+				ponerMapa("mapa1");
 			}else if(lstRutas.getSelectedValue()== "Ruta 2-Monte"){
-				miAreaDibujo.setIcon(new ImageIcon(panelDiseñoRutas.class.getResource("/presentacion/Imagenes/mapa2.png")));
-				scrollPaneMapa.setViewportView(miAreaDibujo);
+				ponerMapa("mapa2");
 			}
 		}
 	}
