@@ -6,8 +6,8 @@ import persistencia.ReservaDAO;
 
 public class Reserva implements CRUD{
 	private int id;
-	private Date fechaEntrada;
-	private Date fechaSalida;
+	private String fechaEntrada;
+	private String fechaSalida;
 	private String nombre;
 	private String tipo;
 	private String telefono;
@@ -19,7 +19,7 @@ public class Reserva implements CRUD{
 	private ReservaDAO reservaDAO;
 	
 	
-	public Reserva(int id, Date fechaEntrada, Date fechaSalida, String nombre, String tipo, String telefono, String email, int ocupantes,
+	public Reserva(int id, String fechaEntrada, String fechaSalida, String nombre, String tipo, String telefono, String email, int ocupantes,
 			String solicitud, String horaEntrada, String horaSalida) {
 		super();
 		this.id=id;
@@ -37,16 +37,16 @@ public class Reserva implements CRUD{
 	public Reserva() {
 		this.reservaDAO= new ReservaDAO();
 	}
-	public Date getFechaEntrada() {
+	public String getFechaEntrada() {
 		return fechaEntrada;
 	}
-	public void setFechaEntrada(Date fechaEntrada) {
+	public void setFechaEntrada(String fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
-	public Date getFechaSalida() {
+	public String getFechaSalida() {
 		return fechaSalida;
 	}
-	public void setFechaSalida(Date fechaSalida) {
+	public void setFechaSalida(String fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 	public String getNombre() {

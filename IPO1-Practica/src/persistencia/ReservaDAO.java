@@ -86,8 +86,8 @@ public class ReservaDAO {
 			resultado=Agente.getAgente().leer("SELECT FROM usuarios WHERE id='"+reserva.getId()+"';");
 			while(resultado.next()) {
 				reserva.setId(resultado.getInt(1));
-				reserva.setFechaEntrada(resultado.getDate(2));
-				reserva.setFechaSalida(resultado.getDate(3));
+				reserva.setFechaEntrada(resultado.getString(2));
+				reserva.setFechaSalida(resultado.getString(3));
 				reserva.setNombre(resultado.getString(4));
 				reserva.setTipo(resultado.getString(5));
 				reserva.setTelefono(resultado.getString(6));
@@ -119,8 +119,8 @@ public class ReservaDAO {
 			while(resultado.next()) {
 				Reserva reserva=new Reserva();
 				reserva.setId(resultado.getInt(1));
-				reserva.setFechaEntrada(resultado.getDate(2));
-				reserva.setFechaSalida(resultado.getDate(3));
+				reserva.setFechaEntrada(resultado.getString(2));
+				reserva.setFechaSalida(resultado.getString(3));
 				reserva.setNombre(resultado.getString(4));
 				reserva.setTipo(resultado.getString(5));
 				reserva.setTelefono(resultado.getString(6));

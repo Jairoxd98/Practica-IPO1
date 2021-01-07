@@ -160,20 +160,14 @@ public class MenuInicio {
 									{
 										DefaultMutableTreeNode node_1;
 										node_1 = new DefaultMutableTreeNode("Reservas");
-											node_1.add(new DefaultMutableTreeNode("Añadir"));
-											node_1.add(new DefaultMutableTreeNode("Modificar"));
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Propiedades");
-											node_1.add(new DefaultMutableTreeNode("Añadir"));
-											node_1.add(new DefaultMutableTreeNode("Modificar"));
+											node_1.add(new DefaultMutableTreeNode("Parcela"));
+											node_1.add(new DefaultMutableTreeNode("Bungalow"));
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Empleados");
-											node_1.add(new DefaultMutableTreeNode("Añadir"));
-											node_1.add(new DefaultMutableTreeNode("Modificar"));
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Actividades");
-											node_1.add(new DefaultMutableTreeNode("Añadir"));
-											node_1.add(new DefaultMutableTreeNode("Modificar"));
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Rutas");
 											node_1.add(new DefaultMutableTreeNode("Diseño rutas"));

@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
 import dominio.Reserva;
+import javax.swing.JSeparator;
 
 public class panelGestionReservas extends JPanel {
 	private JToolBar toolBar;
@@ -39,6 +40,8 @@ public class panelGestionReservas extends JPanel {
 	private JTextArea taFilaSeleccionada;
 	
 	private ArrayList<Reserva> list = new ArrayList<Reserva>();
+	private JSeparator separator;
+	private JButton btnGuardar;
 
 	/**
 	 * Create the panel.
@@ -70,6 +73,18 @@ public class panelGestionReservas extends JPanel {
 				btnEliminar.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/borrar.png")));
 				toolBar.add(btnEliminar);
 			}
+			{
+				btnGuardar = new JButton("Guardar");
+				btnGuardar.addActionListener(new BtnGuardarActionListener());
+				btnGuardar.setToolTipText("Guardar Modificaciones");
+				btnGuardar.setVisible(false);
+				btnGuardar.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/guardar.png")));
+				toolBar.add(btnGuardar);
+			}
+			{
+				separator = new JSeparator();
+				toolBar.add(separator);
+			}
 		}
 		{
 			panel = new JPanel();
@@ -86,6 +101,7 @@ public class panelGestionReservas extends JPanel {
 			}
 			{
 				taFilaSeleccionada = new JTextArea();
+				taFilaSeleccionada.setEditable(false);
 				panel.add(taFilaSeleccionada);
 			}
 		}
@@ -135,12 +151,22 @@ public class panelGestionReservas extends JPanel {
 										"Fecha entrada: "+ modeloTablaReservas.getValueAt(n, 2)+"\n"+
 										"Fecha salida: "+ modeloTablaReservas.getValueAt(n, 3)+"\n"+
 										"Ocupantes :"+ modeloTablaReservas.getValueAt(n, 4)+"\n"+
-										"Tipo: "+ modeloTablaReservas.getValueAt(n, 5)+"\n"+
-										"Telefono: "+list.get(n).getTelefono()+"\n"+
-										"Email: "+list.get(n).getEmail()+"\n"+
-										"Solicitud: "+list.get(n).getSolicitud()+"\n"+
-										"Hora entrega: "+list.get(n).getHoraEntrada()+"\n"+
-										"Hora salida: "+list.get(n).getHoraSalida()+"\n";
+										"Tipo: "+ modeloTablaReservas.getValueAt(n, 5)+"\n";
+										
+										try {
+											contenido+="Telefono: "+list.get(n).getTelefono()+"\n"+
+													"Email: "+list.get(n).getEmail()+"\n"+
+													"Solicitud: "+list.get(n).getSolicitud()+"\n"+
+													"Hora entrega: "+list.get(n).getHoraEntrada()+"\n"+
+													"Hora salida: "+list.get(n).getHoraSalida()+"\n";
+										}catch(NullPointerException ne) {
+											contenido+="Telefono: \n"+
+													"Email: \n"+
+													"Solicitud: \n"+
+													"Hora entrega: \n"+
+													"Hora salida: \n";
+										}
+										
 								taFilaSeleccionada.setText(contenido);
 								
 								lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/"+modeloTablaReservas.getValueAt(n, 5)+".png")));
@@ -175,11 +201,9 @@ public class panelGestionReservas extends JPanel {
 	}
 	
 	
-	
-	
-	
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			habilitarList(true);
 			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 			Object[] nuevaFila = {"...", "...", "..." ,"...", "...", "..."};
 			modeloTablaReservas.aniadeFila(nuevaFila);
@@ -188,9 +212,20 @@ public class panelGestionReservas extends JPanel {
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			
+			habilitarList(true);
 		}
 	}
+	public void habilitarList(boolean b) {
+		taFilaSeleccionada.setEditable(b);
+		btnGuardar.setVisible(b);
+		
+	}
+	private class BtnGuardarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			habilitarList(false);
+		}
+	}
+	
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
@@ -200,6 +235,8 @@ public class panelGestionReservas extends JPanel {
 			
 			taFilaSeleccionada.setText("");
 			lblFoto.setIcon(null);
+			habilitarList(false);
 		}
 	}
+	
 }

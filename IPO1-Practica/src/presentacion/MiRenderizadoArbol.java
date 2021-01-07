@@ -28,6 +28,12 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 		case "Propiedades":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("")));
 			break;
+		case "Parcela":
+			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/parcela2.png")));
+			break;
+		case "Bungalow":
+			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/bungalow2.png")));
+			break;
 		case "Empleados":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("")));
 			break;
@@ -39,12 +45,6 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 			break;
 		case "Diseño rutas":
 			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/chozaPequeña2.png")));
-			break;
-		case "Añadir":
-			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/anadir.png")));
-			break;
-		case "Modificar":
-			setIcon(new ImageIcon(MiRenderizadoArbol.class.getResource("/presentacion/Icon/editar.png")));
 			break;
 		}
 		return this;
