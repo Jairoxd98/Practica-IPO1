@@ -63,6 +63,7 @@ public class MenuInicio {
 	private JPanel pnlGestionEmpleados;
 	private JPanel pnlGestionRutas;
 	private JPanel pnlDiseñoRutas;
+	private JPanel pnlGestionPropiedades;
 
 	/**
 	 * Launch the application.
@@ -118,6 +119,10 @@ public class MenuInicio {
 						panelCard.add(pnlGestionReservas, "Reservas");
 					}
 					{
+						pnlGestionPropiedades = new panelGestionPropiedades();
+						panelCard.add(pnlGestionPropiedades, "Propiedades");
+					}
+					{
 						pnlGestionEmpleados = new panelGestionEmpleados();
 						panelCard.add(pnlGestionEmpleados, "Empleados");
 					}
@@ -162,8 +167,6 @@ public class MenuInicio {
 										node_1 = new DefaultMutableTreeNode("Reservas");
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Propiedades");
-											node_1.add(new DefaultMutableTreeNode("Parcela"));
-											node_1.add(new DefaultMutableTreeNode("Bungalow"));
 										add(node_1);
 										node_1 = new DefaultMutableTreeNode("Empleados");
 										add(node_1);
@@ -312,7 +315,7 @@ public class MenuInicio {
 			switch (nodo)
 			{
 			case "Reservas":
-			//case "Propiedades":
+			case "Propiedades":
 			case "Empleados":
 			//case "Actividades":
 			case "Rutas":
