@@ -1,5 +1,8 @@
 package dominio;
 
+import persistencia.ParcelaDAO;
+import persistencia.ReservaDAO;
+
 public class Parcela {
 	private int id;
 	private String tipo;
@@ -9,6 +12,7 @@ public class Parcela {
 	private String ubicacion;
 	private String caracteristicas;
 	private String disponibilidad;
+	private ParcelaDAO parcelaDAO;
 	
 	public Parcela(int id, String tipo, double precio, String temporada, String tamano, String ubicacion,
 			String caracteristicas, String disponibilidad) {
@@ -77,6 +81,40 @@ public class Parcela {
 		return "Parcela [id="+id+", tipo=" + tipo + ", precio=" + precio + ", temporada=" + temporada + ", tamano=" + tamano
 				+ ", ubicacion=" + ubicacion + ", caracteristicas=" + caracteristicas + ", disponibilidad="
 				+ disponibilidad + "]";
+	}
+	
+	public Parcela() {
+		this.parcelaDAO= new ParcelaDAO();
+	}
+	
+	public ParcelaDAO getParcelaDAO() {
+		return parcelaDAO;
+	}
+	/*
+	@Override
+	public boolean insert() {
+		return parcelaDAO.insert(this);
+	}
+
+	@Override
+	public boolean update() {
+		return parcelaDAO.update(this);
+	}
+
+	@Override
+	public boolean delete() {
+		return parcelaDAO.delete(this);
+	}
+	*/
+
+	
+	public boolean read() {
+		return parcelaDAO.read(this);
+	}
+
+	
+	public boolean readAll() {
+		return parcelaDAO.readAll();
 	}
 	
 	
