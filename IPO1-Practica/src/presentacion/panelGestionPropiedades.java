@@ -105,20 +105,23 @@ public class panelGestionPropiedades extends JPanel {
 			add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
-				scrollPaneParcela = new JScrollPane();
-				scrollPaneParcela.setBounds(10, 53, 549, 120);
-				scrollPaneParcela.setPreferredSize(new Dimension(50, 120));
-				panel.add(scrollPaneParcela);
+				scrollPaneBungalow = new JScrollPane();
+				scrollPaneBungalow.setBounds(10, 53, 549, 120);
+				scrollPaneBungalow.setPreferredSize(new Dimension(50, 120));
+				panel.add(scrollPaneBungalow);
 				
 				{
-					tablaParcelas = new JTable();
-					tablaParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					MiModeloTablaParcelas modeloTabla = new MiModeloTablaParcelas();
-					tablaParcelas.setModel(modeloTabla);
+					tablaBungalows = new JTable();
+					tablaBungalows.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					MiModeloTablaBungalows modeloTabla = new MiModeloTablaBungalows();
+					tablaBungalows.setModel(modeloTabla);
 					
-					tablaParcelas.getColumnModel().getColumn(1).setPreferredWidth(88);
-					tablaParcelas.getColumnModel().getColumn(2).setPreferredWidth(83);
-					scrollPaneParcela.setViewportView(tablaParcelas);
+					//listaParcelas = cargarParcelas();
+					
+									
+					tablaBungalows.getColumnModel().getColumn(1).setPreferredWidth(88);
+					tablaBungalows.getColumnModel().getColumn(2).setPreferredWidth(83);
+					scrollPaneBungalow.setViewportView(tablaBungalows);
 					
 				}
 				
@@ -135,19 +138,19 @@ public class panelGestionPropiedades extends JPanel {
 			lblBungalow.setBounds(252, 170, 133, 31);
 			panel.add(lblBungalow);
 			{
-				scrollPaneBungalow = new JScrollPane();
-				scrollPaneBungalow.setBounds(10, 201, 549, 120);
-				panel.add(scrollPaneBungalow);
+				scrollPaneParcela = new JScrollPane();
+				scrollPaneParcela.setBounds(10, 201, 549, 120);
+				panel.add(scrollPaneParcela);
 			}
 			{
-				tablaBungalows = new JTable();
-				tablaBungalows.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				MiModeloTablaBungalows modeloTabla = new MiModeloTablaBungalows();
-				tablaBungalows.setModel(modeloTabla);
+				tablaParcelas = new JTable();
+				tablaParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				MiModeloTablaParcelas modeloTabla = new MiModeloTablaParcelas();
+				tablaParcelas.setModel(modeloTabla);
 				
 				tablaParcelas.getColumnModel().getColumn(1).setPreferredWidth(88);
 				tablaParcelas.getColumnModel().getColumn(2).setPreferredWidth(83);
-				scrollPaneBungalow.setViewportView(tablaBungalows);
+				scrollPaneParcela.setViewportView(tablaParcelas);
 			}
 			
 		}
