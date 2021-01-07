@@ -101,12 +101,20 @@ public class panelGestionReservas extends JPanel {
 				
 				list=cargarReserva();
 				
-				Object[] fila1= {new Integer(list.get(0).getId()), list.get(0).getNombre(), list.get(0).getFechaEntrada(), list.get(0).getFechaSalida(), new Integer(list.get(0).getOcupantes()), list.get(0).getTipo()};
-				modeloTabla.aniadeFila(fila1);
+				for(int i = 0; i<list.size();i++) {
+					Object[] fila= {new Integer(list.get(i).getId()), list.get(i).getNombre(), list.get(i).getFechaEntrada(), list.get(i).getFechaSalida(), new Integer(list.get(i).getOcupantes()), list.get(i).getTipo()};
+					modeloTabla.aniadeFila(fila);
+				}
+				/*
+				 * 
+				 * Object[] fila1= {new Integer(list.get(0).getId()), list.get(0).getNombre(), list.get(0).getFechaEntrada(), list.get(0).getFechaSalida(), new Integer(list.get(0).getOcupantes()), list.get(0).getTipo()}
+				 * modeloTabla.aniadeFila(fila1);
 				Object[] fila2= {new Integer(list.get(1).getId()), list.get(1).getNombre(), list.get(1).getFechaEntrada(), list.get(1).getFechaSalida(), new Integer(list.get(1).getOcupantes()), list.get(1).getTipo()};
 				modeloTabla.aniadeFila(fila2);
 				Object[] fila3= {new Integer(list.get(2).getId()), list.get(2).getNombre(), list.get(2).getFechaEntrada(), list.get(2).getFechaSalida(), new Integer(list.get(2).getOcupantes()), list.get(2).getTipo()};
-				modeloTabla.aniadeFila(fila3);
+				modeloTabla.aniadeFila(fila3);;
+				 */
+				
 						
 
 				miTabla.getColumnModel().getColumn(1).setPreferredWidth(88);
@@ -165,6 +173,10 @@ public class panelGestionReservas extends JPanel {
 			return null;
 		}
 	}
+	
+	
+	
+	
 	
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {

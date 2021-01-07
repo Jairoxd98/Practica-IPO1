@@ -93,6 +93,7 @@ public class MenuInicio {
 	 */
 	private void initialize(Usuario usuario) {
 		frmMenuInicio = new JFrame();
+		frmMenuInicio.getContentPane().setBackground(Color.DARK_GRAY);
 		frmMenuInicio.setIconImage(Toolkit.getDefaultToolkit().getImage(MenuInicio.class.getResource("/presentacion/Icon/choza.png")));
 		frmMenuInicio.setBounds(100, 100, 850, 500);
 		frmMenuInicio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -331,6 +332,8 @@ public class MenuInicio {
 			((CardLayout) panelCard.getLayout()).show(panelCard, "Personalizacion");
 		}
 	}
+	
+	
 	
 	
 }
