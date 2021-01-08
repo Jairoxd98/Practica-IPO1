@@ -209,7 +209,6 @@ public class panelGestionReservas extends JPanel {
 	public void habilitarList(boolean b) {
 		taFilaSeleccionada.setEditable(b);
 		btnGuardar.setVisible(b);
-		
 	}
 	private class BtnGuardarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
