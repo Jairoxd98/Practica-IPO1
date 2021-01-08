@@ -6,7 +6,7 @@ import persistencia.ReservaDAO;
 public class Parcela {
 	private int id;
 	private String tipo;
-	private double precio; 
+	private int precio; 
 	private String temporada;
 	private String tamano;
 	private String ubicacion;
@@ -14,7 +14,7 @@ public class Parcela {
 	private String disponibilidad;
 	private ParcelaDAO parcelaDAO;
 	
-	public Parcela(int id, String tipo, double precio, String temporada, String tamano, String ubicacion,
+	public Parcela(int id, String tipo, int precio, String temporada, String tamano, String ubicacion,
 			String caracteristicas, String disponibilidad) {
 		super();
 		this.id= id;
@@ -33,10 +33,10 @@ public class Parcela {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 	public String getTemporada() {

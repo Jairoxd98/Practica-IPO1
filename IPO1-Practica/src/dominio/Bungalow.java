@@ -1,16 +1,20 @@
 package dominio;
 
+import persistencia.BungalowDAO;
+import persistencia.ParcelaDAO;
+
 public class Bungalow {
 	private int id;
 	private String tamano;
 	private int capacidadMax;
-	private double precio;
+	private int precio;
 	private int estanciaMin;
 	private String equipamiento;
 	private String descripcion;
 	private String disponibilidad;
+	private BungalowDAO bungalowDAO;
 	//Galeria
-	public Bungalow(int id, String tamano, int capacidadMax, double precio, int estanciaMin, String equipamiento,
+	public Bungalow(int id, String tamano, int capacidadMax, int precio, int estanciaMin, String equipamiento,
 			String descripcion, String disponibilidad) {
 		super();
 		this.id = id;
@@ -34,10 +38,10 @@ public class Bungalow {
 	public void setCapacidadMax(int capacidadMax) {
 		this.capacidadMax = capacidadMax;
 	}
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 	public int getEstanciaMin() {
@@ -76,6 +80,40 @@ public class Bungalow {
 		return "Bungalow [id="+id+", tamano=" + tamano + ", capacidadMax=" + capacidadMax + ", precio=" + precio + ", estanciaMin="
 				+ estanciaMin + ", equipamiento=" + equipamiento + ", descripcion=" + descripcion + ", disponibilidad="
 				+ disponibilidad + "]";
+	}
+	
+	public Bungalow() {
+		this.bungalowDAO= new BungalowDAO();
+	}
+	
+	public BungalowDAO getBungalowDAO() {
+		return bungalowDAO;
+	}
+	/*
+	@Override
+	public boolean insert() {
+		return parcelaDAO.insert(this);
+	}
+
+	@Override
+	public boolean update() {
+		return parcelaDAO.update(this);
+	}
+
+	@Override
+	public boolean delete() {
+		return parcelaDAO.delete(this);
+	}
+	*/
+
+	
+	public boolean read() {
+		return bungalowDAO.read(this);
+	}
+
+	
+	public boolean readAll() {
+		return bungalowDAO.readAll();
 	}
 	
 	

@@ -267,10 +267,12 @@ public class panelGestionEmpleados extends JPanel {
 					MiModeloTablaEmpleados modeloTabla = new MiModeloTablaEmpleados();
 					miTabla.setModel(modeloTabla);
 					
-					for(int i = 0; i<list.size();i++) {
-						Object[] fila= {list.get(i).getNombre(), list.get(i).getFormacion()};
-						modeloTabla.aniadeFila(fila);
-					}
+					Object[] fila1= {list.get(0).getNombre(), list.get(0).getFormacion()};
+					modeloTabla.aniadeFila(fila1);
+					Object[] fila2= {list.get(1).getNombre(), list.get(1).getFormacion()};
+					modeloTabla.aniadeFila(fila2);
+					Object[] fila3= {list.get(2).getNombre(), list.get(2).getFormacion()};
+					modeloTabla.aniadeFila(fila3);
 					
 					ListSelectionModel rowSM = miTabla.getSelectionModel();
 					rowSM.addListSelectionListener(new ListSelectionListener() {
@@ -376,22 +378,20 @@ public class panelGestionEmpleados extends JPanel {
 	}
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+			/*MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 			Object[] nuevaFila = {"...", "..."};
 			modeloTablaEmpleados.aniadeFila(nuevaFila);
-			modeloTablaEmpleados.fireTableDataChanged();
+			modeloTablaEmpleados.fireTableDataChanged();*/
 			
 			
 		}
 	}
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+			/*MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 			int n= miTabla.getSelectedRow();
 			if (n != -1) modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
-			modeloTablaEmpleados.fireTableDataChanged();
-			lblFoto.setIcon(null);
-			enableText(false);
+			modeloTablaEmpleados.fireTableDataChanged();*/
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {

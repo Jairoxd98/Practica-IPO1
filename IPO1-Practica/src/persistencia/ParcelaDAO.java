@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dominio.Parcela;
-import dominio.Reserva;
+
 
 
 
@@ -125,7 +125,7 @@ public class ParcelaDAO {
 				parcela.setTamano(resultado.getString(5));
 				parcela.setUbicacion(resultado.getString(6));
 				parcela.setCaracteristicas(resultado.getString(7));
-				parcela.setDisponibilidad(resultado.getString(9));
+				parcela.setDisponibilidad(resultado.getString(8));
 				
 				listaParcelas.add(parcela);
 				
