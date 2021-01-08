@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,9 @@ import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.event.ListSelectionListener;
+
+import dominio.Ruta;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 import java.awt.event.KeyAdapter;
@@ -77,6 +81,7 @@ public class panelDiseñoRutas extends JPanel {
 	private JButton btnBorrarTodo;
 	private JTable miTabla;
 	private JList lstRutas;
+	private ArrayList<Ruta> list = cargarRuta();
 	/**
 	 * Create the panel.
 	 */
@@ -191,7 +196,7 @@ public class panelDiseñoRutas extends JPanel {
 					lstRutas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					lstRutas.addListSelectionListener(new LstRutasListSelectionListener());
 					lstRutas.setModel(new AbstractListModel() {
-						String[] values = new String[] {"Ruta 1-Bosque", "Ruta 2-Monte"};
+						String[] values = new String[] {list.get(0).getNombre(), list.get(1).getNombre()};
 						public int getSize() {
 							return values.length;
 						}
@@ -205,7 +210,20 @@ public class panelDiseñoRutas extends JPanel {
 		}
 
 	}
+	private static ArrayList<Ruta> cargarRuta() {
 
+		Ruta ruta = new Ruta();
+		boolean correcto = false;
+
+		correcto = ruta.readAll();
+
+		if (correcto) {
+			return (ruta.getRutaDAO().getListaRutas());
+		} else {
+			return null;
+		}
+	}
+	
 	private class BtnCargarMapaActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			JFileChooser fcAbrir = new JFileChooser();
@@ -341,10 +359,10 @@ public class panelDiseñoRutas extends JPanel {
 	}
 	private class LstRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-			if(lstRutas.getSelectedValue()== "Ruta 1-Bosque") {
-				ponerMapa("mapa1");
-			}else if(lstRutas.getSelectedValue()== "Ruta 2-Monte"){
-				ponerMapa("mapa2");
+			for (int i = 0; i < list.size(); i++) {
+				if(lstRutas.getSelectedValue()== list.get(i).getNombre()) {
+					ponerMapa("mapa"+i);
+				}
 			}
 		}
 	}

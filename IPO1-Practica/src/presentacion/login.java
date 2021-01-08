@@ -62,13 +62,6 @@ public class login {
 				try {
 					login window = new login();
 					window.frmLogin.setVisible(true);
-					//
-					System.out.println(usuarios);
-					System.out.println(usuarios.get(1).getUsuario() +" "+usuarios.get(1).getContrasena());/////////////////////////
-					System.out.println(usuarios.get(1).getDNI());
-					System.out.println(usuarios.get(1));
-					System.out.println(user);
-					//
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

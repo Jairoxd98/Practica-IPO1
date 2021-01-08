@@ -27,6 +27,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JSplitPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -217,7 +219,11 @@ public class panelGestionPropiedades extends JPanel {
 
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar la propiedad seleccionada?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				
+			} else {
 
+			}
 		}
 	}
 

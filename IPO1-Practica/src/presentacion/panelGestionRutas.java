@@ -5,9 +5,11 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextArea;
@@ -16,14 +18,21 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+
 import dominio.Ruta;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 import javax.swing.JSeparator;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class panelGestionRutas extends JPanel {
 	private JToolBar toolBar;
@@ -63,6 +72,11 @@ public class panelGestionRutas extends JPanel {
 	private JSeparator separator;
 	private JButton btnGuardar;
 	private JButton btnLimpiar;
+	
+	//Imagen en la que se cargará el fichero seleccionado por el usuario
+	private ImageIcon imagen;
+	private JButton btnCargarMapa;
+	private JButton btnBorrarMapa;
 	/**
 	 * Create the panel.
 	 */
@@ -75,7 +89,7 @@ public class panelGestionRutas extends JPanel {
 			{
 				btnAnadir = new JButton("Añadir");
 				btnAnadir.setToolTipText("Añadir ruta nueva");
-				btnAnadir.addActionListener(new BtnAadirActionListener());
+				btnAnadir.addActionListener(new BtnAnadirActionListener());
 				btnAnadir.setIcon(new ImageIcon(panelGestionRutas.class.getResource("/presentacion/Icon/anadir2.png")));
 				toolBar.add(btnAnadir);
 			}
@@ -110,6 +124,24 @@ public class panelGestionRutas extends JPanel {
 				toolBar.add(btnLimpiar);
 			}
 			{
+				btnCargarMapa = new JButton("Cargar");
+				btnCargarMapa.setBackground(new Color(124, 252, 0));
+				btnCargarMapa.setToolTipText("Cargar mapa de la ruta");
+				btnCargarMapa.addActionListener(new BtnCargarMapaActionListener());
+				btnCargarMapa.setVisible(false);
+				btnCargarMapa.setIcon(new ImageIcon(panelGestionRutas.class.getResource("/presentacion/Icon/cargarMapa.png")));
+				toolBar.add(btnCargarMapa);
+			}
+			{
+				btnBorrarMapa = new JButton("Borrar");
+				btnBorrarMapa.setVisible(false);
+				btnBorrarMapa.setToolTipText("Borrar mapa de la ruta");
+				btnBorrarMapa.addActionListener(new BtnBorrarMapaActionListener());
+				btnBorrarMapa.setIcon(new ImageIcon(panelGestionRutas.class.getResource("/presentacion/Icon/cargarMapa.png")));
+				btnBorrarMapa.setBackground(new Color(220, 20, 60));
+				toolBar.add(btnBorrarMapa);
+			}
+			{
 				separator = new JSeparator();
 				toolBar.add(separator);
 			}
@@ -124,16 +156,15 @@ public class panelGestionRutas extends JPanel {
 				pnlTabla.add(scrollPane, BorderLayout.CENTER);
 				{
 					lstRutas = new JList();
+					lstRutas.addListSelectionListener(new LstRutasListSelectionListener());
 					lstRutas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					lstRutas.setModel(new AbstractListModel() {
-						String[] values = new String[] {list.get(1).getNombre(), list.get(1).getNombre()};
-						public int getSize() {
-							return values.length;
-						}
-						public Object getElementAt(int index) {
-							return values[index];
-						}
-					});
+					DefaultListModel modeloLista = new DefaultListModel();
+					lstRutas.setModel(modeloLista);
+					//Añadimos dos elementos de prueba a la lista
+					for (int i = 0; i < list.size(); i++) {
+						modeloLista.addElement(list.get(i).getNombre());
+					}
+
 					scrollPane.setViewportView(lstRutas);
 				}
 			}
@@ -319,8 +350,13 @@ public class panelGestionRutas extends JPanel {
 		}
 	}
 	
-	private class BtnAadirActionListener implements ActionListener {
+	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+			int indice = modeloLista.getSize();
+			modeloLista.addElement("Ruta " + (indice+1));
+			lstRutas.setSelectedIndex(indice);
+			lstRutas.ensureIndexIsVisible(indice);
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
@@ -330,6 +366,18 @@ public class panelGestionRutas extends JPanel {
 	}
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar la ruta seleccionada?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+				int index = lstRutas.getSelectedIndex();
+				modeloLista.remove( index );
+				
+				lblFoto.setIcon(null);
+				enableText(false);
+				vaciarCajas();
+				
+			} else {
+
+			}
 		}
 	}
 	private class BtnGuardarActionListener implements ActionListener {
@@ -347,6 +395,68 @@ public class panelGestionRutas extends JPanel {
 			vaciarCajas();
 		}
 	}
+	private class LstRutasListSelectionListener implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent arg0) {
+			for (int i = 0; i < list.size(); i++) {
+				if(lstRutas.getSelectedValue()== list.get(i).getNombre()) {
+					txtId.setText(list.get(i).getId()+"");
+					txtNombre.setText(list.get(i).getNombre());
+					txtHoraInicio.setText(list.get(i).getHoraInicio());
+					txtHoraFin.setText(list.get(i).getHoraFin());
+					txtDia.setText(list.get(i).getDia()+"");
+					txtMonitor.setText(list.get(i).getMonitor());
+					txtEncuentro.setText(list.get(i).getEncuentro());
+					txtMinParticipantes.setText(list.get(i).getMinParticipantes()+"");
+					txtMaxParticipantes.setText(list.get(i).getMaxParticipantes()+"");
+					txtDescripcion.setText(list.get(i).getDescripcion());
+					ponerMapa("mapa"+i);
+				}
+			}
+			enableText(false);
+		}
+	}
+	private class BtnCargarMapaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser fcAbrir = new JFileChooser();
+			fcAbrir.setFileFilter(new ImageFilter());
+			int valorDevuelto = fcAbrir.showOpenDialog(btnCargarMapa);
+			//Recoger el nombre del fichero seleccionado por el usuario
+			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
+				File file = fcAbrir.getSelectedFile();
+				//lblFoto.setIcon(new ImageIcon(file.getAbsolutePath()));
+				Image imagenOriginal;
+				try {
+					imagenOriginal = ImageIO.read(file);
+					Image imagenEscalada = imagenOriginal.getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), java.awt.Image.SCALE_SMOOTH);
+					ImageIcon iconoLabel = new ImageIcon(imagenEscalada);
+					lblFoto.setIcon(iconoLabel);
+				} catch (IOException ei) {
+					ei.printStackTrace();
+				}
+			}
+		}
+	}
+	private class BtnBorrarMapaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			lblFoto.setIcon(null);
+			lblFoto.revalidate();
+		}
+	}
+	private void ponerMapa(String nombre) {
+		ImageIcon miniatura = null;
+		try {
+			miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Imagenes/"+nombre+".png"));
+
+		} catch (Exception e) {
+			miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Icon/cargarMapa.png"));
+		} finally {
+			Image image = miniatura.getImage();
+			imagen = new ImageIcon(image);
+		}
+
+		lblFoto.setIcon(imagen);
+	}
+	
 	public void enableText(boolean b) {
 		txtId.setEditable(b);
 		txtNombre.setEditable(b);
@@ -360,24 +470,27 @@ public class panelGestionRutas extends JPanel {
 		txtDescripcion.setEditable(b);
 		btnGuardar.setVisible(b);
 		btnLimpiar.setVisible(b);
+		btnCargarMapa.setVisible(b);
+		btnBorrarMapa.setVisible(b);
 	}
 	private void vaciarCajas() {//Metodo universal para vaciar todos los JTextField
 		JTextField caja;
-		for (int i = 0; i < pnlInfo.getComponentCount(); i++) {
-			if(pnlInfo.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
-				caja=(JTextField)pnlInfo.getComponent(i);
+		for (int i = 0; i < pnlInfoRuta.getComponentCount(); i++) {
+			if(pnlInfoRuta.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+				caja=(JTextField)pnlInfoRuta.getComponent(i);
 				caja.setText("");
 			}
 		}
 		lblFoto.setIcon(null);
-		lblFoto.revalidate();	
+		lblFoto.revalidate();
+		txtDescripcion.setText("");
 	}
 	
 	public boolean comprobarVacio() {
 		JTextField caja;
-		for (int i = 0; i < pnlInfo.getComponentCount(); i++) {
-			if(pnlInfo.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
-				caja=(JTextField)pnlInfo.getComponent(i);
+		for (int i = 0; i < pnlInfoRuta.getComponentCount(); i++) {
+			if(pnlInfoRuta.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+				caja=(JTextField)pnlInfoRuta.getComponent(i);
 				if(caja.getText().length()==0) {
 					return true;
 				}

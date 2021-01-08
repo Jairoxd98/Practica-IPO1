@@ -67,7 +67,7 @@ public class panelGestionEmpleados extends JPanel {
 	private JButton btnGuardar;
 	private JButton btnLimpiarText;
 	private JTextField txtDNI;
-	
+	private int MODO;
 	/**
 	 * Create the panel.
 	 */
@@ -292,8 +292,6 @@ public class panelGestionEmpleados extends JPanel {
 									lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
 									lblFoto.setToolTipText("Foto "+list.get(n).getNombre());
 									
-									btnGuardar.setVisible(false);
-									btnLimpiarText.setVisible(false);
 									enableText(false);
 								}
 							}
@@ -312,6 +310,19 @@ public class panelGestionEmpleados extends JPanel {
 		boolean correcto = false;
 
 		correcto = empleado.readAll();
+
+		if (correcto) {
+			return (empleado.getEmpleadoDAO().getListaEmpleados());
+		} else {
+			return null;
+		}
+	}
+	
+	private static ArrayList<Empleado> anadirEmpleado(Empleado empleado) {
+
+		boolean correcto = false;
+
+		correcto = empleado.insert();
 
 		if (correcto) {
 			return (empleado.getEmpleadoDAO().getListaEmpleados());
@@ -376,41 +387,47 @@ public class panelGestionEmpleados extends JPanel {
 	}
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
-			Object[] nuevaFila = {"...", "..."};
-			modeloTablaEmpleados.aniadeFila(nuevaFila);
-			modeloTablaEmpleados.fireTableDataChanged();
-			
-			
+			vaciarCajas();
+			lblFoto.setIcon(null);
+			enableText(true);
+			MODO=1;
 		}
 	}
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
-			int n= miTabla.getSelectedRow();
-			if (n != -1) modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
-			modeloTablaEmpleados.fireTableDataChanged();
-			lblFoto.setIcon(null);
-			enableText(false);
+			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar el empleado seleccionado?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+				int n= miTabla.getSelectedRow();
+				if (n != -1) modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
+				modeloTablaEmpleados.fireTableDataChanged();
+				lblFoto.setIcon(null);
+				enableText(false);
+				vaciarCajas();
+			} else {
+
+			}
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			enableText(true);
+			MODO=0;
 		}
 	}
 	private class BtnGuardarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(comprobarVacio()) {//Si hay algun campo vacio
 				JOptionPane.showMessageDialog(btnGuardar, "No has rellanado todos los campos.","Campos sin rellenar",JOptionPane.ERROR_MESSAGE);
-			}else {//Si no los guarda, 	
+			}else {//Si no, los guarda, 	
+				if(MODO==1) {
+				Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
+				list= anadirEmpleado(empleado);
 				
-				//Falta-->tambien en el Jtable y en la BBDD
-				//modeloTablaEmpleados.setValueAt(value, row, col);//Actualizar Jtable
-				//MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
-				//modeloTablaEmpleados.fireTableDataChanged();
-				
-				
+				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+				Object[] fila= {list.get(list.size()).getNombre(), list.get(list.size()).getFormacion()};
+				modeloTablaEmpleados.aniadeFila(fila);
+				modeloTablaEmpleados.fireTableDataChanged();
+				}
 				enableText(false);
 			}
 		}

@@ -2,6 +2,8 @@ package presentacion;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
@@ -218,14 +220,19 @@ public class panelGestionReservas extends JPanel {
 	
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
-			int n= miTabla.getSelectedRow();
-			if (n != -1) modeloTablaReservas.eliminaFila(miTabla.getSelectedRow());
-			modeloTablaReservas.fireTableDataChanged();
+			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar esta reserva?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
+				int n= miTabla.getSelectedRow();
+				if (n != -1) modeloTablaReservas.eliminaFila(miTabla.getSelectedRow());
+				modeloTablaReservas.fireTableDataChanged();
+				
+				taFilaSeleccionada.setText("");
+				lblFoto.setIcon(null);
+				habilitarList(false);
+			} else {
+
+			}
 			
-			taFilaSeleccionada.setText("");
-			lblFoto.setIcon(null);
-			habilitarList(false);
 		}
 	}
 	
