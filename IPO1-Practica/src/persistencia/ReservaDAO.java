@@ -83,7 +83,7 @@ public class ReservaDAO {
 		boolean correcto=false;
 		ResultSet resultado;
 		try {
-			resultado=Agente.getAgente().leer("SELECT FROM usuarios WHERE id='"+reserva.getId()+"';");
+			resultado=Agente.getAgente().leer("SELECT FROM reserva WHERE id='"+reserva.getId()+"';");
 			while(resultado.next()) {
 				reserva.setId(resultado.getInt(1));
 				reserva.setFechaEntrada(resultado.getString(2));

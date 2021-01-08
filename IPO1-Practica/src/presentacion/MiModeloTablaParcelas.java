@@ -1,11 +1,11 @@
 package presentacion;
 
-import java.util.*;
-import javax.swing.table.*;
+import java.util.Vector;
 
-public  class MiModeloTablaParcelas extends AbstractTableModel {
-	
-	private String[] nombreColumnas = { "Tamano", "Capacidad max pers.", "Precio", "Estancia mínima días", "Equipamiento", "Disponibilidad" };
+import javax.swing.table.AbstractTableModel;
+
+public class MiModeloTablaParcelas extends AbstractTableModel{
+	private String[] nombreColumnas = { "Tipo", "Precio", "Temporada", "Tamaño", "Ubicación", "Características", "Disponibilidad" };
 	private Vector datos = new Vector();
 
 	public int getColumnCount() {
