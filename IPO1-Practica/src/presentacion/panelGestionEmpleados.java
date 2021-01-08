@@ -281,16 +281,7 @@ public class panelGestionEmpleados extends JPanel {
 								int n= miTabla.getSelectedRow();
 								if (n != -1)
 								{
-									txtNombre.setText(list.get(n).getNombre());
-									txtFormacion.setText(list.get(n).getFormacion());
-									txtDNI.setText(list.get(n).getDNI());
-									txtApellidos.setText(list.get(n).getApellidos());
-									txtTelefono.setText(list.get(n).getTelefono());
-									txtCorreo.setText(list.get(n).getCorreo());
-									txtIdiomas.setText(list.get(n).getIdiomas());
-									
-									lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
-									lblFoto.setToolTipText("Foto "+list.get(n).getNombre());
+									cargarDatos(n);
 									
 									enableText(false);
 								}
@@ -303,6 +294,18 @@ public class panelGestionEmpleados extends JPanel {
 			}
 		}
 
+	}
+	public void cargarDatos(int n) {
+		txtNombre.setText(list.get(n).getNombre());
+		txtFormacion.setText(list.get(n).getFormacion());
+		txtDNI.setText(list.get(n).getDNI());
+		txtApellidos.setText(list.get(n).getApellidos());
+		txtTelefono.setText(list.get(n).getTelefono());
+		txtCorreo.setText(list.get(n).getCorreo());
+		txtIdiomas.setText(list.get(n).getIdiomas());
+		
+		lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
+		lblFoto.setToolTipText("Foto "+list.get(n).getNombre());
 	}
 	private static ArrayList<Empleado> cargarEmpleado() {
 
@@ -421,13 +424,14 @@ public class panelGestionEmpleados extends JPanel {
 			}else {//Si no, los guarda, 	
 				if(MODO==1) {
 				Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
-				list= anadirEmpleado(empleado);
-				
+				//list= anadirEmpleado(empleado);
+				list.add(empleado);System.out.println(list.toString());
 				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
-				Object[] fila= {list.get(list.size()).getNombre(), list.get(list.size()).getFormacion()};
+				Object[] fila= {list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFormacion()};
 				modeloTablaEmpleados.aniadeFila(fila);
 				modeloTablaEmpleados.fireTableDataChanged();
 				}
+				cargarDatos(list.size()-1);
 				enableText(false);
 			}
 		}
