@@ -68,6 +68,7 @@ public class panelGestionEmpleados extends JPanel {
 	private JButton btnLimpiarText;
 	private JTextField txtDNI;
 	private int MODO;
+	private ImageIcon imagen;
 	/**
 	 * Create the panel.
 	 */
@@ -304,9 +305,25 @@ public class panelGestionEmpleados extends JPanel {
 		txtCorreo.setText(list.get(n).getCorreo());
 		txtIdiomas.setText(list.get(n).getIdiomas());
 		
-		lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
+		//lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
+		ponerMapa(list.get(n).getNombre());
 		lblFoto.setToolTipText("Foto "+list.get(n).getNombre());
 	}
+	private void ponerMapa(String nombre) {
+		ImageIcon miniatura = null;
+		try {
+			miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Imagenes/"+nombre+".png"));
+
+		} catch (Exception e) {
+			miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Icon/user.png"));
+		} finally {
+			Image image = miniatura.getImage();
+			imagen = new ImageIcon(image);
+		}
+
+		lblFoto.setIcon(imagen);
+	}
+	
 	private static ArrayList<Empleado> cargarEmpleado() {
 
 		Empleado empleado = new Empleado();

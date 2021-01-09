@@ -182,41 +182,41 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		panelParcela.add(lblTemporada);
 		
 		JLabel lblTamano = new JLabel("Tamaño:");
-		lblTamano.setBounds(38, 174, 47, 14);
+		lblTamano.setBounds(38, 174, 72, 14);
 		panelParcela.add(lblTamano);
 		
 		JLabel lblUbicacion = new JLabel("Ubicación:");
-		lblUbicacion.setBounds(267, 174, 65, 14);
+		lblUbicacion.setBounds(259, 174, 84, 14);
 		panelParcela.add(lblUbicacion);
 		
 		JLabel lblCaracterísticas = new JLabel("Características:");
-		lblCaracterísticas.setBounds(267, 55, 105, 14);
+		lblCaracterísticas.setBounds(259, 50, 105, 14);
 		panelParcela.add(lblCaracterísticas);
 		
 		JComboBox comboBoxTipo = new JComboBox();
 		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Deluxe", "Autocaravana"}));
 		comboBoxTipo.setBorder(new LineBorder(new Color(0, 0, 0)));
-		comboBoxTipo.setBounds(102, 50, 97, 14);
+		comboBoxTipo.setBounds(111, 45, 97, 23);
 		panelParcela.add(comboBoxTipo);
 		
 		textFieldPrecio = new JTextField();
 		textFieldPrecio.setRequestFocusEnabled(true);
-		textFieldPrecio.setBounds(102, 88, 96, 20);
+		textFieldPrecio.setBounds(111, 87, 96, 20);
 		panelParcela.add(textFieldPrecio);
 		textFieldPrecio.setColumns(10);
 		
 		JComboBox comboBoxTemporada = new JComboBox();
 		comboBoxTemporada.setModel(new DefaultComboBoxModel(new String[] {"Baja", "Media", "Alta"}));
-		comboBoxTemporada.setBounds(102, 125, 97, 22);
+		comboBoxTemporada.setBounds(111, 124, 97, 22);
 		panelParcela.add(comboBoxTemporada);
 		
 		JComboBox comboBoxTamano = new JComboBox();
 		comboBoxTamano.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Grande"}));
-		comboBoxTamano.setBounds(102, 170, 97, 22);
+		comboBoxTamano.setBounds(111, 169, 97, 22);
 		panelParcela.add(comboBoxTamano);
 		
 		textFieldCaracteristicas = new JTextField();
-		textFieldCaracteristicas.setBounds(267, 88, 184, 71);
+		textFieldCaracteristicas.setBounds(259, 80, 192, 79);
 		panelParcela.add(textFieldCaracteristicas);
 		textFieldCaracteristicas.setColumns(10);
 		
