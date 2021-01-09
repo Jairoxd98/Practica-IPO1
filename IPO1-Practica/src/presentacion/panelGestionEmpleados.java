@@ -62,6 +62,7 @@ public class panelGestionEmpleados extends JPanel {
 	private ArrayList<Empleado> list = cargarEmpleado();
 	private Color colorBlanco = new Color(255, 255, 255);
 	private Color colorResaltado = new Color(255, 255, 210);
+	private Color colorDefectoBotones;
 	private JLabel lblFormacion;
 	private JTextField txtFormacion;
 	private JButton btnGuardar;
@@ -304,7 +305,6 @@ public class panelGestionEmpleados extends JPanel {
 		txtTelefono.setText(list.get(n).getTelefono());
 		txtCorreo.setText(list.get(n).getCorreo());
 		txtIdiomas.setText(list.get(n).getIdiomas());
-		
 		//lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
 		ponerMapa(list.get(n).getNombre());
 		lblFoto.setToolTipText("Foto "+list.get(n).getNombre());
@@ -420,6 +420,7 @@ public class panelGestionEmpleados extends JPanel {
 				int n= miTabla.getSelectedRow();
 				if (n != -1) modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
 				modeloTablaEmpleados.fireTableDataChanged();
+				list.remove(n);
 				lblFoto.setIcon(null);
 				enableText(false);
 				vaciarCajas();
@@ -439,19 +440,45 @@ public class panelGestionEmpleados extends JPanel {
 			if(comprobarVacio()) {//Si hay algun campo vacio
 				JOptionPane.showMessageDialog(btnGuardar, "No has rellanado todos los campos.","Campos sin rellenar",JOptionPane.ERROR_MESSAGE);
 			}else {//Si no, los guarda, 	
-				if(MODO==1) {
+				if(MODO==1) {//Cuando Guardas un empleado que estas añadiendo
 				Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
 				//list= anadirEmpleado(empleado);
-				list.add(empleado);System.out.println(list.toString());
+				list.add(empleado);
 				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 				Object[] fila= {list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFormacion()};
 				modeloTablaEmpleados.aniadeFila(fila);
 				modeloTablaEmpleados.fireTableDataChanged();
+				miTabla.getSelectedRow();
+				//cargarDatos(list.size()-1);
+				}else {//Cuando Guardas un empleado que estas modificando
+					MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+					int n= miTabla.getSelectedRow();
+					if (n != -1) {
+						String nombre = txtNombre.getText();
+						String formacion = txtFormacion.getText();
+						if(nombre.equals(list.get(n-1).getNombre())) {
+							modeloTablaEmpleados.setValueAt(txtNombre.getText(), miTabla.getSelectedRow(), 0);
+						}else if(formacion.equals(list.get(n-1).getFormacion())) {
+							modeloTablaEmpleados.setValueAt(txtFormacion.getText(), miTabla.getSelectedRow(), 1);
+						}
+						
+						actualizaList(n);
+					}
+					modeloTablaEmpleados.fireTableDataChanged();
 				}
-				cargarDatos(list.size()-1);
+				resetearFondo();
 				enableText(false);
 			}
 		}
+	}
+	public void actualizaList(int n) {
+		list.get(n).setNombre(txtNombre.getText());
+		list.get(n).setFormacion(txtFormacion.getText());
+		list.get(n).setDNI(txtDNI.getText());
+		list.get(n).setApellidos(txtApellidos.getText());
+		list.get(n).setTelefono(txtTelefono.getText());
+		list.get(n).setCorreo(txtCorreo.getText());
+		list.get(n).setIdiomas(txtIdiomas.getText());
 	}
 	private class BtnLimpiarTextActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -479,6 +506,17 @@ public class panelGestionEmpleados extends JPanel {
 				if(caja.getText().length()==0) {
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean resetearFondo() {
+		JTextField caja;
+		for (int i = 0; i < pnlInfo.getComponentCount(); i++) {
+			if(pnlInfo.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+				caja=(JTextField)pnlInfo.getComponent(i);
+				caja.setBackground(colorDefectoBotones);
 			}
 		}
 		return false;
