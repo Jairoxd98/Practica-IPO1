@@ -29,7 +29,7 @@ class MiModeloTablaEmpleados extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int row, int col) {
-		return true;
+		return false;
 	}
 
 	public void setValueAt(Object value, int row, int col) {
