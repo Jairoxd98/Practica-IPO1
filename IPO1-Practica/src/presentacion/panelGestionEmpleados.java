@@ -456,9 +456,10 @@ public class panelGestionEmpleados extends JPanel {
 					if (n != -1) {
 						String nombre = txtNombre.getText();
 						String formacion = txtFormacion.getText();
-						if(nombre.equals(list.get(n-1).getNombre())) {
+						if(!nombre.equals(list.get(n-1).getNombre())) {
 							modeloTablaEmpleados.setValueAt(txtNombre.getText(), miTabla.getSelectedRow(), 0);
-						}else if(formacion.equals(list.get(n-1).getFormacion())) {
+						}
+						if(!formacion.equals(list.get(n-1).getFormacion())) {
 							modeloTablaEmpleados.setValueAt(txtFormacion.getText(), miTabla.getSelectedRow(), 1);
 						}
 						
