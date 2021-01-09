@@ -49,6 +49,7 @@ public class panelGestionPropiedades extends JPanel {
 	private JTable tablaParcelas;
 	private JTable tablaBungalows;
 	
+	
 	private ArrayList<Parcela> listaParcelas = new ArrayList<Parcela>();
 	private ArrayList<Bungalow> listaBungalows = new ArrayList<Bungalow>();
 
@@ -204,10 +205,10 @@ public class panelGestionPropiedades extends JPanel {
 			return null;
 		}
 	}
-
+	final panelDatosPropiedades ventanaDatos = new panelDatosPropiedades();
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-
+			ventanaDatos.setVisible(true);
 		}
 	}
 

@@ -76,7 +76,7 @@ public class panelGestionEmpleados extends JPanel {
 		{
 			toolBar = new JToolBar();
 			toolBar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-			toolBar.setBounds(0, 0, 650, 35);
+			toolBar.setBounds(0, 0, 653, 33);
 			add(toolBar);
 			{
 				btnAnadir = new JButton("Añadir");
