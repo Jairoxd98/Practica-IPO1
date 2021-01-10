@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionListener;
 
 import dominio.Ruta;
@@ -80,8 +81,8 @@ public class panelDiseñoRutas extends JPanel {
 	private JTextField txtTexto = new JTextField();
 	private JButton btnBorrarTodo;
 	private JTable miTabla;
-	private JList lstRutas;
-	private ArrayList<Ruta> list = cargarRuta();
+	private static JList lstRutas;
+	private static ArrayList<Ruta> list = cargarRuta();
 	/**
 	 * Create the panel.
 	 */
@@ -131,6 +132,7 @@ public class panelDiseñoRutas extends JPanel {
 				btnCargarMapa.addActionListener(new BtnCargarMapaActionListener());
 				{
 					btnBorrarTodo = new JButton("");
+					btnBorrarTodo.setToolTipText("Borrar todo");
 					btnBorrarTodo.addActionListener(new BtnBorrarTodoActionListener());
 					btnBorrarTodo.setIcon(new ImageIcon(panelDiseñoRutas.class.getResource("/presentacion/Icon/borrar.png")));
 					tbBarraDibujo.add(btnBorrarTodo);
@@ -183,7 +185,7 @@ public class panelDiseñoRutas extends JPanel {
 					miAreaDibujo.addMouseMotionListener(new MiAreaDibujoMouseMotionListener());
 					miAreaDibujo.addMouseListener(new MiAreaDibujoMouseListener());
 					
-					ponerMapa("Mapa1");
+					ponerMapa("Ruta 3");
 				}
 			}
 			{
@@ -195,15 +197,12 @@ public class panelDiseñoRutas extends JPanel {
 					lstRutas = new JList();
 					lstRutas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					lstRutas.addListSelectionListener(new LstRutasListSelectionListener());
-					lstRutas.setModel(new AbstractListModel() {
-						String[] values = new String[] {list.get(0).getNombre(), list.get(1).getNombre()};
-						public int getSize() {
-							return values.length;
-						}
-						public Object getElementAt(int index) {
-							return values[index];
-						}
-					});
+					DefaultListModel modeloLista = new DefaultListModel();
+					lstRutas.setModel(modeloLista);
+					
+					for (int i = 0; i < list.size(); i++) {
+						modeloLista.addElement(list.get(i).getNombre());
+					}
 					scrollPaneTabla.setViewportView(lstRutas);
 				}
 			}
@@ -245,7 +244,7 @@ public class panelDiseñoRutas extends JPanel {
 				miAreaDibujo.setIcon(null);
 				miAreaDibujo.revalidate();
 			} else {
-
+				
 			}
 		}
 	}
@@ -339,7 +338,7 @@ public class panelDiseñoRutas extends JPanel {
 				miAreaDibujo.removeAll();
 				miAreaDibujo.repaint();
 			} else {
-
+				
 			}
 		}
 	}
@@ -359,11 +358,20 @@ public class panelDiseñoRutas extends JPanel {
 	}
 	private class LstRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-			for (int i = 0; i < list.size(); i++) {
-				if(lstRutas.getSelectedValue()== list.get(i).getNombre()) {
-					ponerMapa("mapa"+i);
-				}
-			}
+			int j= lstRutas.getSelectedIndex();
+			ponerMapa(list.get(j).getNombre());
 		}
+	}
+	public void addRuta(Ruta ruta) {
+		list.add(ruta);
+	}
+	public void deleteRuta(int n) {
+		list.remove(n);
+	}
+	public static ArrayList<Ruta> getList(){
+		return list;
+	}
+	public static JList getpanel() {
+		return lstRutas;
 	}
 }

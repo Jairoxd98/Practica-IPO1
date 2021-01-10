@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
@@ -36,7 +37,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JSeparator;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
-import presentacion.panelDiseñoRutas;
 
 public class panelGestionRutas extends JPanel {
 	private JToolBar toolBar;
@@ -82,6 +82,8 @@ public class panelGestionRutas extends JPanel {
 	private ImageIcon imagen;
 	private JButton btnDisenarRuta;
 	private JButton btnBorrarMapa;
+	private panelDiseñoRutas pDRutas= new panelDiseñoRutas();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -165,7 +167,7 @@ public class panelGestionRutas extends JPanel {
 					lstRutas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					DefaultListModel modeloLista = new DefaultListModel();
 					lstRutas.setModel(modeloLista);
-					//Añadimos dos elementos de prueba a la lista
+					
 					for (int i = 0; i < list.size(); i++) {
 						modeloLista.addElement(list.get(i).getNombre());
 					}
@@ -406,8 +408,14 @@ public class panelGestionRutas extends JPanel {
 				DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
 				int indice = lstRutas.getSelectedIndex();
 				if(indice!=-1) {
-					modeloLista.remove( indice );
+					modeloLista.remove(indice);
 					list.remove(indice);
+					//Para Actualizar la lista de Diseño Rutas
+					ArrayList<Ruta> listRuta= pDRutas.getList();
+					listRuta.remove(indice);
+					JList lstRutas = pDRutas.getpanel();
+					DefaultListModel modeloLista2= (DefaultListModel) lstRutas.getModel();
+					modeloLista2.remove(indice);
 				}else {
 					JOptionPane.showMessageDialog(null,"Debes seleccionar una ruta para eliminarla");
 				}
@@ -434,9 +442,17 @@ public class panelGestionRutas extends JPanel {
 					lstRutas.setSelectedIndex(list.size()-1);
 					lstRutas.ensureIndexIsVisible(list.size()-1);
 					
+					//Para Actualizar la lista de Diseño Rutas
+					ArrayList<Ruta> listRuta= pDRutas.getList();
+					listRuta.add(ruta);
+					JList lstRutas = pDRutas.getpanel();
+					DefaultListModel modeloLista2= (DefaultListModel) lstRutas.getModel();
+					modeloLista2.addElement(list.get(list.size()-1).getNombre());
+					
 					}else {//Cuando Guardas una ruta que estas modificando
 						
 						DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+						
 						int indice = lstRutas.getSelectedIndex();
 						if(indice!=-1) {
 							String nombre = txtNombre.getText();
@@ -444,6 +460,11 @@ public class panelGestionRutas extends JPanel {
 								modeloLista.setElementAt(txtNombre.getText(), indice);
 							}
 							actualizaList(indice);
+							
+							//Para Actualizar la lista de Diseño Rutas
+							JList lstRutas = pDRutas.getpanel();
+							DefaultListModel modeloLista2= (DefaultListModel) lstRutas.getModel();
+							modeloLista2.setElementAt(txtNombre.getText(), indice);
 						}
 					}
 					resetearFondo();
@@ -460,19 +481,21 @@ public class panelGestionRutas extends JPanel {
 	
 	private class LstRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-					int j= lstRutas.getSelectedIndex();
-					txtId.setText(list.get(j).getId()+"");
-					txtNombre.setText(list.get(j).getNombre());
-					txtHoraInicio.setText(list.get(j).getHoraInicio());
-					txtHoraFin.setText(list.get(j).getHoraFin());
-					txtDia.setText(list.get(j).getDia()+"");
-					txtMonitor.setText(list.get(j).getMonitor());
-					txtEncuentro.setText(list.get(j).getEncuentro());
-					txtMinParticipantes.setText(list.get(j).getMinParticipantes()+"");
-					txtMaxParticipantes.setText(list.get(j).getMaxParticipantes()+"");
-					txtDescripcion.setText(list.get(j).getDescripcion());
-					ponerMapa(list.get(j).getNombre());
-			enableText(false);
+			int j= lstRutas.getSelectedIndex();
+			if(j!=-1) {
+				txtId.setText(list.get(j).getId()+"");
+				txtNombre.setText(list.get(j).getNombre());
+				txtHoraInicio.setText(list.get(j).getHoraInicio());
+				txtHoraFin.setText(list.get(j).getHoraFin());
+				txtDia.setText(list.get(j).getDia()+"");
+				txtMonitor.setText(list.get(j).getMonitor());
+				txtEncuentro.setText(list.get(j).getEncuentro());
+				txtMinParticipantes.setText(list.get(j).getMinParticipantes()+"");
+				txtMaxParticipantes.setText(list.get(j).getMaxParticipantes()+"");
+				txtDescripcion.setText(list.get(j).getDescripcion());
+				ponerMapa(list.get(j).getNombre());
+				enableText(false);
+			}
 		}
 	}
 	private class BtnDisenarRutaActionListener implements ActionListener {
