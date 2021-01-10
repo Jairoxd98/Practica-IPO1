@@ -64,6 +64,7 @@ public class MenuInicio {
 	private JPanel pnlGestionRutas;
 	private JPanel pnlDiseñoRutas;
 	private JPanel pnlGestionPropiedades;
+	private JPanel pnlActividades;
 
 	/**
 	 * Launch the application.
@@ -125,6 +126,10 @@ public class MenuInicio {
 					{
 						pnlGestionEmpleados = new panelGestionEmpleados();
 						panelCard.add(pnlGestionEmpleados, "Empleados");
+					}
+					{
+						pnlActividades = new paneGestionActividades();
+						panelCard.add(pnlActividades, "Actividades");
 					}
 					{
 						pnlGestionRutas = new panelGestionRutas();
@@ -317,7 +322,7 @@ public class MenuInicio {
 			case "Reservas":
 			case "Propiedades":
 			case "Empleados":
-			//case "Actividades":
+			case "Actividades":
 			case "Rutas":
 			case "Diseño rutas":
 			((CardLayout) panelCard.getLayout()).show(panelCard, nodo);

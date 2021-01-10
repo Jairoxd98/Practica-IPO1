@@ -90,12 +90,14 @@ public class panelPersonalizacion extends JPanel {
 		}
 		{
 			btnSpain = new JButton("");
+			btnSpain.addActionListener(new BtnSpainActionListener());
 			btnSpain.setIcon(new ImageIcon(panelPersonalizacion.class.getResource("/presentacion/Icon/espana.png")));
 			btnSpain.setBounds(276, 50, 64, 43);
 			add(btnSpain);
 		}
 		{
 			btnEnglish = new JButton("");
+			btnEnglish.addActionListener(new BtnEnglishActionListener());
 			btnEnglish.setIcon(new ImageIcon(panelPersonalizacion.class.getResource("/presentacion/Icon/reino-unido.png")));
 			btnEnglish.setBounds(385, 50, 64, 43);
 			add(btnEnglish);
@@ -116,6 +118,14 @@ public class panelPersonalizacion extends JPanel {
 			System.out.println(usuario);
 			MenuInicio mInicio= new MenuInicio(usuario);
 			mInicio.setVisibleHora(false);*/
+		}
+	}
+	private class BtnSpainActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	private class BtnEnglishActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 }

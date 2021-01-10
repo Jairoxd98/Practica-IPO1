@@ -71,6 +71,7 @@ public class panelGestionRutas extends JPanel {
 	private ArrayList<Ruta> list = cargarRuta();
 	private Color colorBlanco = new Color(255, 255, 255);
 	private Color colorResaltado = new Color(255, 255, 210);
+	private Color colorRojo = Color.RED;
 	private Color colorDefectoBotones;
 	private JTextField txtMaxParticipantes;
 	private JTextField txtMinParticipantes;
@@ -91,6 +92,7 @@ public class panelGestionRutas extends JPanel {
 		setLayout(null);
 		{
 			toolBar = new JToolBar();
+			toolBar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			toolBar.setBounds(0, 0, 650, 41);
 			add(toolBar);
 			{
@@ -118,7 +120,7 @@ public class panelGestionRutas extends JPanel {
 				btnGuardar = new JButton("Guardar");
 				btnGuardar.setVisible(false);
 				btnGuardar.addActionListener(new BtnGuardarActionListener());
-				btnGuardar.setToolTipText("Guardar datos modificados");
+				btnGuardar.setToolTipText("Guardar datos");
 				btnGuardar.setIcon(new ImageIcon(panelGestionRutas.class.getResource("/presentacion/Icon/guardar.png")));
 				toolBar.add(btnGuardar);
 			}
@@ -267,6 +269,7 @@ public class panelGestionRutas extends JPanel {
 				}
 				{
 					txtDia = new JTextField();
+					txtDia.setToolTipText("El formato debe ser: DD/MM/YYYY");
 					txtDia.setEditable(false);
 					txtDia.addFocusListener(new MiFocusListener());
 					txtDia.setBounds(337, 79, 86, 20);
@@ -363,6 +366,7 @@ public class panelGestionRutas extends JPanel {
 			lblFoto.setIcon(null);
 			enableText(true);
 			MODO=1;
+			JOptionPane.showMessageDialog(null,"Para añadir una ruta rellena todos los campos y pulsa Guardar");
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
@@ -465,6 +469,8 @@ public class panelGestionRutas extends JPanel {
 							JList lstRutas = pDRutas.getpanel();
 							DefaultListModel modeloLista2= (DefaultListModel) lstRutas.getModel();
 							modeloLista2.setElementAt(txtNombre.getText(), indice);
+							
+							JOptionPane.showMessageDialog(null,"Has modificado correctamente la ruta "+txtNombre.getText());
 						}
 					}
 					resetearFondo();
@@ -495,6 +501,7 @@ public class panelGestionRutas extends JPanel {
 				txtDescripcion.setText(list.get(j).getDescripcion());
 				ponerMapa(list.get(j).getNombre());
 				enableText(false);
+				resetearFondo();
 			}
 		}
 	}
@@ -576,6 +583,7 @@ public class panelGestionRutas extends JPanel {
 			if(pnlInfoRuta.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
 				caja=(JTextField)pnlInfoRuta.getComponent(i);
 				if(caja.getText().length()==0) {
+					caja.setBackground(colorRojo);
 					return true;
 				}
 			}
@@ -595,6 +603,7 @@ public class panelGestionRutas extends JPanel {
 		txtDescripcion.setText(list.get(n).getDescripcion());
 		ponerMapa(list.get(n).getNombre());
 		lblFoto.setToolTipText("Mapa "+list.get(n).getNombre());
+		resetearFondo();
 	}
 	
 	public boolean resetearFondo() {

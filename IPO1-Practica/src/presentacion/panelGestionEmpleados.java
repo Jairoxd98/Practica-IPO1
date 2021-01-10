@@ -62,6 +62,7 @@ public class panelGestionEmpleados extends JPanel {
 	private ArrayList<Empleado> list = cargarEmpleado();
 	private Color colorBlanco = new Color(255, 255, 255);
 	private Color colorResaltado = new Color(255, 255, 210);
+	private Color colorRojo = Color.RED;
 	private Color colorDefectoBotones;
 	private JLabel lblFormacion;
 	private JTextField txtFormacion;
@@ -220,7 +221,7 @@ public class panelGestionEmpleados extends JPanel {
 			}
 			{
 				btnGuardar = new JButton("");
-				btnGuardar.setToolTipText("Guardar datos modificados");
+				btnGuardar.setToolTipText("Guardar datos");
 				btnGuardar.addActionListener(new BtnGuardarActionListener());
 				btnGuardar.setVisible(false);
 				btnGuardar.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/guardar.png")));
@@ -308,6 +309,7 @@ public class panelGestionEmpleados extends JPanel {
 		//lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Imagenes/"+list.get(n).getNombre()+".png")));
 		ponerMapa(list.get(n).getNombre());
 		lblFoto.setToolTipText("Foto "+list.get(n).getNombre());
+		resetearFondo();
 	}
 	private void ponerMapa(String nombre) {
 		ImageIcon miniatura = null;
@@ -406,6 +408,7 @@ public class panelGestionEmpleados extends JPanel {
 	}
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(null,"Para añadir un empleado rellena todos los campos y pulsa Guardar");
 			vaciarCajas();
 			lblFoto.setIcon(null);
 			enableText(true);
@@ -474,6 +477,7 @@ public class panelGestionEmpleados extends JPanel {
 						actualizaList(n);
 					}
 					modeloTablaEmpleados.fireTableDataChanged();
+					JOptionPane.showMessageDialog(null,"Has modificado correctamente al empleado "+txtNombre.getText());
 				}
 				resetearFondo();
 				enableText(false);
@@ -513,6 +517,7 @@ public class panelGestionEmpleados extends JPanel {
 			if(pnlInfo.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
 				caja=(JTextField)pnlInfo.getComponent(i);
 				if(caja.getText().length()==0) {
+					caja.setBackground(colorRojo);
 					return true;
 				}
 			}
