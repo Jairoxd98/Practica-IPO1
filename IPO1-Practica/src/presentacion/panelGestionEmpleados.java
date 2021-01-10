@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Image;
-
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
@@ -442,14 +441,13 @@ public class panelGestionEmpleados extends JPanel {
 			}else {//Si no, los guarda, 	
 				if(MODO==1) {//Cuando Guardas un empleado que estas añadiendo
 				Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
-				//list= anadirEmpleado(empleado);
+				//empleado.insert();
 				list.add(empleado);
 				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 				Object[] fila= {list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFormacion()};
 				modeloTablaEmpleados.aniadeFila(fila);
 				modeloTablaEmpleados.fireTableDataChanged();
 				miTabla.getSelectedRow();
-				//cargarDatos(list.size()-1);
 				}else {//Cuando Guardas un empleado que estas modificando
 					MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 					int n= miTabla.getSelectedRow();

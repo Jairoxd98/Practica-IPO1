@@ -2,6 +2,8 @@ package presentacion;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.Component;
 import javax.swing.*;
@@ -16,7 +18,8 @@ class MiRenderizadoArbol extends DefaultTreeCellRenderer {
 		setBackground(new Color(0, 128, 0));
 		setOpaque(true);
 		setForeground(Color.BLACK);
-		
+		Font negrita = new Font("Calibri", Font.BOLD, 14);
+		setFont(negrita);
 		String c = (String) (nodo.getUserObject());
 		switch (c) {
 		case "Gestion":

@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -22,12 +24,15 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 
+import dominio.Empleado;
 import dominio.Ruta;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 import javax.swing.JSeparator;
@@ -67,12 +72,13 @@ public class panelGestionRutas extends JPanel {
 	private ArrayList<Ruta> list = cargarRuta();
 	private Color colorBlanco = new Color(255, 255, 255);
 	private Color colorResaltado = new Color(255, 255, 210);
+	private Color colorDefectoBotones;
 	private JTextField txtMaxParticipantes;
 	private JTextField txtMinParticipantes;
 	private JSeparator separator;
 	private JButton btnGuardar;
 	private JButton btnLimpiar;
-	
+	private int MODO;
 	//Imagen en la que se cargará el fichero seleccionado por el usuario
 	private ImageIcon imagen;
 	private JButton btnCargarMapa;
@@ -352,25 +358,50 @@ public class panelGestionRutas extends JPanel {
 	
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
-			int indice = modeloLista.getSize();
-			modeloLista.addElement("Ruta " + (indice+1));
-			lstRutas.setSelectedIndex(indice);
-			lstRutas.ensureIndexIsVisible(indice);
+			vaciarCajas();
+			lblFoto.setIcon(null);
+			enableText(true);
+			MODO=1;
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			enableText(true);
+			MODO=0;
 		}
 	}
+	
+	public void actualizaList(int n) {
+		list.get(n).setNombre(txtNombre.getText());
+		list.get(n).setId(Integer.parseInt(txtId.getText()));
+		list.get(n).setHoraInicio(txtHoraInicio.getText());
+		list.get(n).setHoraFin(txtHoraFin.getText());
+		list.get(n).setDia(ParseFecha(txtDia.getText()));
+		list.get(n).setMonitor(txtMonitor.getText());
+		list.get(n).setEncuentro(txtEncuentro.getText());
+		list.get(n).setMinParticipantes(Integer.parseInt(txtMinParticipantes.getText()));
+		list.get(n).setMaxParticipantes(Integer.parseInt(txtMaxParticipantes.getText()));
+		list.get(n).setDescripcion(txtDescripcion.getText());
+	}
+	public static Date ParseFecha(String fecha){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(fecha);
+        } 
+        catch (ParseException ex){
+            System.out.println(ex);
+        }
+        return fechaDate;
+    }
+	
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar la ruta seleccionada?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
 				int index = lstRutas.getSelectedIndex();
 				modeloLista.remove( index );
-				
+				list.remove(index);
 				lblFoto.setIcon(null);
 				enableText(false);
 				vaciarCajas();
@@ -385,16 +416,53 @@ public class panelGestionRutas extends JPanel {
 			if(comprobarVacio()) {//Si hay algun campo vacio
 				JOptionPane.showMessageDialog(btnGuardar, "No has rellanado todos los campos.","Campos sin rellenar",JOptionPane.ERROR_MESSAGE);
 			}else {//Si no los guarda, 	
-				
-				enableText(false);
+				if(MODO==1) {//Cuando Guardas una ruta que estas añadiendo
+					Ruta ruta = new Ruta(Integer.parseInt(txtId.getText()),txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),ParseFecha(txtDia.getText()),txtMonitor.getText(),txtEncuentro.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()),txtDescripcion.getText());
+					//ruta.insert();
+					list.add(ruta);
+					/*
+					MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+					Object[] fila= {list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFormacion()};
+					modeloTablaEmpleados.aniadeFila(fila);
+					modeloTablaEmpleados.fireTableDataChanged();
+					miTabla.getSelectedRow();
+					//cargarDatos(list.size()-1);
+					*/
+					 
+					}else {//Cuando Guardas una ruta que estas modificando
+						/*MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+						int n= miTabla.getSelectedRow();
+						if (n != -1) {
+							String nombre = txtNombre.getText();
+							String formacion = txtFormacion.getText();
+							if(!nombre.equals(list.get(n-1).getNombre())) {
+								modeloTablaEmpleados.setValueAt(txtNombre.getText(), miTabla.getSelectedRow(), 0);
+							}
+							if(!formacion.equals(list.get(n-1).getFormacion())) {
+								modeloTablaEmpleados.setValueAt(txtFormacion.getText(), miTabla.getSelectedRow(), 1);
+							}
+							
+							actualizaList(n);
+						}
+						modeloTablaEmpleados.fireTableDataChanged();*/
+					}
+					resetearFondo();
+					enableText(false);
+					/*DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+					int indice = modeloLista.getSize();
+					modeloLista.addElement("Ruta " + (indice+1));
+					lstRutas.setSelectedIndex(indice);
+					lstRutas.ensureIndexIsVisible(indice);*/
 			}
 		}
 	}
+	
 	private class BtnLimpiarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			vaciarCajas();
 		}
 	}
+	
 	private class LstRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
 			for (int i = 0; i < list.size(); i++) {
@@ -409,7 +477,7 @@ public class panelGestionRutas extends JPanel {
 					txtMinParticipantes.setText(list.get(i).getMinParticipantes()+"");
 					txtMaxParticipantes.setText(list.get(i).getMaxParticipantes()+"");
 					txtDescripcion.setText(list.get(i).getDescripcion());
-					ponerMapa("mapa"+i);
+					ponerMapa(list.get(i).getNombre());
 				}
 			}
 			enableText(false);
@@ -494,6 +562,31 @@ public class panelGestionRutas extends JPanel {
 				if(caja.getText().length()==0) {
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	public void cargarDatos(int n) {
+		txtNombre.setText(list.get(n).getNombre());
+		txtId.setText(list.get(n).getId()+"");
+		txtHoraInicio.setText(list.get(n).getHoraInicio());
+		txtHoraFin.setText(list.get(n).getHoraFin());
+		txtDia.setText(list.get(n).getDia()+"");
+		txtMonitor.setText(list.get(n).getMonitor());
+		txtEncuentro.setText(list.get(n).getEncuentro());
+		txtMinParticipantes.setText(list.get(n).getMinParticipantes()+"");
+		txtMaxParticipantes.setText(list.get(n).getMaxParticipantes()+"");
+		txtDescripcion.setText(list.get(n).getDescripcion());
+		ponerMapa(list.get(n).getNombre());
+		lblFoto.setToolTipText("Mapa "+list.get(n).getNombre());
+	}
+	
+	public boolean resetearFondo() {
+		JTextField caja;
+		for (int i = 0; i < pnlInfoRuta.getComponentCount(); i++) {
+			if(pnlInfoRuta.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+				caja=(JTextField)pnlInfoRuta.getComponent(i);
+				caja.setBackground(colorDefectoBotones);
 			}
 		}
 		return false;
