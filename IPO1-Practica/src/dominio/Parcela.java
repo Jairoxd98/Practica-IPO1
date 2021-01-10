@@ -27,6 +27,19 @@ public class Parcela {
 		this.disponibilidad = disponibilidad;
 	}
 	
+	public Parcela(String tipo, int precio, String temporada, String tamano, String ubicacion,
+			String caracteristicas, String disponibilidad) {
+		this.tipo = tipo;
+		this.precio = precio;
+		this.temporada = temporada;
+		this.tamano = tamano;
+		this.ubicacion = ubicacion;
+		this.caracteristicas = caracteristicas;
+		this.disponibilidad = disponibilidad;
+		this.parcelaDAO= new ParcelaDAO();
+		
+	}
+	
 	public String getTipo() {
 		return tipo;
 	}
@@ -90,12 +103,12 @@ public class Parcela {
 	public ParcelaDAO getParcelaDAO() {
 		return parcelaDAO;
 	}
-	/*
-	@Override
+	
 	public boolean insert() {
 		return parcelaDAO.insert(this);
 	}
 
+	/*
 	@Override
 	public boolean update() {
 		return parcelaDAO.update(this);

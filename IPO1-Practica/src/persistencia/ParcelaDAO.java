@@ -20,15 +20,14 @@ public class ParcelaDAO {
 	public ArrayList<Parcela> getListaParcelas(){
 		return this.listaParcelas;
 	}
-	/*
+	
 	public boolean insert(Parcela parcela) {
 		boolean correcto=false;
 		
 		try {
-			Agente.getAgente().modificar("INSERT INTO parcela VALUES('"+parcela.getId()+"','"+parcela.getPrecio()+"',"
-					+reserva.getFechaSalida()+"',"+ reserva.getNombre()+"',"+ reserva.getTipo()+"',"+ reserva.getTelefono()+"',"+reserva.getEmail()+"',"
-					+ reserva.getOcupantes()+"',"+ reserva.getSolicitud()+"',"
-					+ reserva.getHoraEntrada()+"',"+ reserva.getHoraSalida()+";");
+			Agente.getAgente().modificar("INSERT INTO parcela VALUES('"+parcela.getTipo()+"',"+parcela.getPrecio()+",'"
+					+parcela.getTemporada()+"','"+ parcela.getTamano()+"','"+ parcela.getUbicacion()+"','"+ parcela.getCaracteristicas()+"','"
+					+parcela.getDisponibilidad()+"';");
 			correcto=true;
 		
 		} catch (SQLException e) {
@@ -41,7 +40,7 @@ public class ParcelaDAO {
 		
 		return correcto;
 	}
-	
+	/*
 		public boolean update(Reserva reserva) {
 		boolean correcto = false;
 		try {
@@ -88,14 +87,14 @@ public class ParcelaDAO {
 		try {
 			resultado=Agente.getAgente().leer("SELECT FROM parcelas WHERE id="+parcela.getId()+";");
 			while(resultado.next()) {
-				parcela.setId(resultado.getInt(1));
-				parcela.setTipo(resultado.getString(2));
-				parcela.setPrecio(resultado.getInt(3));
-				parcela.setTemporada(resultado.getString(4));
-				parcela.setTamano(resultado.getString(5));
-				parcela.setUbicacion(resultado.getString(6));
-				parcela.setCaracteristicas(resultado.getString(7));
-				parcela.setDisponibilidad(resultado.getString(8));
+				parcela.setId(resultado.getInt(8));
+				parcela.setTipo(resultado.getString(1));
+				parcela.setPrecio(resultado.getInt(2));
+				parcela.setTemporada(resultado.getString(3));
+				parcela.setTamano(resultado.getString(4));
+				parcela.setUbicacion(resultado.getString(5));
+				parcela.setCaracteristicas(resultado.getString(6));
+				parcela.setDisponibilidad(resultado.getString(7));
 			}
 			correcto=true;
 		} catch (SQLException e) {
@@ -118,14 +117,14 @@ public class ParcelaDAO {
 			
 			while(resultado.next()) {
 				Parcela parcela=new Parcela();
-				parcela.setId(resultado.getInt(1));
-				parcela.setTipo(resultado.getString(2));
-				parcela.setPrecio(resultado.getInt(3));
-				parcela.setTemporada(resultado.getString(4));
-				parcela.setTamano(resultado.getString(5));
-				parcela.setUbicacion(resultado.getString(6));
-				parcela.setCaracteristicas(resultado.getString(7));
-				parcela.setDisponibilidad(resultado.getString(8));
+				parcela.setId(resultado.getInt(8));
+				parcela.setTipo(resultado.getString(1));
+				parcela.setPrecio(resultado.getInt(2));
+				parcela.setTemporada(resultado.getString(3));
+				parcela.setTamano(resultado.getString(4));
+				parcela.setUbicacion(resultado.getString(5));
+				parcela.setCaracteristicas(resultado.getString(6));
+				parcela.setDisponibilidad(resultado.getString(7));
 				
 				listaParcelas.add(parcela);
 				

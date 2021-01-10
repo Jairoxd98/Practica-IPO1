@@ -85,17 +85,17 @@ public class ReservaDAO {
 		try {
 			resultado=Agente.getAgente().leer("SELECT FROM reserva WHERE id='"+reserva.getId()+"';");
 			while(resultado.next()) {
-				reserva.setId(resultado.getInt(1));
-				reserva.setFechaEntrada(resultado.getString(2));
-				reserva.setFechaSalida(resultado.getString(3));
-				reserva.setNombre(resultado.getString(4));
-				reserva.setTipo(resultado.getString(5));
-				reserva.setTelefono(resultado.getString(6));
-				reserva.setEmail(resultado.getString(7));
-				reserva.setOcupantes(resultado.getInt(8));
-				reserva.setSolicitud(resultado.getString(9));
-				reserva.setHoraEntrada(resultado.getString(10));
-				reserva.setHoraSalida(resultado.getString(11));
+				reserva.setId(resultado.getInt(11));
+				reserva.setFechaEntrada(resultado.getString(1));
+				reserva.setFechaSalida(resultado.getString(2));
+				reserva.setNombre(resultado.getString(3));
+				reserva.setTipo(resultado.getString(4));
+				reserva.setTelefono(resultado.getString(5));
+				reserva.setEmail(resultado.getString(6));
+				reserva.setOcupantes(resultado.getInt(7));
+				reserva.setSolicitud(resultado.getString(8));
+				reserva.setHoraEntrada(resultado.getString(9));
+				reserva.setHoraSalida(resultado.getString(10));
 			}
 			correcto=true;
 		} catch (SQLException e) {
@@ -118,17 +118,17 @@ public class ReservaDAO {
 			
 			while(resultado.next()) {
 				Reserva reserva=new Reserva();
-				reserva.setId(resultado.getInt(1));
-				reserva.setFechaEntrada(resultado.getString(2));
-				reserva.setFechaSalida(resultado.getString(3));
-				reserva.setNombre(resultado.getString(4));
-				reserva.setTipo(resultado.getString(5));
-				reserva.setTelefono(resultado.getString(6));
-				reserva.setEmail(resultado.getString(7));
-				reserva.setOcupantes(resultado.getInt(8));
-				reserva.setSolicitud(resultado.getString(9));
-				reserva.setHoraEntrada(resultado.getString(10));
-				reserva.setHoraSalida(resultado.getString(11));
+				reserva.setId(resultado.getInt(11));
+				reserva.setFechaEntrada(resultado.getString(1));
+				reserva.setFechaSalida(resultado.getString(2));
+				reserva.setNombre(resultado.getString(3));
+				reserva.setTipo(resultado.getString(4));
+				reserva.setTelefono(resultado.getString(5));
+				reserva.setEmail(resultado.getString(6));
+				reserva.setOcupantes(resultado.getInt(7));
+				reserva.setSolicitud(resultado.getString(8));
+				reserva.setHoraEntrada(resultado.getString(9));
+				reserva.setHoraSalida(resultado.getString(10));
 				
 				listaReservas.add(reserva);
 				

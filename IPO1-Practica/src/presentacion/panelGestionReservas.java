@@ -45,6 +45,7 @@ public class panelGestionReservas extends JPanel {
 	private JSeparator separator;
 	private JButton btnGuardar;
 
+	
 	/**
 	 * Create the panel.
 	 */

@@ -46,7 +46,7 @@ public class panelGestionPropiedades extends JPanel {
 	private JScrollPane scrollPaneParcela;
 	private JLabel lblBungalow;
 	private JScrollPane scrollPaneBungalow;
-	private JTable tablaParcelas;
+	private static JTable tablaParcelas;
 	private JTable tablaBungalows;
 	
 	
@@ -116,8 +116,8 @@ public class panelGestionPropiedades extends JPanel {
 				{
 					tablaParcelas = new JTable();
 					tablaParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					MiModeloTablaParcelas modeloTabla = new MiModeloTablaParcelas();
-					tablaParcelas.setModel(modeloTabla);
+					MiModeloTablaParcelas modeloTablaParcelas = new MiModeloTablaParcelas();
+					tablaParcelas.setModel(modeloTablaParcelas);
 					
 					listaParcelas = cargarParcelas();
 					
@@ -126,7 +126,7 @@ public class panelGestionPropiedades extends JPanel {
 								listaParcelas.get(i).getTamano(), listaParcelas.get(i).getUbicacion(), listaParcelas.get(i).getCaracteristicas(),
 								listaParcelas.get(i).getDisponibilidad()
 								};
-						modeloTabla.aniadeFila(fila);
+						modeloTablaParcelas.aniadeFila(fila);
 					}
 					
 									
@@ -176,6 +176,10 @@ public class panelGestionPropiedades extends JPanel {
 			
 		}
 
+	}
+	
+	public static JTable getpanel() {
+		return tablaParcelas;
 	}
 	
 	private static ArrayList<Parcela> cargarParcelas() {

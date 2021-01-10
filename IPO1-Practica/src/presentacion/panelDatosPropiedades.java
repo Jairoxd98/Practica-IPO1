@@ -9,10 +9,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
+import dominio.Parcela;
+
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
@@ -23,13 +32,16 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 public class panelDatosPropiedades extends JFrame implements ActionListener {
-
-	private JPanel contentPane;
 	private ButtonGroup botones = new ButtonGroup();
-	private JTextField textFieldPrecio;
+	private JTextField textFieldPrecioBungalow;
+	private JTextField textFieldPrecioParcela;
 	private JTextField textFieldCaracteristicas;
 	private JPanel panelParcela;
 	private JPanel panelBungalow;
@@ -38,6 +50,11 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 	private JTextField textFieldDescripcion;
 	private JRadioButton rdbtnParcela;
 	private JRadioButton rdbtnBungalow;
+	private JComboBox comboBoxTipoParcela ;
+	private JComboBox comboBoxTemporada ;
+	private JComboBox comboBoxTamanoParcela; 
+	private JComboBox comboBoxUbicacion;
+	private ArrayList<Parcela> listaParcelas = new ArrayList<Parcela>();
 
 
 	/**
@@ -46,7 +63,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 	public panelDatosPropiedades() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 549, 443);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -103,8 +120,8 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		lblTamano.setBounds(38, 45, 54, 24);
 		panelBungalow.add(lblTamano);
 		
-		JLabel lblCapacidad = new JLabel("Capacidad maxima pers.:");
-		lblCapacidad.setBounds(38, 91, 47, 14);
+		JLabel lblCapacidad = new JLabel("Capacidad: ");
+		lblCapacidad.setBounds(38, 91, 128, 14);
 		panelBungalow.add(lblCapacidad);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
@@ -112,7 +129,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		panelBungalow.add(lblPrecio);
 		
 		JLabel lblestancia= new JLabel("Estancia min:");
-		lblestancia.setBounds(38, 174, 47, 14);
+		lblestancia.setBounds(38, 174, 72, 14);
 		panelBungalow.add(lblestancia);
 		
 		JLabel lblEquipamiento = new JLabel("Equipamiento:");
@@ -126,23 +143,23 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		JComboBox comboBoxTamano = new JComboBox();
 		comboBoxTamano.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Grande"}));
 		comboBoxTamano.setBorder(new LineBorder(new Color(0, 0, 0)));
-		comboBoxTamano.setBounds(102, 50, 97, 14);
+		comboBoxTamano.setBounds(111, 45, 97, 23);
 		panelBungalow.add(comboBoxTamano);
 		
 		textFieldCapacidad = new JTextField();
 		textFieldCapacidad.setRequestFocusEnabled(true);
-		textFieldCapacidad.setBounds(102, 88, 96, 20);
+		textFieldCapacidad.setBounds(111, 87, 96, 20);
 		panelBungalow.add(textFieldCapacidad);
 		textFieldCapacidad.setColumns(10);
 		
-		textFieldPrecio = new JTextField();
-		textFieldPrecio.setRequestFocusEnabled(true);
-		textFieldPrecio.setBounds(102, 125, 97, 22);
-		panelBungalow.add(textFieldPrecio);
+		textFieldPrecioBungalow = new JTextField();
+		textFieldPrecioBungalow.setRequestFocusEnabled(true);
+		textFieldPrecioBungalow.setBounds(111, 124, 97, 22);
+		panelBungalow.add(textFieldPrecioBungalow);
 		
 		textFieldEstancia = new JTextField();
 		textFieldEstancia.setRequestFocusEnabled(true);
-		textFieldEstancia.setBounds(102, 170, 97, 22);
+		textFieldEstancia.setBounds(111, 169, 97, 22);
 		panelBungalow.add(textFieldEstancia);
 		
 		JComboBox comboBoxEquipamiento = new JComboBox();
@@ -193,34 +210,33 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		lblCaracterísticas.setBounds(259, 50, 105, 14);
 		panelParcela.add(lblCaracterísticas);
 		
-		JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Deluxe", "Autocaravana"}));
-		comboBoxTipo.setBorder(new LineBorder(new Color(0, 0, 0)));
-		comboBoxTipo.setBounds(111, 45, 97, 23);
-		panelParcela.add(comboBoxTipo);
+		comboBoxTipoParcela = new JComboBox();
+		comboBoxTipoParcela.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Deluxe", "Autocaravana"}));
+		comboBoxTipoParcela.setBorder(new LineBorder(new Color(0, 0, 0)));
+		comboBoxTipoParcela.setBounds(111, 45, 97, 23);
+		panelParcela.add(comboBoxTipoParcela);
 		
-		textFieldPrecio = new JTextField();
-		textFieldPrecio.setRequestFocusEnabled(true);
-		textFieldPrecio.setBounds(111, 87, 96, 20);
-		panelParcela.add(textFieldPrecio);
-		textFieldPrecio.setColumns(10);
+		textFieldPrecioParcela = new JTextField();
+		textFieldPrecioParcela.setBounds(111, 87, 96, 20);
+		panelParcela.add(textFieldPrecioParcela);
+		textFieldPrecioParcela.setColumns(10);
 		
-		JComboBox comboBoxTemporada = new JComboBox();
+		comboBoxTemporada = new JComboBox();
 		comboBoxTemporada.setModel(new DefaultComboBoxModel(new String[] {"Baja", "Media", "Alta"}));
 		comboBoxTemporada.setBounds(111, 124, 97, 22);
 		panelParcela.add(comboBoxTemporada);
 		
-		JComboBox comboBoxTamano = new JComboBox();
-		comboBoxTamano.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Grande"}));
-		comboBoxTamano.setBounds(111, 169, 97, 22);
-		panelParcela.add(comboBoxTamano);
+		comboBoxTamanoParcela = new JComboBox();
+		comboBoxTamanoParcela.setModel(new DefaultComboBoxModel(new String[] {"Pequeña", "Mediana", "Grande"}));
+		comboBoxTamanoParcela.setBounds(111, 169, 97, 22);
+		panelParcela.add(comboBoxTamanoParcela);
 		
 		textFieldCaracteristicas = new JTextField();
 		textFieldCaracteristicas.setBounds(259, 80, 192, 79);
 		panelParcela.add(textFieldCaracteristicas);
 		textFieldCaracteristicas.setColumns(10);
 		
-		JComboBox comboBoxUbicacion = new JComboBox();
+		comboBoxUbicacion = new JComboBox();
 		comboBoxUbicacion.setModel(new DefaultComboBoxModel(new String[] {"Aseos", "Fregaderos", "Piscina", "Bar", "Restaurante", "Playa"}));
 		comboBoxUbicacion.setBounds(328, 170, 123, 22);
 		panelParcela.add(comboBoxUbicacion);
@@ -252,13 +268,58 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		
 	}
 	
+	
+	//Anade una parcela
 	private class BtnAnadirActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			listaParcelas = cargarParcelas();
+			String tipo = comboBoxTipoParcela.getSelectedItem().toString();
+			String temporada = comboBoxTemporada.getSelectedItem().toString();
+			String tamano = comboBoxTamanoParcela.getSelectedItem().toString();
+			String caracteristicas = textFieldCaracteristicas.getText();
+			String precioText = textFieldPrecioParcela.getText();
+			String ubicacion = comboBoxUbicacion.getSelectedItem().toString();
+			//int precio = Integer.parseInt(precioText);
+			String disponibilidad = "disponible";
+			//System.out.println("["+tipo+", "+temporada+", "+tamano+", "+caracteristicas+", "+precioText+ ", "+disponibilidad+", "+ubicacion+"]");
+			//Parcela parcela = new Parcela(tipo, precio, temporada, tamano, ubicacion, caracteristicas, disponibilidad);
+			//parcela.insert();
+			JTable tablaParcelas = panelGestionPropiedades.getpanel();
+			Object [] fila = {tipo, precioText, temporada,tamano, ubicacion, caracteristicas, disponibilidad};
+			MiModeloTablaParcelas tb = new MiModeloTablaParcelas();
+			System.out.println(tablaParcelas.getRowCount());
+			AbstractTableModel j = (AbstractTableModel) tablaParcelas.getModel();
+			((MiModeloTablaParcelas) j).aniadeFila(fila);
+			j.fireTableDataChanged();
+			JOptionPane.showMessageDialog(null,"La parcela se ha añadido perfectamente");
+			
+			
+			
+				
+			
+			
 			
 			
 		}
 		
+	}
+	
+	
+	
+	
+	private static ArrayList<Parcela> cargarParcelas() {
+
+		Parcela parcela = new Parcela();
+		boolean correcto = false;
+
+		correcto = parcela.readAll();
+
+		if (correcto) {
+			return (parcela.getParcelaDAO().getListaParcelas());
+		} else {
+			return null;
+		}
 	}
 	
 	
