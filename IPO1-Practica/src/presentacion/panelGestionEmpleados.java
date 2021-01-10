@@ -9,6 +9,7 @@ import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
@@ -381,7 +382,6 @@ public class panelGestionEmpleados extends JPanel {
 					e.printStackTrace();
 				}
 			}
-
 		}
 	}
 	private class BtnEliminarFotoActionListener implements ActionListener {
@@ -417,9 +417,13 @@ public class panelGestionEmpleados extends JPanel {
 			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar el empleado seleccionado?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 				int n= miTabla.getSelectedRow();
-				if (n != -1) modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
-				modeloTablaEmpleados.fireTableDataChanged();
-				list.remove(n);
+				if (n != -1) {
+					modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
+					modeloTablaEmpleados.fireTableDataChanged();
+					list.remove(n);
+				}else {
+					JOptionPane.showMessageDialog(null,"Debes seleccionar un empleado para eliminarlo");
+				}
 				lblFoto.setIcon(null);
 				enableText(false);
 				vaciarCajas();
@@ -430,8 +434,14 @@ public class panelGestionEmpleados extends JPanel {
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			enableText(true);
-			MODO=0;
+			MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+			int n= miTabla.getSelectedRow();
+			if(n!=-1) {
+				enableText(true);
+				MODO=0;
+			}else {
+				JOptionPane.showMessageDialog(null,"Debes seleccionar un empleado para modificarlo");
+			}
 		}
 	}
 	private class BtnGuardarActionListener implements ActionListener {

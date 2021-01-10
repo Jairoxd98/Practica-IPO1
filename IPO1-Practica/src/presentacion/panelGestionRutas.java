@@ -23,8 +23,6 @@ import javax.swing.JTextField;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
-
-import dominio.Empleado;
 import dominio.Ruta;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -38,6 +36,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JSeparator;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import presentacion.panelDiseñoRutas;
 
 public class panelGestionRutas extends JPanel {
 	private JToolBar toolBar;
@@ -81,7 +80,7 @@ public class panelGestionRutas extends JPanel {
 	private int MODO;
 	//Imagen en la que se cargará el fichero seleccionado por el usuario
 	private ImageIcon imagen;
-	private JButton btnCargarMapa;
+	private JButton btnDisenarRuta;
 	private JButton btnBorrarMapa;
 	/**
 	 * Create the panel.
@@ -130,13 +129,13 @@ public class panelGestionRutas extends JPanel {
 				toolBar.add(btnLimpiar);
 			}
 			{
-				btnCargarMapa = new JButton("Cargar");
-				btnCargarMapa.setBackground(new Color(124, 252, 0));
-				btnCargarMapa.setToolTipText("Cargar mapa de la ruta");
-				btnCargarMapa.addActionListener(new BtnCargarMapaActionListener());
-				btnCargarMapa.setVisible(false);
-				btnCargarMapa.setIcon(new ImageIcon(panelGestionRutas.class.getResource("/presentacion/Icon/cargarMapa.png")));
-				toolBar.add(btnCargarMapa);
+				btnDisenarRuta = new JButton("Cargar");
+				btnDisenarRuta.setBackground(new Color(124, 252, 0));
+				btnDisenarRuta.setToolTipText("Cargar Mapa Ruta");
+				btnDisenarRuta.addActionListener(new BtnDisenarRutaActionListener());
+				btnDisenarRuta.setVisible(false);
+				btnDisenarRuta.setIcon(new ImageIcon(panelGestionRutas.class.getResource("/presentacion/Icon/cargarMapa.png")));
+				toolBar.add(btnDisenarRuta);
 			}
 			{
 				btnBorrarMapa = new JButton("Borrar");
@@ -366,8 +365,14 @@ public class panelGestionRutas extends JPanel {
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			enableText(true);
-			MODO=0;
+			DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+			int indice = lstRutas.getSelectedIndex();
+			if(indice!=-1) {
+				enableText(true);
+				MODO=0;
+			}else {
+				JOptionPane.showMessageDialog(null,"Debes seleccionar una ruta para modificarla");
+			}
 		}
 	}
 	
@@ -399,9 +404,13 @@ public class panelGestionRutas extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar la ruta seleccionada?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
-				int index = lstRutas.getSelectedIndex();
-				modeloLista.remove( index );
-				list.remove(index);
+				int indice = lstRutas.getSelectedIndex();
+				if(indice!=-1) {
+					modeloLista.remove( indice );
+					list.remove(indice);
+				}else {
+					JOptionPane.showMessageDialog(null,"Debes seleccionar una ruta para eliminarla");
+				}
 				lblFoto.setIcon(null);
 				enableText(false);
 				vaciarCajas();
@@ -420,39 +429,25 @@ public class panelGestionRutas extends JPanel {
 					Ruta ruta = new Ruta(Integer.parseInt(txtId.getText()),txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),ParseFecha(txtDia.getText()),txtMonitor.getText(),txtEncuentro.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()),txtDescripcion.getText());
 					//ruta.insert();
 					list.add(ruta);
-					/*
-					MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
-					Object[] fila= {list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFormacion()};
-					modeloTablaEmpleados.aniadeFila(fila);
-					modeloTablaEmpleados.fireTableDataChanged();
-					miTabla.getSelectedRow();
-					//cargarDatos(list.size()-1);
-					*/
-					 
+					DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+					modeloLista.addElement(list.get(list.size()-1).getNombre());
+					lstRutas.setSelectedIndex(list.size()-1);
+					lstRutas.ensureIndexIsVisible(list.size()-1);
+					
 					}else {//Cuando Guardas una ruta que estas modificando
-						/*MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
-						int n= miTabla.getSelectedRow();
-						if (n != -1) {
+						
+						DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
+						int indice = lstRutas.getSelectedIndex();
+						if(indice!=-1) {
 							String nombre = txtNombre.getText();
-							String formacion = txtFormacion.getText();
-							if(!nombre.equals(list.get(n-1).getNombre())) {
-								modeloTablaEmpleados.setValueAt(txtNombre.getText(), miTabla.getSelectedRow(), 0);
+							if(!nombre.equals(list.get(indice).getNombre())) {
+								modeloLista.setElementAt(txtNombre.getText(), indice);
 							}
-							if(!formacion.equals(list.get(n-1).getFormacion())) {
-								modeloTablaEmpleados.setValueAt(txtFormacion.getText(), miTabla.getSelectedRow(), 1);
-							}
-							
-							actualizaList(n);
+							actualizaList(indice);
 						}
-						modeloTablaEmpleados.fireTableDataChanged();*/
 					}
 					resetearFondo();
 					enableText(false);
-					/*DefaultListModel modeloLista= (DefaultListModel) lstRutas.getModel();
-					int indice = modeloLista.getSize();
-					modeloLista.addElement("Ruta " + (indice+1));
-					lstRutas.setSelectedIndex(indice);
-					lstRutas.ensureIndexIsVisible(indice);*/
 			}
 		}
 	}
@@ -465,29 +460,26 @@ public class panelGestionRutas extends JPanel {
 	
 	private class LstRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent arg0) {
-			for (int i = 0; i < list.size(); i++) {
-				if(lstRutas.getSelectedValue()== list.get(i).getNombre()) {
-					txtId.setText(list.get(i).getId()+"");
-					txtNombre.setText(list.get(i).getNombre());
-					txtHoraInicio.setText(list.get(i).getHoraInicio());
-					txtHoraFin.setText(list.get(i).getHoraFin());
-					txtDia.setText(list.get(i).getDia()+"");
-					txtMonitor.setText(list.get(i).getMonitor());
-					txtEncuentro.setText(list.get(i).getEncuentro());
-					txtMinParticipantes.setText(list.get(i).getMinParticipantes()+"");
-					txtMaxParticipantes.setText(list.get(i).getMaxParticipantes()+"");
-					txtDescripcion.setText(list.get(i).getDescripcion());
-					ponerMapa(list.get(i).getNombre());
-				}
-			}
+					int j= lstRutas.getSelectedIndex();
+					txtId.setText(list.get(j).getId()+"");
+					txtNombre.setText(list.get(j).getNombre());
+					txtHoraInicio.setText(list.get(j).getHoraInicio());
+					txtHoraFin.setText(list.get(j).getHoraFin());
+					txtDia.setText(list.get(j).getDia()+"");
+					txtMonitor.setText(list.get(j).getMonitor());
+					txtEncuentro.setText(list.get(j).getEncuentro());
+					txtMinParticipantes.setText(list.get(j).getMinParticipantes()+"");
+					txtMaxParticipantes.setText(list.get(j).getMaxParticipantes()+"");
+					txtDescripcion.setText(list.get(j).getDescripcion());
+					ponerMapa(list.get(j).getNombre());
 			enableText(false);
 		}
 	}
-	private class BtnCargarMapaActionListener implements ActionListener {
+	private class BtnDisenarRutaActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fcAbrir = new JFileChooser();
 			fcAbrir.setFileFilter(new ImageFilter());
-			int valorDevuelto = fcAbrir.showOpenDialog(btnCargarMapa);
+			int valorDevuelto = fcAbrir.showOpenDialog(btnDisenarRuta);
 			//Recoger el nombre del fichero seleccionado por el usuario
 			if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
 				File file = fcAbrir.getSelectedFile();
@@ -504,6 +496,7 @@ public class panelGestionRutas extends JPanel {
 			}
 		}
 	}
+	
 	private class BtnBorrarMapaActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			lblFoto.setIcon(null);
@@ -538,7 +531,7 @@ public class panelGestionRutas extends JPanel {
 		txtDescripcion.setEditable(b);
 		btnGuardar.setVisible(b);
 		btnLimpiar.setVisible(b);
-		btnCargarMapa.setVisible(b);
+		btnDisenarRuta.setVisible(b);
 		btnBorrarMapa.setVisible(b);
 	}
 	private void vaciarCajas() {//Metodo universal para vaciar todos los JTextField
