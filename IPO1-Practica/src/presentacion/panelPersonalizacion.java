@@ -20,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ButtonGroup;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class panelPersonalizacion extends JPanel {
 	private JLabel lblSeleccionaElIdioma;
@@ -33,8 +35,9 @@ public class panelPersonalizacion extends JPanel {
 	private JButton btnSpain;
 	private JButton btnEnglish;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
-	
+	private Color colorAzul = Color.BLUE;
+	private Color colorAmarillo = Color.YELLOW;
+	private Color colorVerde = new Color(0,128,0);//original
 	/**
 	 * Create the panel.
 	 */
@@ -55,7 +58,7 @@ public class panelPersonalizacion extends JPanel {
 			add(lblSeleccionaElTipo);
 		}
 		{
-			lblCambiaElColor = new JLabel("Cambia el color del fondo de la pagina:");
+			lblCambiaElColor = new JLabel("Selecciona el color del borde de la pagina:");
 			lblCambiaElColor.setBounds(78, 246, 230, 14);
 			add(lblCambiaElColor);
 		}
@@ -81,7 +84,7 @@ public class panelPersonalizacion extends JPanel {
 		}
 		{
 			cmbColor = new JComboBox();
-			cmbColor.addActionListener(new CmbColorActionListener());
+			cmbColor.addItemListener(new CmbColorItemListener());
 			cmbColor.setModel(new DefaultComboBoxModel(new String[] {"Verde", "Azul", "Amarillo"}));
 			cmbColor.setBounds(356, 243, 122, 20);
 			add(cmbColor);
@@ -123,6 +126,7 @@ public class panelPersonalizacion extends JPanel {
 			mInicio.setVisibleHora(false);
 		}
 	}
+	
 	private class BtnSpainActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		}
@@ -131,9 +135,23 @@ public class panelPersonalizacion extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
-	private class CmbColorActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	private class CmbColorItemListener implements ItemListener {
+		public void itemStateChanged(ItemEvent arg0) {
+			Usuario usuario = new Usuario(null,"Jairo",null,null,null,null,null,null,null);
+			MenuInicio mInicio= new MenuInicio(usuario).pasa();
+			
+			int op = cmbColor.getSelectedIndex();
+			if(op==0) {
+				mInicio.setBack(colorVerde);
+			}
+			if(op==1) {
+				mInicio.setBack(colorAzul);
+			}
+			if(op==2) {
+				mInicio.setBack(colorAmarillo);
+			}
 			
 		}
 	}
+	
 }

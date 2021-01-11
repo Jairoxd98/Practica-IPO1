@@ -276,6 +276,9 @@ public class MenuInicio {
 	public void setVisibleHora(boolean v) {
 		lblFechaUltimoAcceso.setVisible(v);
 	}
+	public void setBack(Color color) {
+		panel.setBackground(color);
+	}
 	
 	public void setVisible(boolean b) {
 		frmMenuInicio.setVisible(b);
