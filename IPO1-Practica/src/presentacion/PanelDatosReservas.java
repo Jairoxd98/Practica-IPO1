@@ -53,13 +53,13 @@ public class PanelDatosReservas extends JFrame {
 	private static ArrayList<Reserva> list = panelGestionReservas.getListReserva(); //Lista de reservas
 	private static JTable miTabla = panelGestionReservas.getpanel(); //Tabla de reservas
 	private static int n = panelGestionReservas.getRow(); //Fila seleccionada de reservas
-	private static int MODO;
+	private static int MODO = panelGestionReservas.getModo();
 	private Color colorBlanco = new Color(255, 255, 255);
 	private Color colorResaltado = new Color(255, 255, 210);
 	private Color colorRojo = Color.RED;
 	private Color colorDefectoBotones;
 	private JButton btnLimpiar;
-	private static PanelDatosReservas frame;
+	private static PanelDatosReservas frame= new PanelDatosReservas();
 	/**
 	 * Launch the application.
 	 */
@@ -67,9 +67,7 @@ public class PanelDatosReservas extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					int modo=0;
-					frame = new PanelDatosReservas(modo);
-					MODO=modo;
+					//frame= new PanelDatosReservas() ;
 					frame.setVisible(true);
 					if(MODO==1) {
 						cargarDatos(n); //Para Cargar los datos en las cajas del pane de la reserva a modificar
@@ -84,7 +82,7 @@ public class PanelDatosReservas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PanelDatosReservas(int MODO) {
+	public PanelDatosReservas() {
 		setTitle("Datos de Reservas");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PanelDatosReservas.class.getResource("/presentacion/Icon/choza.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -173,7 +171,7 @@ public class PanelDatosReservas extends JFrame {
 			txtEmail = new JTextField();
 			txtEmail.addFocusListener(new MiFocusListener());
 			txtEmail.setColumns(10);
-			txtEmail.setBounds(112, 259, 93, 20);
+			txtEmail.setBounds(94, 259, 111, 20);
 			pnlInfo.add(txtEmail);
 		}
 		{
@@ -241,6 +239,9 @@ public class PanelDatosReservas extends JFrame {
 			btnLimpiar.setBounds(380, 253, 38, 32);
 			pnlInfo.add(btnLimpiar);
 		}
+		if(MODO==1) {
+			cargarDatos(n); //Para Cargar los datos en las cajas del pane de la reserva a modificar
+		}
 	}
 	private class BtnGuardarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -260,7 +261,7 @@ public class PanelDatosReservas extends JFrame {
 					}else {//Cuando Guardas una reserva que estas modificando
 						
 						//cargarDatos(n); //Para Cargar los datos en las cajas del pane de la reserva a modificar
-						MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
+						MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 						
 						if (n != -1) {
 							String id= txtId.getText()+"";
@@ -273,16 +274,16 @@ public class PanelDatosReservas extends JFrame {
 							/*if(!nombre.equals(list.get(n-1).getNombre())) {
 								modeloTablaEmpleados.setValueAt(txtNombre.getText(), miTabla.getSelectedRow(), 0);
 							}*/
-							modeloTablaEmpleados.setValueAt(txtId.getText(), n, 0);
-							modeloTablaEmpleados.setValueAt(txtNombre.getText(), n, 1);
-							modeloTablaEmpleados.setValueAt(txtFechaEntrada.getText(), n, 2);
-							modeloTablaEmpleados.setValueAt(txtFechaSalida.getText(), n, 3);
-							modeloTablaEmpleados.setValueAt(txtOcupantes.getText(), n, 4);
-							modeloTablaEmpleados.setValueAt(txtTipo.getText(), n, 5);
+							modeloTablaReservas.setValueAt(txtId.getText(), n, 0);
+							modeloTablaReservas.setValueAt(txtNombre.getText(), n, 1);
+							modeloTablaReservas.setValueAt(txtFechaEntrada.getText(), n, 2);
+							modeloTablaReservas.setValueAt(txtFechaSalida.getText(), n, 3);
+							modeloTablaReservas.setValueAt(txtOcupantes.getText(), n, 4);
+							modeloTablaReservas.setValueAt(txtTipo.getText(), n, 5);
 
 							actualizaList(n);
 						}
-						modeloTablaEmpleados.fireTableDataChanged();
+						modeloTablaReservas.fireTableDataChanged();
 					}
 					
 				vaciarCajas();	
@@ -315,6 +316,8 @@ public class PanelDatosReservas extends JFrame {
 		txtEmail.setText(list.get(j).getEmail());
 		txtOcupantes.setText(list.get(j).getOcupantes()+"");
 		txtSolicitud.setText(list.get(j).getSolicitud());
+		txtHoraEntrada.setText(list.get(j).getHoraEntrada());
+		txtHoraSalida.setText(list.get(j).getHoraSalida());
 		//resetearFondo();
 	}
 	

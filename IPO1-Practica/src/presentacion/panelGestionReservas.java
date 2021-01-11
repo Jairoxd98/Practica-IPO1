@@ -46,6 +46,7 @@ public class panelGestionReservas extends JPanel {
 	private static ArrayList<Reserva> list = cargarReserva();
 	private static int ROW;
 	private ImageIcon imagen;
+	private static int MODO;
 	/**
 	 * Create the panel.
 	 */
@@ -200,18 +201,20 @@ public class panelGestionReservas extends JPanel {
 	
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-				PanelDatosReservas panel = new PanelDatosReservas(0);
+				MODO=0;
+				PanelDatosReservas panel = new PanelDatosReservas();
 				panel.setVisible(true);
 				JOptionPane.showMessageDialog(null,"Para guardar una ruta rellena todos los campos y pulsa Guardar");
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			MODO=1;
 			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 			int n= miTabla.getSelectedRow();
 			ROW=n;
 			if (n != -1) {
-				PanelDatosReservas panel = new PanelDatosReservas(0);
+				PanelDatosReservas panel = new PanelDatosReservas();
 				panel.setVisible(true);
 			}else {
 				JOptionPane.showMessageDialog(null,"Debes seleccionar una reserva para eliminarla");
@@ -248,6 +251,9 @@ public class panelGestionReservas extends JPanel {
 	}
 	public static int getRow() {
 		return ROW;
+	}
+	public static int getModo() {
+		return MODO;
 	}
 	
 }
