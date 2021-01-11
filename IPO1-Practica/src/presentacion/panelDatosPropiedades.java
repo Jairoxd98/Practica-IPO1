@@ -479,7 +479,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		modificarBungalow = new JButton("Modificar");
 		modificarBungalow.addActionListener(new BtnModificarBungalowActionListener());
 		modificarBungalow.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/editar2.png")));
-		modificarBungalow.setBounds(192, 237, 115, 31);
+		modificarBungalow.setBounds(192, 237, 140, 31);
 		panelBungalow.add(modificarBungalow);
 		
 		
@@ -550,7 +550,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		modificarParcela = new JButton("Modificar");
 		modificarParcela.addActionListener(new BtnModificarParcelaActionListener());
 		modificarParcela.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/editar2.png")));
-		modificarParcela.setBounds(192, 237, 115, 31);
+		modificarParcela.setBounds(192, 237, 140, 31);
 		panelParcela.add(modificarParcela);
 		
 	}
