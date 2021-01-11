@@ -75,6 +75,10 @@ public class login {
 	public login() {
 		initialize();
 	}
+	
+	public JFrame getFrame() {
+		return frmLogin;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -107,7 +111,7 @@ public class login {
 				panel.add(lblUserIcon, gbc_lblUserIcon);
 			}
 			{
-				lblUser = new JLabel("Usuario:");
+				lblUser = new JLabel(Messages.getString("login.lblUser.text")); //$NON-NLS-1$
 				GridBagConstraints gbc_lblUser = new GridBagConstraints();
 				gbc_lblUser.insets = new Insets(0, 0, 5, 5);
 				gbc_lblUser.gridx = 2;
@@ -139,7 +143,7 @@ public class login {
 				panel.add(lblPasswordIcon, gbc_lblPasswordIcon);
 			}
 			{
-				lblPassword = new JLabel("Contraseña:");
+				lblPassword = new JLabel(Messages.getString("login.lblPassword.text")); //$NON-NLS-1$
 				lblPassword.setEnabled(false);
 				GridBagConstraints gbc_lblPassword = new GridBagConstraints();
 				gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
@@ -162,7 +166,7 @@ public class login {
 				panel.add(pwdfPassword, gbc_pwdfPassword);
 			}
 			{
-				btnVerPassword = new JButton("");
+				btnVerPassword = new JButton(); //$NON-NLS-1$
 				btnVerPassword.setEnabled(false);
 				btnVerPassword.addActionListener(new BtnVerPasswordActionListener());
 				btnVerPassword.setBorder(null);
@@ -175,7 +179,7 @@ public class login {
 				panel.add(btnVerPassword, gbc_btnVerPassword);
 			}
 			{
-				chckbxRecuerdame = new JCheckBox("Recuerdame");
+				chckbxRecuerdame = new JCheckBox(Messages.getString("login.chckbxRecuerdame.text")); //$NON-NLS-1$
 				GridBagConstraints gbc_chckbxRecuerdame = new GridBagConstraints();
 				gbc_chckbxRecuerdame.insets = new Insets(0, 0, 5, 5);
 				gbc_chckbxRecuerdame.gridx = 2;
@@ -183,7 +187,7 @@ public class login {
 				panel.add(chckbxRecuerdame, gbc_chckbxRecuerdame);
 			}
 			{
-				btnEntrar = new JButton("Entrar");
+				btnEntrar = new JButton(Messages.getString("login.btnEntrar.text")); //$NON-NLS-1$
 				btnEntrar.addActionListener(new BtnEntrarActionListener());
 				btnEntrar.setEnabled(false);
 				btnEntrar.setIcon(new ImageIcon(login.class.getResource("/presentacion/Icon/login.png")));

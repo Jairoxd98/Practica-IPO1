@@ -40,7 +40,7 @@ import javax.swing.event.TreeSelectionEvent;
 
 public class MenuInicio {
 
-	JFrame frmMenuInicio;
+	static JFrame frmMenuInicio;
 	private JPanel panel;
 	private JButton btnCerrarSesion;
 	private JButton btnAyuda;
@@ -340,6 +340,10 @@ public class MenuInicio {
 	
 	public MenuInicio pasa() {
 		return window;
+	}
+	
+	public static JFrame getFrame() {
+		return frmMenuInicio;
 	}
 	
 	

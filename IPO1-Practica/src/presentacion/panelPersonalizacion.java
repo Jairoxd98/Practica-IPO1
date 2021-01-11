@@ -3,6 +3,7 @@ package presentacion;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+
 import dominio.Usuario;
 
 import javax.swing.JLabel;
@@ -129,10 +130,22 @@ public class panelPersonalizacion extends JPanel {
 	
 	private class BtnSpainActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			Messages.setIdioma("Español");
+
+			login ventana = new login();
+			ventana.getFrame().setVisible(true);
+			MenuInicio.getFrame().dispose();
+			
+			
 		}
 	}
 	private class BtnEnglishActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			Messages.setIdioma("inglés");
+			
+			login ventana = new login();
+			ventana.getFrame().setVisible(true);
+			MenuInicio.getFrame().dispose();
 		}
 	}
 	private class CmbColorItemListener implements ItemListener {
