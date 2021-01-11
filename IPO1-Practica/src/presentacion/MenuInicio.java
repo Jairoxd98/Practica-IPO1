@@ -65,7 +65,7 @@ public class MenuInicio {
 	private JPanel pnlDiseñoRutas;
 	private JPanel pnlGestionPropiedades;
 	private JPanel pnlActividades;
-
+	private static MenuInicio window;
 	/**
 	 * Launch the application.
 	 */
@@ -74,7 +74,7 @@ public class MenuInicio {
 			public void run() {
 				try {							//Cuando se ejecuta solo esta ventana sin entrar por el login
 					Usuario usuario = new Usuario("01234567T", "Alba", "Arias", "987654321", "Calle", "Alba@gmail.es", "03-01-2000", "Alba", "123");
-					MenuInicio window = new MenuInicio(usuario);
+					window = new MenuInicio(usuario);
 					window.frmMenuInicio.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -335,7 +335,9 @@ public class MenuInicio {
 		}
 	}
 	
-	
+	public MenuInicio pasa() {
+		return window;
+	}
 	
 	
 }

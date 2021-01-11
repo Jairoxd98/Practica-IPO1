@@ -111,21 +111,16 @@ public class panelPersonalizacion extends JPanel {
 
 	private class RdbtnSiActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
+			Usuario usuario = new Usuario(null,"Jairo",null,null,null,null,null,null,null);
+			MenuInicio mInicio= new MenuInicio(usuario).pasa();
+			mInicio.setVisibleHora(true);
 		}
 	}
 	private class RdbtnNoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			/*Usuario usuario = new Usuario();
-			login log = new login();
-			usuario=log.EsEsteUser();
-			System.out.println(usuario);
-			MenuInicio mInicio= new MenuInicio(usuario);
-			mInicio.setVisibleHora(false);*/
-			/*Usuario usuario = new Usuario("Jairo","Jairo","a","a","a","a","a","a","a");
-			MenuInicio mInicio= new MenuInicio(usuario);
+			Usuario usuario = new Usuario(null,"Jairo",null,null,null,null,null,null,null);
+			MenuInicio mInicio= new MenuInicio(usuario).pasa();
 			mInicio.setVisibleHora(false);
-			mInicio.frmMenuInicio.setVisible(true);*/
 		}
 	}
 	private class BtnSpainActionListener implements ActionListener {
