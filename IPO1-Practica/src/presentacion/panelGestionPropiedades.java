@@ -63,24 +63,24 @@ public class panelGestionPropiedades extends JPanel {
 			toolBar.setBorder(new LineBorder(new Color(0, 0, 0)));
 			add(toolBar, BorderLayout.NORTH);
 			{
-				btnAnadir = new JButton("Añadir");
-				btnAnadir.setToolTipText("Añadir Propiedad nueva");
+				btnAnadir = new JButton(Messages.getString("panelGestionPropiedades.btnAnadir.text")); //$NON-NLS-1$
+				btnAnadir.setToolTipText(Messages.getString("panelGestionPropiedades.btnAnadir.toolTipText")); //$NON-NLS-1$
 				btnAnadir.addActionListener(new BtnAnadirActionListener());
 				btnAnadir.setIcon(
 						new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/anadir2.png")));
 				toolBar.add(btnAnadir);
 			}
 			{
-				btnModificar = new JButton("Modificar");
-				btnModificar.setToolTipText("Modificar propiedad seleccionada");
+				btnModificar = new JButton(Messages.getString("panelGestionPropiedades.btnModificar.text")); //$NON-NLS-1$
+				btnModificar.setToolTipText(Messages.getString("panelGestionPropiedades.btnModificar.toolTipText")); //$NON-NLS-1$
 				btnModificar.addActionListener(new BtnModificarActionListener());
 				btnModificar.setIcon(
 						new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/editar2.png")));
 				toolBar.add(btnModificar);
 			}
 			{
-				btnEliminar = new JButton("Eliminar");
-				btnEliminar.setToolTipText("Eliminar propiedad seleccionada");
+				btnEliminar = new JButton(Messages.getString("panelGestionPropiedades.btnEliminar.text")); //$NON-NLS-1$
+				btnEliminar.setToolTipText(Messages.getString("panelGestionPropiedades.btnEliminar.toolTipText")); //$NON-NLS-1$
 				btnEliminar.addActionListener(new BtnEliminarActionListener());
 				btnEliminar.setIcon(
 						new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/borrar.png")));

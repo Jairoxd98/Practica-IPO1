@@ -45,31 +45,31 @@ public class panelPersonalizacion extends JPanel {
 	public panelPersonalizacion() {
 		setForeground(Color.WHITE);
 		setBackground(Color.WHITE);
-		setBorder(new TitledBorder(null, "Personalizacion de la pagina", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(null, Messages.getString("panelPersonalizacion.this.borderTitle"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
 		setLayout(null);
 		
 		{
-			lblSeleccionaElIdioma = new JLabel("Selecciona el idioma:");
+			lblSeleccionaElIdioma = new JLabel(Messages.getString("panelPersonalizacion.lblSeleccionaElIdioma.text")); //$NON-NLS-1$
 			lblSeleccionaElIdioma.setBounds(78, 58, 175, 14);
 			add(lblSeleccionaElIdioma);
 		}
 		{
-			lblSeleccionaElTipo = new JLabel("Selecciona el tipo de letra de la pagina:");
+			lblSeleccionaElTipo = new JLabel(Messages.getString("panelPersonalizacion.lblSeleccionaElTipo.text")); //$NON-NLS-1$
 			lblSeleccionaElTipo.setBounds(78, 169, 268, 14);
 			add(lblSeleccionaElTipo);
 		}
 		{
-			lblCambiaElColor = new JLabel("Selecciona el color del borde de la pagina:");
+			lblCambiaElColor = new JLabel(Messages.getString("panelPersonalizacion.lblCambiaElColor.text")); //$NON-NLS-1$
 			lblCambiaElColor.setBounds(78, 246, 268, 14);
 			add(lblCambiaElColor);
 		}
 		{
-			lbldeseaQueAprezca = new JLabel("¿Desea que aprezca la fecha de ultima acceso?");
+			lbldeseaQueAprezca = new JLabel(Messages.getString("panelPersonalizacion.lbldeseaQueAprezca.text")); //$NON-NLS-1$
 			lbldeseaQueAprezca.setBounds(78, 333, 295, 14);
 			add(lbldeseaQueAprezca);
 		}
 		{
-			rdbtnSi = new JRadioButton("Si");
+			rdbtnSi = new JRadioButton(Messages.getString("panelPersonalizacion.rdbtnSi.text")); //$NON-NLS-1$
 			rdbtnSi.addActionListener(new RdbtnSiActionListener());
 			buttonGroup.add(rdbtnSi);
 			rdbtnSi.setSelected(true);
@@ -77,7 +77,7 @@ public class panelPersonalizacion extends JPanel {
 			add(rdbtnSi);
 		}
 		{
-			rdbtnNo = new JRadioButton("No");
+			rdbtnNo = new JRadioButton(Messages.getString("panelPersonalizacion.rdbtnNo.text")); //$NON-NLS-1$
 			rdbtnNo.addActionListener(new RdbtnNoActionListener());
 			buttonGroup.add(rdbtnNo);
 			rdbtnNo.setBounds(425, 329, 53, 23);

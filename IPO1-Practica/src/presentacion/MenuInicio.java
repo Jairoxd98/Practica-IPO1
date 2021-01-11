@@ -205,7 +205,7 @@ public class MenuInicio {
 							lblFechaUltimoAcceso.setForeground(Color.BLACK);
 						}
 						{
-							btnDatosPersonales = new JButton("Datos Personales");
+							btnDatosPersonales = new JButton(Messages.getString("MenuInicio.btnDatosPersonales.text")); //$NON-NLS-1$
 							btnDatosPersonales.addActionListener(new BtnDatosPersonalesActionListener());
 							btnDatosPersonales.setBounds(0, 83, 155, 23);
 							panelBotones.add(btnDatosPersonales);
@@ -214,7 +214,7 @@ public class MenuInicio {
 							btnDatosPersonales.setForeground(Color.BLACK);
 						}
 						{
-							btnPersonalizacion = new JButton("Personalizacion");
+							btnPersonalizacion = new JButton(Messages.getString("MenuInicio.btnPersonalizacion.text")); //$NON-NLS-1$
 							btnPersonalizacion.addActionListener(new BtnPersonalizacionActionListener());
 							btnPersonalizacion.setBounds(0, 117, 155, 23);
 							panelBotones.add(btnPersonalizacion);
@@ -223,7 +223,7 @@ public class MenuInicio {
 							btnPersonalizacion.setForeground(Color.BLACK);
 						}
 						{
-							btnAyuda = new JButton("Ayuda");
+							btnAyuda = new JButton(Messages.getString("MenuInicio.btnAyuda.text")); //$NON-NLS-1$
 							btnAyuda.addActionListener(new BtnAyudaActionListener());
 							btnAyuda.setBounds(0, 151, 155, 23);
 							panelBotones.add(btnAyuda);
@@ -232,7 +232,7 @@ public class MenuInicio {
 							btnAyuda.setIcon(new ImageIcon(MenuInicio.class.getResource("/presentacion/Icon/informacion.png")));
 						}
 						{
-							btnCerrarSesion = new JButton("Cerrar Sesion");
+							btnCerrarSesion = new JButton(Messages.getString("MenuInicio.btnCerrarSesion.text")); //$NON-NLS-1$
 							btnCerrarSesion.setBounds(0, 185, 155, 23);
 							panelBotones.add(btnCerrarSesion);
 							btnCerrarSesion.setBackground(Color.ORANGE);

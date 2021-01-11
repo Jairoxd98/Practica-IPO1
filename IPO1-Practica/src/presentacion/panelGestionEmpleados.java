@@ -82,60 +82,60 @@ public class panelGestionEmpleados extends JPanel {
 			toolBar.setBounds(0, 0, 653, 33);
 			add(toolBar);
 			{
-				btnAnadir = new JButton("Añadir");
+				btnAnadir = new JButton(Messages.getString("panelGestionEmpleados.btnAnadir.text")); //$NON-NLS-1$
 				btnAnadir.addActionListener(new BtnAnadirActionListener());
-				btnAnadir.setToolTipText("Añadir Reserva nueva");
+				btnAnadir.setToolTipText(Messages.getString("panelGestionEmpleados.btnAnadir.toolTipText")); //$NON-NLS-1$
 				btnAnadir.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/anadir2.png")));
 				toolBar.add(btnAnadir);
 			}
 			{
-				btnModificar = new JButton("Modificar");
+				btnModificar = new JButton(Messages.getString("panelGestionEmpleados.btnModificar.text")); //$NON-NLS-1$
 				btnModificar.addActionListener(new BtnModificarActionListener());
-				btnModificar.setToolTipText("Modificar Reserva seleccionada");
+				btnModificar.setToolTipText(Messages.getString("panelGestionEmpleados.btnModificar.toolTipText")); //$NON-NLS-1$
 				btnModificar.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/editar2.png")));
 				toolBar.add(btnModificar);
 			}
 			{
-				btnEliminar = new JButton("Eliminar");
+				btnEliminar = new JButton(Messages.getString("panelGestionEmpleados.btnEliminar.text")); //$NON-NLS-1$
 				btnEliminar.addActionListener(new BtnEliminarActionListener());
-				btnEliminar.setToolTipText("Eliminar Reserva seleccionada");
+				btnEliminar.setToolTipText(Messages.getString("panelGestionEmpleados.btnEliminar.toolTipText")); //$NON-NLS-1$
 				btnEliminar.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/borrar.png")));
 				toolBar.add(btnEliminar);
 			}
 		}
 		{
 			pnlInfo = new JPanel();
-			pnlInfo.setBorder(new TitledBorder(null, "Datos Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnlInfo.setBorder(new TitledBorder(null, Messages.getString("panelGestionEmpleados.pnlInfo.borderTitle"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
 			pnlInfo.setBounds(187, 46, 453, 393);
 			add(pnlInfo);
 			pnlInfo.setLayout(null);
 			{
-				lblNombre = new JLabel("Nombre:");
+				lblNombre = new JLabel(Messages.getString("panelGestionEmpleados.lblNombre.text")); //$NON-NLS-1$
 				lblNombre.setBounds(36, 41, 75, 14);
 				pnlInfo.add(lblNombre);
 			}
 			{
-				lblApellidos = new JLabel("Apellidos:");
+				lblApellidos = new JLabel(Messages.getString("panelGestionEmpleados.lblApellidos.text")); //$NON-NLS-1$
 				lblApellidos.setBounds(36, 91, 64, 14);
 				pnlInfo.add(lblApellidos);
 			}
 			{
-				lblDni = new JLabel("DNI:");
+				lblDni = new JLabel(Messages.getString("panelGestionEmpleados.lblDni.text")); //$NON-NLS-1$
 				lblDni.setBounds(36, 143, 64, 14);
 				pnlInfo.add(lblDni);
 			}
 			{
-				lblTelefono = new JLabel("Telefono:");
+				lblTelefono = new JLabel(Messages.getString("panelGestionEmpleados.lblTelefono.text")); //$NON-NLS-1$
 				lblTelefono.setBounds(36, 195, 64, 14);
 				pnlInfo.add(lblTelefono);
 			}
 			{
-				lblCorreo = new JLabel("Correo:");
+				lblCorreo = new JLabel(Messages.getString("panelGestionEmpleados.lblCorreo.text")); //$NON-NLS-1$
 				lblCorreo.setBounds(36, 250, 64, 14);
 				pnlInfo.add(lblCorreo);
 			}
 			{
-				lblIdiomas = new JLabel("Idiomas:");
+				lblIdiomas = new JLabel(Messages.getString("panelGestionEmpleados.lblIdiomas.text")); //$NON-NLS-1$
 				lblIdiomas.setBounds(36, 351, 75, 14);
 				pnlInfo.add(lblIdiomas);
 			}
@@ -149,7 +149,7 @@ public class panelGestionEmpleados extends JPanel {
 				btnPonerFoto = new JButton("");
 				btnPonerFoto.addActionListener(new BtnPonerFotoActionListener());
 				btnPonerFoto.setEnabled(false);
-				btnPonerFoto.setToolTipText("Cargar Foto");
+				btnPonerFoto.setToolTipText(Messages.getString("panelGestionEmpleados.btnPonerFoto.toolTipText")); //$NON-NLS-1$
 				btnPonerFoto.setBackground(new Color(34, 139, 34));
 				btnPonerFoto.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/camara.png")));
 				btnPonerFoto.setBounds(304, 214, 134, 33);
@@ -159,7 +159,7 @@ public class panelGestionEmpleados extends JPanel {
 				btnEliminarFoto = new JButton("");
 				btnEliminarFoto.addActionListener(new BtnEliminarFotoActionListener());
 				btnEliminarFoto.setEnabled(false);
-				btnEliminarFoto.setToolTipText("Eliminar Foto");
+				btnEliminarFoto.setToolTipText(Messages.getString("panelGestionEmpleados.btnEliminarFoto.toolTipText")); //$NON-NLS-1$
 				btnEliminarFoto.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/camara.png")));
 				btnEliminarFoto.setBackground(new Color(255, 69, 0));
 				btnEliminarFoto.setBounds(303, 257, 135, 33);
@@ -221,7 +221,7 @@ public class panelGestionEmpleados extends JPanel {
 			}
 			{
 				btnGuardar = new JButton("");
-				btnGuardar.setToolTipText("Guardar datos");
+				btnGuardar.setToolTipText(Messages.getString("panelGestionEmpleados.btnGuardar.toolTipText")); //$NON-NLS-1$
 				btnGuardar.addActionListener(new BtnGuardarActionListener());
 				btnGuardar.setVisible(false);
 				btnGuardar.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/guardar.png")));
@@ -230,7 +230,7 @@ public class panelGestionEmpleados extends JPanel {
 			}
 			{
 				btnLimpiarText = new JButton("");
-				btnLimpiarText.setToolTipText("Limpiar cajas de texto");
+				btnLimpiarText.setToolTipText(Messages.getString("panelGestionEmpleados.btnLimpiarText.toolTipText")); //$NON-NLS-1$
 				btnLimpiarText.setVisible(false);
 				btnLimpiarText.addActionListener(new BtnLimpiarTextActionListener());
 				btnLimpiarText.setIcon(new ImageIcon(panelGestionEmpleados.class.getResource("/presentacion/Icon/limpio.png")));
