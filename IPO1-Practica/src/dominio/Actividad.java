@@ -33,6 +33,7 @@ public class Actividad implements CRUD{
 		this.precioMes = precioMes;
 		this.destinado = destinado;
 		this.descripcion = descripcion;
+		this.actividadDAO=new ActividadDAO();
 	}
 	public Actividad() {
 		this.actividadDAO=new ActividadDAO();

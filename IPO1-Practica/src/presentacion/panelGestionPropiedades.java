@@ -36,11 +36,9 @@ import java.awt.Cursor;
 
 public class panelGestionPropiedades extends JPanel {
 
-	private JButton btnAnadir;
-	private JButton btnModificar;
-	private JButton btnEliminar;
-	private JButton btnGuardar;
-	private JSeparator separator;
+	private static JButton btnAnadir;
+	private static JButton btnModificar;
+	private static JButton btnEliminar;
 	private JPanel panel;
 	private JToolBar toolBar;
 	private JScrollPane scrollPaneParcela;
@@ -74,7 +72,7 @@ public class panelGestionPropiedades extends JPanel {
 			}
 			{
 				btnModificar = new JButton("Modificar");
-				btnModificar.setToolTipText("Modificar Empleado seleccionado");
+				btnModificar.setToolTipText("Modificar propiedad seleccionada");
 				btnModificar.addActionListener(new BtnModificarActionListener());
 				btnModificar.setIcon(
 						new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/editar2.png")));
@@ -82,25 +80,11 @@ public class panelGestionPropiedades extends JPanel {
 			}
 			{
 				btnEliminar = new JButton("Eliminar");
-				btnEliminar.setToolTipText("Eliminar Empleado seleccionado");
+				btnEliminar.setToolTipText("Eliminar propiedad seleccionada");
 				btnEliminar.addActionListener(new BtnEliminarActionListener());
 				btnEliminar.setIcon(
 						new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/borrar.png")));
 				toolBar.add(btnEliminar);
-			}
-			{
-				btnGuardar = new JButton("Guardar");
-				btnGuardar.addActionListener(new BtnGuardarActionListener());
-				btnGuardar.setToolTipText("Guardar Modificaciones");
-				btnGuardar.setVisible(false);
-				btnGuardar.setIcon(
-						new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/guardar.png")));
-				toolBar.add(btnGuardar);
-			}
-
-			{
-				separator = new JSeparator();
-				toolBar.add(separator);
 			}
 		}
 		{
@@ -218,14 +202,19 @@ public class panelGestionPropiedades extends JPanel {
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			ventanaDatos.setVisible(true);
+			btnModificar.setEnabled(false);
+			btnEliminar.setEnabled(false);
+			btnAnadir.setEnabled(false);
 		}
 	}
 
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			
-			if(tablaParcelas.getSelectedRow() != -1) {
-				String c0 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 0);
+			int n=tablaParcelas.getSelectedRow();
+			int n2=tablaBungalows.getSelectedRow();
+			if( n != -1) {
+				//String c = listaParcelas.get(n).getTamano()+"";
+				String c0 = listaParcelas.get(n).getTamano()+"";
 				int c1 = (int) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 1);
 				String c2 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 2);
 				String c3 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 3);
@@ -236,7 +225,7 @@ public class panelGestionPropiedades extends JPanel {
 				ventanaData.setVisible(true);
 						
 				System.out.println(c0+ ", "+c1+ ", "+c2+", "+c3+", "+c4+", "+c5);
-			}else if(tablaBungalows.getSelectedRow() != -1){
+			}else if(n2 != -1){
 				String c0 = (String) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 0);
 				int c1 = (int) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 1);
 				int c2 = (int) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 2);
@@ -246,6 +235,9 @@ public class panelGestionPropiedades extends JPanel {
 				System.out.println(c0+ ", "+c1+ ", "+c2+", "+c3+", "+c4);
 				panelDatosPropiedades ventanaData = new panelDatosPropiedades(c0,c1,c2,c3,c4);
 				ventanaData.setVisible(true);
+				/*btnModificar.setEnabled(false);
+				btnEliminar.setEnabled(false);
+				btnAnadir.setEnabled(false);*/
 			}else {
 				JOptionPane.showMessageDialog(null, "Seleccione primero una única fila de cualquier columna");
 			}
@@ -276,11 +268,14 @@ public class panelGestionPropiedades extends JPanel {
 			}
 		}
 	}
-
-	private class BtnGuardarActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
-
-		}
+	public static JButton getBtnAnadir() {
+		return btnAnadir;
 	}
-	
+	public static JButton getBtnModificar() {
+		return btnModificar;
+	}
+	public static JButton getBtnEliminar() {
+		return btnEliminar;
+	}
+
 }

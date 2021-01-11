@@ -30,6 +30,7 @@ public class Ruta implements CRUD{
 		this.minParticipantes = minParticipantes;
 		this.maxParticipantes = maxParticipantes;
 		this.descripcion = descripcion;
+		this.rutaDAO=new RutaDAO();
 	}
 	public Ruta() {
 		this.rutaDAO=new RutaDAO();

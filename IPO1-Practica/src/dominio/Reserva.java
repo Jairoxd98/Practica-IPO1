@@ -33,6 +33,7 @@ public class Reserva implements CRUD{
 		this.solicitud = solicitud;
 		this.horaEntrada = horaEntrada;
 		this.horaSalida = horaSalida;
+		this.reservaDAO= new ReservaDAO();
 	}
 	public Reserva() {
 		this.reservaDAO= new ReservaDAO();

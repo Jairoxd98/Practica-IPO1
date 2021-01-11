@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
 
 public class panelDatosPropiedades extends JFrame implements ActionListener {
 	private ButtonGroup botones = new ButtonGroup();
@@ -79,6 +80,8 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public panelDatosPropiedades() {
+		addWindowListener(new ThisWindowListener());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(panelDatosPropiedades.class.getResource("/presentacion/Icon/choza.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 549, 443);
 		JPanel contentPane = new JPanel();
@@ -312,7 +315,10 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaParcelas) j).aniadeFila(fila);
 				j.fireTableDataChanged();
 				JOptionPane.showMessageDialog(null, "La parcela se ha añadido perfectamente");
-				frame.setVisible(false);
+				//frame.setVisible(false);
+				panelGestionPropiedades.getBtnAnadir().setEnabled(true);
+				panelGestionPropiedades.getBtnEliminar().setEnabled(true);
+				panelGestionPropiedades.getBtnModificar().setEnabled(true);
 			}
 
 		}
@@ -361,7 +367,10 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaBungalows) j).aniadeFila(fila);
 				j.fireTableDataChanged();
 				JOptionPane.showMessageDialog(null, "El bungalow se ha añadido perfectamente");
-				frame.setVisible(false);
+				panelGestionPropiedades.getBtnAnadir().setEnabled(true);
+				panelGestionPropiedades.getBtnEliminar().setEnabled(true);
+				panelGestionPropiedades.getBtnModificar().setEnabled(true);
+				//frame.setVisible(false);
 			}
 		}
 	}
@@ -440,6 +449,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		comboBoxTamanoBungalow.setModel(new DefaultComboBoxModel(new String[] { "Pequeña", "Mediana", "Grande" }));
 		comboBoxTamanoBungalow.setBorder(new LineBorder(new Color(0, 0, 0)));
 		comboBoxTamanoBungalow.setBounds(111, 45, 97, 23);
+		comboBoxTamanoBungalow.setSelectedItem(tamano);
 		panelBungalow.add(comboBoxTamanoBungalow);
 
 		textFieldCapacidad = new JTextField();
@@ -588,6 +598,9 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				tablaParcelas.clearSelection();
 				JOptionPane.showMessageDialog(null, "La parcela se ha modificado perfectamente");
 				//frame.setVisible(false);
+				panelGestionReservas.getBtnAnadir().setEnabled(true);
+				panelGestionReservas.getBtnEliminar().setEnabled(true);
+				panelGestionReservas.getBtnModificar().setEnabled(true);
 			}
 		}
 	}
@@ -638,9 +651,20 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaBungalows) j).setValueAt(equipamiento, tablaBungalows.getSelectedRow(), 4);
 				tablaBungalows.clearSelection();
 				JOptionPane.showMessageDialog(null, "El bungalow se ha modificado perfectamente");
-				frame.setVisible(false);
+				//frame.setVisible(false);
+				panelGestionReservas.getBtnAnadir().setEnabled(true);
+				panelGestionReservas.getBtnEliminar().setEnabled(true);
+				panelGestionReservas.getBtnModificar().setEnabled(true);
 			}
 			
+		}
+	}
+	private class ThisWindowListener extends WindowAdapter {
+		@Override
+		public void windowClosed(WindowEvent e) {
+			panelGestionPropiedades.getBtnAnadir().setEnabled(true);
+			panelGestionPropiedades.getBtnEliminar().setEnabled(true);
+			panelGestionPropiedades.getBtnModificar().setEnabled(true);
 		}
 	}
 }
