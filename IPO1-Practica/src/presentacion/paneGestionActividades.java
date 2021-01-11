@@ -325,6 +325,8 @@ public class paneGestionActividades extends JPanel {
 				if(indice!=-1) {
 					modeloLista.remove(indice);
 					list.remove(indice);
+					Actividad actividad = new Actividad(txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),txtDia.getText(),txtMonitor.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()), Double.parseDouble(txtPrecioHora.getText()), Double.parseDouble(txtPrecioMes.getText()), txtDestinado.getText(), txtDescripcion.getText());
+					actividad.delete();
 				}else {
 					JOptionPane.showMessageDialog(null,"Debes seleccionar una actividad para eliminarla");
 				}
@@ -343,7 +345,7 @@ public class paneGestionActividades extends JPanel {
 			}else {//Si no los guarda, 	
 				if(MODO==1) {//Cuando Guardas una actividad que estas añadiendo
 					Actividad actividad = new Actividad(txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),txtDia.getText(),txtMonitor.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()), Double.parseDouble(txtPrecioHora.getText()), Double.parseDouble(txtPrecioMes.getText()), txtDestinado.getText(), txtDescripcion.getText());
-					//actividad.insert();
+					actividad.insert();
 					list.add(actividad);
 					DefaultListModel modeloLista= (DefaultListModel) lstActividades.getModel();
 					modeloLista.addElement(list.get(list.size()-1).getNombre());
@@ -361,7 +363,8 @@ public class paneGestionActividades extends JPanel {
 								modeloLista.setElementAt(txtNombre.getText(), indice);
 							}
 							actualizaList(indice);
-							
+							//Actividad actividad = new Actividad(txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),txtDia.getText(),txtMonitor.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()), Double.parseDouble(txtPrecioHora.getText()), Double.parseDouble(txtPrecioMes.getText()), txtDestinado.getText(), txtDescripcion.getText());
+							//actividad.update();
 							JOptionPane.showMessageDialog(null,"Has modificado correctamente la actividad "+txtNombre.getText());
 						}
 					}

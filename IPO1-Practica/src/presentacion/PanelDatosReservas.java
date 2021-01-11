@@ -254,7 +254,7 @@ public class PanelDatosReservas extends JFrame {
 				
 				if(MODO==0) {//Cuando Guardas una reserva que estas añadiendo
 					Reserva reserva = new Reserva(Integer.parseInt(txtId.getText()), txtFechaEntrada.getText(), txtFechaSalida.getText(), txtNombre.getText(), txtTipo.getText(),txtTelefono.getText(),txtEmail.getText(),Integer.parseInt(txtOcupantes.getText()),txtSolicitud.getText(),txtHoraEntrada.getText(),txtHoraSalida.getText());
-					//reserva.insert();
+					reserva.insert();
 					list.add(reserva);
 					MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 					Object[] fila= {list.get(list.size()-1).getId(), list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFechaEntrada(), list.get(list.size()-1).getFechaSalida(), list.get(list.size()-1).getOcupantes(), list.get(list.size()-1).getTipo()};
@@ -281,6 +281,9 @@ public class PanelDatosReservas extends JFrame {
 							modeloTablaReservas.setValueAt(txtTipo.getText(), n, 5);
 
 							actualizaList(n);
+							
+							Reserva reserva = new Reserva(Integer.parseInt(txtId.getText()), txtFechaEntrada.getText(), txtFechaSalida.getText(), txtNombre.getText(), txtTipo.getText(),txtTelefono.getText(),txtEmail.getText(),Integer.parseInt(txtOcupantes.getText()),txtSolicitud.getText(),txtHoraEntrada.getText(),txtHoraSalida.getText());
+							reserva.update();
 						}
 						modeloTablaReservas.fireTableDataChanged();
 					}

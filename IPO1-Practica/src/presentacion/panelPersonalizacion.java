@@ -49,22 +49,22 @@ public class panelPersonalizacion extends JPanel {
 		
 		{
 			lblSeleccionaElIdioma = new JLabel("Selecciona el idioma:");
-			lblSeleccionaElIdioma.setBounds(78, 58, 138, 14);
+			lblSeleccionaElIdioma.setBounds(78, 58, 175, 14);
 			add(lblSeleccionaElIdioma);
 		}
 		{
 			lblSeleccionaElTipo = new JLabel("Selecciona el tipo de letra de la pagina:");
-			lblSeleccionaElTipo.setBounds(78, 169, 230, 14);
+			lblSeleccionaElTipo.setBounds(78, 169, 268, 14);
 			add(lblSeleccionaElTipo);
 		}
 		{
 			lblCambiaElColor = new JLabel("Selecciona el color del borde de la pagina:");
-			lblCambiaElColor.setBounds(78, 246, 230, 14);
+			lblCambiaElColor.setBounds(78, 246, 268, 14);
 			add(lblCambiaElColor);
 		}
 		{
 			lbldeseaQueAprezca = new JLabel("¿Desea que aprezca la fecha de ultima acceso?");
-			lbldeseaQueAprezca.setBounds(78, 333, 277, 14);
+			lbldeseaQueAprezca.setBounds(78, 333, 295, 14);
 			add(lbldeseaQueAprezca);
 		}
 		{

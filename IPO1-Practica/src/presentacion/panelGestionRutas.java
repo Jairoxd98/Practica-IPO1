@@ -414,6 +414,9 @@ public class panelGestionRutas extends JPanel {
 				if(indice!=-1) {
 					modeloLista.remove(indice);
 					list.remove(indice);
+					Ruta ruta = new Ruta(Integer.parseInt(txtId.getText()),txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),ParseFecha(txtDia.getText()),txtMonitor.getText(),txtEncuentro.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()),txtDescripcion.getText());
+					ruta.delete();
+					
 					//Para Actualizar la lista de Diseño Rutas
 					ArrayList<Ruta> listRuta= pDRutas.getList();
 					listRuta.remove(indice);
@@ -464,6 +467,8 @@ public class panelGestionRutas extends JPanel {
 								modeloLista.setElementAt(txtNombre.getText(), indice);
 							}
 							actualizaList(indice);
+							//Ruta ruta = new Ruta(Integer.parseInt(txtId.getText()),txtNombre.getText(),txtHoraInicio.getText(),txtHoraFin.getText(),ParseFecha(txtDia.getText()),txtMonitor.getText(),txtEncuentro.getText(),Integer.parseInt(txtMinParticipantes.getText()),Integer.parseInt(txtMaxParticipantes.getText()),txtDescripcion.getText());
+							//ruta.update();
 							
 							//Para Actualizar la lista de Diseño Rutas
 							JList lstRutas = pDRutas.getpanel();

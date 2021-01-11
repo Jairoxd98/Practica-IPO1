@@ -23,8 +23,7 @@ public class EmpleadoDAO {
 	public boolean insert(Empleado empleado) {
 		boolean correcto=false;
 		
-		try {System.out.println("INSERT INTO empleado VALUES('"+empleado.getDNI()+"','"+empleado.getNombre()+"','"+empleado.getApellidos()+"','"
-					+empleado.getTelefono()+"','"+ empleado.getCorreo()+"','"+ empleado.getIdiomas()+"','"+ empleado.getFormacion()+"');");
+		try {
 			Agente.getAgente().modificar("INSERT INTO empleado VALUES('"+empleado.getDNI()+"','"+empleado.getNombre()+"','"+empleado.getApellidos()+"','"
 					+empleado.getTelefono()+"','"+ empleado.getCorreo()+"','"+ empleado.getIdiomas()+"','"+ empleado.getFormacion()+"');");
 			correcto=true;
@@ -42,8 +41,7 @@ public class EmpleadoDAO {
 	
 	public boolean update(Empleado empleado) {
 		boolean correcto = false;
-		try {System.out.println("UPDATE empleado SET nombre='"+empleado.getNombre()+"',apellidos='"+empleado.getApellidos()+"',telefono='"
-					+empleado.getTelefono()+"',correo='"+ empleado.getCorreo()+"',idiomas='"+ empleado.getIdiomas()+"',formacion='"+ empleado.getFormacion()+"' WHERE DNI='"+empleado.getDNI()+"';");
+		try {
 			Agente.getAgente().modificar("UPDATE empleado SET nombre='"+empleado.getNombre()+"',apellidos='"+empleado.getApellidos()+"',telefono='"
 					+empleado.getTelefono()+"',correo='"+ empleado.getCorreo()+"',idiomas='"+ empleado.getIdiomas()+"',formacion='"+ empleado.getFormacion()+"' WHERE DNI='"+empleado.getDNI()+"';");
 			correcto=true;

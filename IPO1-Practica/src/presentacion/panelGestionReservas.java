@@ -239,7 +239,10 @@ public class panelGestionReservas extends JPanel {
 				if (n != -1) {
 					modeloTablaReservas.eliminaFila(miTabla.getSelectedRow());
 					modeloTablaReservas.fireTableDataChanged();
+					Reserva reserva = new Reserva(list.get(n).getId(), list.get(n).getFechaEntrada(), list.get(n).getFechaSalida(), list.get(n).getNombre(), list.get(n).getTipo(),list.get(n).getTelefono(),list.get(n).getEmail(),list.get(n).getOcupantes(),list.get(n).getSolicitud(),list.get(n).getHoraEntrada(),list.get(n).getHoraEntrada());
+					reserva.delete();
 					list.remove(n);
+					
 				}else {
 					JOptionPane.showMessageDialog(null,"Debes seleccionar una reserva para eliminarla");
 				}

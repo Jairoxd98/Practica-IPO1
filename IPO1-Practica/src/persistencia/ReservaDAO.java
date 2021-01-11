@@ -23,11 +23,14 @@ public class ReservaDAO {
 	public boolean insert(Reserva reserva) {
 		boolean correcto=false;
 		
-		try {
-			Agente.getAgente().modificar("INSERT INTO reserva VALUES('"+reserva.getId()+"','"+reserva.getFechaEntrada()+"',"
-					+reserva.getFechaSalida()+"',"+ reserva.getNombre()+"',"+ reserva.getTipo()+"',"+ reserva.getTelefono()+"',"+reserva.getEmail()+"',"
-					+ reserva.getOcupantes()+"',"+ reserva.getSolicitud()+"',"
-					+ reserva.getHoraEntrada()+"',"+ reserva.getHoraSalida()+";");
+		try {System.out.println("INSERT INTO reserva VALUES('"+(int)reserva.getId()+"','"+reserva.getFechaEntrada()+"','"
+					+reserva.getFechaSalida()+"','"+ reserva.getNombre()+"','"+ reserva.getTipo()+"','"+ reserva.getTelefono()+"','"+reserva.getEmail()+"','"
+					+ reserva.getOcupantes()+"','"+ reserva.getSolicitud()+"','"
+					+ reserva.getHoraEntrada()+"','"+ reserva.getHoraSalida()+"');");
+			Agente.getAgente().modificar("INSERT INTO reserva VALUES('"+reserva.getId()+"','"+reserva.getFechaEntrada()+"','"
+					+reserva.getFechaSalida()+"','"+ reserva.getNombre()+"','"+ reserva.getTipo()+"','"+ reserva.getTelefono()+"','"+reserva.getEmail()+"','"
+					+ reserva.getOcupantes()+"','"+ reserva.getSolicitud()+"','"
+					+ reserva.getHoraEntrada()+"','"+ reserva.getHoraSalida()+"');");
 			correcto=true;
 		
 		} catch (SQLException e) {
@@ -44,10 +47,10 @@ public class ReservaDAO {
 	public boolean update(Reserva reserva) {
 		boolean correcto = false;
 		try {
-			Agente.getAgente().modificar("UPDATE reserva SET nombre='"+reserva.getNombre()+"','"+reserva.getFechaEntrada()+"',"
-					+reserva.getFechaSalida()+"',"+ reserva.getTipo()+"',"+ reserva.getTelefono()+"',"+reserva.getEmail()+"',"
-					+ reserva.getOcupantes()+"',"+ reserva.getSolicitud()+"',"
-					+ reserva.getHoraEntrada()+"',"+ reserva.getHoraSalida()+"' WHERE id='"+reserva.getId()+"';");
+			Agente.getAgente().modificar("UPDATE reserva SET nombre='"+reserva.getNombre()+"',fechaEntrada='"+reserva.getFechaEntrada()+"',fechaSalida='"
+					+reserva.getFechaSalida()+"',tipo='"+ reserva.getTipo()+"',telefono='"+ reserva.getTelefono()+"',email='"+reserva.getEmail()+"',ocupantes='"
+					+ reserva.getOcupantes()+"',solicitud='"+ reserva.getSolicitud()+"',horaEntrada='"
+					+ reserva.getHoraEntrada()+"',horaSalida='"+ reserva.getHoraSalida()+"' WHERE id='"+reserva.getId()+"';");
 			correcto=true;
 		
 		} catch (SQLException e) {

@@ -24,10 +24,10 @@ public class RutaDAO {
 		boolean correcto=false;
 		
 		try {
-			Agente.getAgente().modificar("INSERT INTO ruta VALUES('"+ruta.getId()+"','"+ruta.getNombre()+"',"
-					+ruta.getHoraInicio()+"',"+ ruta.getHoraFin()+"',"+ruta.getDia()+"',"
-					+ ruta.getMonitor()+"',"+ ruta.getEncuentro()+"',"
-					+ ruta.getMinParticipantes()+"',"+ ruta.getMaxParticipantes()+"',"+ ruta.getDescripcion()+";");
+			Agente.getAgente().modificar("INSERT INTO ruta VALUES('"+ruta.getId()+"','"+ruta.getNombre()+"','"
+					+ruta.getHoraInicio()+"','"+ ruta.getHoraFin()+"','"+ruta.getDia()+"','"
+					+ ruta.getMonitor()+"','"+ ruta.getEncuentro()+"','"
+					+ ruta.getMinParticipantes()+"','"+ ruta.getMaxParticipantes()+"','"+ ruta.getDescripcion()+"');");
 			correcto=true;
 		
 		} catch (SQLException e) {
@@ -44,10 +44,10 @@ public class RutaDAO {
 	public boolean update(Ruta ruta) {
 		boolean correcto = false;
 		try {
-			Agente.getAgente().modificar("UPDATE ruta SET id='"+ruta.getId()+"','"+ruta.getNombre()+"',"
-					+ruta.getHoraInicio()+"',"+ ruta.getHoraFin()+"',"+ruta.getDia()+"',"
-					+ ruta.getMonitor()+"',"+ ruta.getEncuentro()+"',"
-					+ ruta.getMinParticipantes()+"',"+ ruta.getMaxParticipantes()+"',"+ ruta.getDescripcion()+";");
+			Agente.getAgente().modificar("UPDATE ruta SET id='"+ruta.getId()+"',nombre='"+ruta.getNombre()+"',horaInicio='"
+					+ruta.getHoraInicio()+"',horaFin='"+ ruta.getHoraFin()+"',dia='"+ruta.getDia()+"','"
+					+ ruta.getMonitor()+"',encuentro='"+ ruta.getEncuentro()+"',minParticipantes'"
+					+ ruta.getMinParticipantes()+"',maxParticipantes'"+ ruta.getMaxParticipantes()+"',descripcion'"+ ruta.getDescripcion()+"';");
 			correcto=true;
 		
 		} catch (SQLException e) {

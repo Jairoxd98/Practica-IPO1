@@ -24,10 +24,10 @@ public class ActividadDAO {
 		boolean correcto=false;
 		
 		try {
-			Agente.getAgente().modificar("INSERT INTO actividad VALUES('"+actividad.getNombre()+"',"
-					+actividad.getHoraInicio()+"',"+ actividad.getHoraFin()+"',"+actividad.getDia()+"',"
-					+ actividad.getMonitor()+"'," + actividad.getMinParticipantes()+"',"+ actividad.getMaxParticipantes()+"',"
-					+ actividad.getPrecioHora()+"',"+ actividad.getPrecioMes()+"',"+ actividad.getDestinado()+"',"+ actividad.getDescripcion()+";");
+			Agente.getAgente().modificar("INSERT INTO actividad VALUES('"+actividad.getNombre()+"','"
+					+actividad.getHoraInicio()+"','"+ actividad.getHoraFin()+"','"+actividad.getDia()+"','"
+					+ actividad.getMonitor()+"','" + actividad.getMinParticipantes()+"','"+ actividad.getMaxParticipantes()+"','"
+					+ actividad.getPrecioHora()+"','"+ actividad.getPrecioMes()+"','"+ actividad.getDestinado()+"','"+ actividad.getDescripcion()+"');");
 			correcto=true;
 		
 		} catch (SQLException e) {
@@ -43,11 +43,14 @@ public class ActividadDAO {
 	
 	public boolean update(Actividad actividad) {
 		boolean correcto = false;
-		try {
-			Agente.getAgente().modificar("UPDATE actividad SET nombre='"+actividad.getNombre()+"',"
-										+actividad.getHoraInicio()+"',"+ actividad.getHoraFin()+"',"+actividad.getDia()+"',"
-										+ actividad.getMonitor()+"'," + actividad.getMinParticipantes()+"',"+ actividad.getMaxParticipantes()+"'," 
-										+ actividad.getPrecioHora()+"',"+ actividad.getPrecioMes()+"',"+ actividad.getDestinado()+"',"+ actividad.getDescripcion()+";");
+		try {System.out.println("UPDATE actividad SET nombre='"+actividad.getNombre()+"',horaInicio='"
+										+actividad.getHoraInicio()+"',horaFin='"+ actividad.getHoraFin()+"',dia='"+actividad.getDia()+"',personal='"
+										+ actividad.getMonitor()+"',minParticipantes='" + actividad.getMinParticipantes()+"',maxParticipantes='"+ actividad.getMaxParticipantes()+"',precioHora='" 
+										+ actividad.getPrecioHora()+"',precioMes='"+ actividad.getPrecioMes()+"',destinado='"+ actividad.getDestinado()+"',caracteristicas='"+ actividad.getDescripcion()+"';");
+			Agente.getAgente().modificar("UPDATE actividad SET nombre='"+actividad.getNombre()+"',horaInicio='"
+										+actividad.getHoraInicio()+"',horaFin='"+ actividad.getHoraFin()+"',dia='"+actividad.getDia()+"',personal='"
+										+ actividad.getMonitor()+"',minParticipantes='" + actividad.getMinParticipantes()+"',maxParticipantes='"+ actividad.getMaxParticipantes()+"',precioHora='" 
+										+ actividad.getPrecioHora()+"',precioMes='"+ actividad.getPrecioMes()+"',destinado='"+ actividad.getDestinado()+"',caracteristicas='"+ actividad.getDescripcion()+"';");
 			correcto=true;
 		
 		} catch (SQLException e) {
