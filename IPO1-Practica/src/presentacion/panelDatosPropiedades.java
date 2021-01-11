@@ -260,7 +260,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		btnAnadir.addActionListener(new BtnAnadirActionListener());
 		btnAnadir.setIcon(new ImageIcon(panelDatosPropiedades.class.getResource("/presentacion/Icon/anadir2.png")));
 		btnAnadir.setToolTipText("Añadir Propiedad nueva");
-		btnAnadir.setBounds(192, 237, 115, 31);
+		btnAnadir.setBounds(192, 237, 123, 31);
 		panelParcela.add(btnAnadir);
 
 	}
@@ -587,7 +587,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaParcelas) j).setValueAt(caracteristicas, tablaParcelas.getSelectedRow(), 5);
 				tablaParcelas.clearSelection();
 				JOptionPane.showMessageDialog(null, "La parcela se ha modificado perfectamente");
-				frame.setVisible(false);
+				//frame.setVisible(false);
 			}
 		}
 	}
