@@ -47,7 +47,7 @@ public class panelGestionPropiedades extends JPanel {
 	private JLabel lblBungalow;
 	private JScrollPane scrollPaneBungalow;
 	private static JTable tablaParcelas;
-	private JTable tablaBungalows;
+	private static JTable tablaBungalows;
 	
 	
 	private ArrayList<Parcela> listaParcelas = new ArrayList<Parcela>();
@@ -134,6 +134,7 @@ public class panelGestionPropiedades extends JPanel {
 					tablaParcelas.getColumnModel().getColumn(2).setPreferredWidth(83);
 					scrollPaneParcela.setViewportView(tablaParcelas);
 					
+					
 				}
 				
 				
@@ -182,6 +183,10 @@ public class panelGestionPropiedades extends JPanel {
 		return tablaParcelas;
 	}
 	
+	public static JTable getBungalows() {
+		return tablaBungalows;
+	}
+	
 	private static ArrayList<Parcela> cargarParcelas() {
 
 		Parcela parcela = new Parcela();
@@ -218,16 +223,56 @@ public class panelGestionPropiedades extends JPanel {
 
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
+			
+			if(tablaParcelas.getSelectedRow() != -1) {
+				String c0 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 0);
+				int c1 = (int) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 1);
+				String c2 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 2);
+				String c3 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 3);
+				String c4 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 4);
+				String c5 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 5);
+				String c6 = (String) tablaParcelas.getModel().getValueAt(tablaParcelas.getSelectedRow(), 6);
+				panelDatosPropiedades ventanaData = new panelDatosPropiedades(c0,c1,c2,c3,c4,c5);
+				ventanaData.setVisible(true);
+						
+				System.out.println(c0+ ", "+c1+ ", "+c2+", "+c3+", "+c4+", "+c5);
+			}else if(tablaBungalows.getSelectedRow() != -1){
+				String c0 = (String) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 0);
+				int c1 = (int) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 1);
+				int c2 = (int) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 2);
+				int c3 = (int) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 3);
+				String c4 = (String) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 4);
+				String c5 = (String) tablaBungalows.getModel().getValueAt(tablaBungalows.getSelectedRow(), 5);
+				System.out.println(c0+ ", "+c1+ ", "+c2+", "+c3+", "+c4);
+				panelDatosPropiedades ventanaData = new panelDatosPropiedades(c0,c1,c2,c3,c4);
+				ventanaData.setVisible(true);
+			}else {
+				JOptionPane.showMessageDialog(null, "Seleccione primero una única fila de cualquier columna");
+			}
+			
+			
+				
 
+			
 		}
+		
 	}
 
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar la propiedad seleccionada?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-				
+				if(tablaParcelas.getSelectedRow() != -1) {
+					MiModeloTablaParcelas tp = (MiModeloTablaParcelas) tablaParcelas.getModel();
+					tp.eliminaFila(tablaParcelas.getSelectedRow());
+					tp.fireTableDataChanged();
+					JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+				}else if(tablaBungalows.getSelectedRow() != -1) {
+					MiModeloTablaBungalows tb = (MiModeloTablaBungalows) tablaBungalows.getModel();
+					tb.eliminaFila(tablaBungalows.getSelectedRow());
+					tb.fireTableDataChanged();
+				}
 			} else {
-
+				JOptionPane.showMessageDialog(null,"Debes seleccionar una propiedad para eliminarla");
 			}
 		}
 	}
@@ -237,4 +282,5 @@ public class panelGestionPropiedades extends JPanel {
 
 		}
 	}
+	
 }
