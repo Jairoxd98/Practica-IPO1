@@ -34,9 +34,9 @@ import javax.swing.JSeparator;
 
 public class panelGestionReservas extends JPanel {
 	private JToolBar toolBar;
-	private JButton btnAnadir;
-	private JButton btnModificar;
-	private JButton btnEliminar;
+	private static JButton btnAnadir;
+	private static JButton btnModificar;
+	private static JButton btnEliminar;
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JLabel lblFoto;
@@ -202,6 +202,9 @@ public class panelGestionReservas extends JPanel {
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 				MODO=0;
+				btnModificar.setEnabled(false);
+				btnEliminar.setEnabled(false);
+				btnAnadir.setEnabled(false);
 				PanelDatosReservas panel = new PanelDatosReservas();
 				panel.setVisible(true);
 				JOptionPane.showMessageDialog(null,"Para guardar una ruta rellena todos los campos y pulsa Guardar");
@@ -213,11 +216,17 @@ public class panelGestionReservas extends JPanel {
 			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 			int n= miTabla.getSelectedRow();
 			ROW=n;
+			btnModificar.setEnabled(false);
+			btnEliminar.setEnabled(false);
+			btnAnadir.setEnabled(false);
 			if (n != -1) {
 				PanelDatosReservas panel = new PanelDatosReservas();
 				panel.setVisible(true);
 			}else {
 				JOptionPane.showMessageDialog(null,"Debes seleccionar una reserva para eliminarla");
+				btnModificar.setEnabled(true);
+				btnEliminar.setEnabled(true);
+				btnAnadir.setEnabled(true);
 			}
 		}
 	}
@@ -255,5 +264,13 @@ public class panelGestionReservas extends JPanel {
 	public static int getModo() {
 		return MODO;
 	}
-	
+	public static JButton getBtnAnadir() {
+		return btnAnadir;
+	}
+	public static JButton getBtnModificar() {
+		return btnModificar;
+	}
+	public static JButton getBtnEliminar() {
+		return btnEliminar;
+	}
 }

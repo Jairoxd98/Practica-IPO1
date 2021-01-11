@@ -21,6 +21,8 @@ import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import dominio.Reserva;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class PanelDatosReservas extends JFrame {
@@ -83,6 +85,7 @@ public class PanelDatosReservas extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelDatosReservas() {
+		addWindowListener(new ThisWindowListener());
 		setTitle("Datos de Reservas");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PanelDatosReservas.class.getResource("/presentacion/Icon/choza.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -260,7 +263,6 @@ public class PanelDatosReservas extends JFrame {
 					miTabla.getSelectedRow();
 					}else {//Cuando Guardas una reserva que estas modificando
 						
-						//cargarDatos(n); //Para Cargar los datos en las cajas del pane de la reserva a modificar
 						MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 						
 						if (n != -1) {
@@ -271,9 +273,6 @@ public class PanelDatosReservas extends JFrame {
 							String ocupantes= txtId.getText()+"";
 							String tipo = txtTipo.getText();
 							
-							/*if(!nombre.equals(list.get(n-1).getNombre())) {
-								modeloTablaEmpleados.setValueAt(txtNombre.getText(), miTabla.getSelectedRow(), 0);
-							}*/
 							modeloTablaReservas.setValueAt(txtId.getText(), n, 0);
 							modeloTablaReservas.setValueAt(txtNombre.getText(), n, 1);
 							modeloTablaReservas.setValueAt(txtFechaEntrada.getText(), n, 2);
@@ -288,7 +287,14 @@ public class PanelDatosReservas extends JFrame {
 					
 				vaciarCajas();	
 				resetearFondo();
+				panelGestionReservas.getBtnAnadir().setEnabled(true);
+				panelGestionReservas.getBtnEliminar().setEnabled(true);
+				panelGestionReservas.getBtnModificar().setEnabled(true);
 				//frame.setVisible(false);
+				//int fin= PanelDatosReservas.DISPOSE_ON_CLOSE;
+				//PanelDatosReservas.frame.setVisible(false);
+				//PanelDatosReservas.frame.dispose();
+				
 				JOptionPane.showMessageDialog(null,"Reserva cargada correctamente");
 			}
 		}
@@ -337,6 +343,15 @@ public class PanelDatosReservas extends JFrame {
 			vaciarCajas();
 		}
 	}
+	private class ThisWindowListener extends WindowAdapter {
+		@Override
+		public void windowClosed(WindowEvent e) {
+			panelGestionReservas.getBtnAnadir().setEnabled(true);
+			panelGestionReservas.getBtnEliminar().setEnabled(true);
+			panelGestionReservas.getBtnModificar().setEnabled(true);
+		}
+	}
+	
 	public boolean comprobarVacio() {
 		JTextField caja;
 		for (int i = 0; i < pnlInfo.getComponentCount(); i++) {
@@ -364,7 +379,7 @@ public class PanelDatosReservas extends JFrame {
 		for (int i = 0; i < pnlInfo.getComponentCount(); i++) {
 			if(pnlInfo.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
 				caja=(JTextField)pnlInfo.getComponent(i);
-				caja.setBackground(colorDefectoBotones);
+				caja.setBackground(colorBlanco);
 			}
 		}
 		return false;
