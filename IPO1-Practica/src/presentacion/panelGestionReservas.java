@@ -13,7 +13,6 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
 import java.awt.Image;
-
 import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
@@ -57,22 +56,22 @@ public class panelGestionReservas extends JPanel {
 			toolBar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			add(toolBar, BorderLayout.NORTH);
 			{
-				btnAnadir = new JButton(Messages.getString("panelGestionReservas.btnAnadir.text")); //$NON-NLS-1$
-				btnAnadir.setToolTipText(Messages.getString("panelGestionReservas.btnAnadir.toolTipText")); //$NON-NLS-1$
+				btnAnadir = new JButton("Añadir");
+				btnAnadir.setToolTipText("Añadir Empleado nuevo");
 				btnAnadir.addActionListener(new BtnAnadirActionListener());
 				btnAnadir.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/anadir2.png")));
 				toolBar.add(btnAnadir);
 			}
 			{
-				btnModificar = new JButton(Messages.getString("panelGestionReservas.btnModificar.text")); //$NON-NLS-1$
-				btnModificar.setToolTipText(Messages.getString("panelGestionReservas.btnModificar.toolTipText")); //$NON-NLS-1$
+				btnModificar = new JButton("Modificar");
+				btnModificar.setToolTipText("Modificar Empleado seleccionado");
 				btnModificar.addActionListener(new BtnModificarActionListener());
 				btnModificar.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/editar2.png")));
 				toolBar.add(btnModificar);
 			}
 			{
-				btnEliminar = new JButton(Messages.getString("panelGestionReservas.btnEliminar.text")); //$NON-NLS-1$
-				btnEliminar.setToolTipText(Messages.getString("panelGestionReservas.btnEliminar.toolTipText")); //$NON-NLS-1$
+				btnEliminar = new JButton("Eliminar");
+				btnEliminar.setToolTipText("Eliminar Empleado seleccionado");
 				btnEliminar.addActionListener(new BtnEliminarActionListener());
 				btnEliminar.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/borrar.png")));
 				toolBar.add(btnEliminar);

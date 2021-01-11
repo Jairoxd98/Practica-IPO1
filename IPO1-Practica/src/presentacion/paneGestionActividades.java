@@ -81,40 +81,40 @@ public class paneGestionActividades extends JPanel {
 			toolBar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			add(toolBar, BorderLayout.NORTH);
 			{
-				btnAnadir = new JButton(Messages.getString("paneGestionActividades.btnAnadir.text")); //$NON-NLS-1$
+				btnAnadir = new JButton("Añadir");
 				btnAnadir.addActionListener(new BtnAnadirActionListener());
 				btnAnadir.setIcon(new ImageIcon(paneGestionActividades.class.getResource("/presentacion/Icon/anadir2.png")));
-				btnAnadir.setToolTipText(Messages.getString("paneGestionActividades.btnAnadir.toolTipText")); //$NON-NLS-1$
+				btnAnadir.setToolTipText("Añadir nueva Actividad");
 				toolBar.add(btnAnadir);
 			}
 			{
-				btnModificar = new JButton(Messages.getString("paneGestionActividades.btnModificar.text")); //$NON-NLS-1$
+				btnModificar = new JButton("Modificar");
 				btnModificar.addActionListener(new BtnModificarActionListener());
 				btnModificar.setIcon(new ImageIcon(paneGestionActividades.class.getResource("/presentacion/Icon/editar2.png")));
-				btnModificar.setToolTipText(Messages.getString("paneGestionActividades.btnModificar.toolTipText")); //$NON-NLS-1$
+				btnModificar.setToolTipText("Modificar actividad seleccionada");
 				toolBar.add(btnModificar);
 			}
 			{
-				btnEliminar = new JButton(Messages.getString("paneGestionActividades.btnEliminar.text")); //$NON-NLS-1$
+				btnEliminar = new JButton("Eliminar");
 				btnEliminar.addActionListener(new BtnEliminarActionListener());
 				btnEliminar.setIcon(new ImageIcon(paneGestionActividades.class.getResource("/presentacion/Icon/borrar.png")));
-				btnEliminar.setToolTipText(Messages.getString("paneGestionActividades.btnEliminar.toolTipText")); //$NON-NLS-1$
+				btnEliminar.setToolTipText("Eliminar actividad seleccionada");
 				toolBar.add(btnEliminar);
 			}
 			{
-				btnGuardar = new JButton(Messages.getString("paneGestionActividades.btnGuardar.text")); //$NON-NLS-1$
+				btnGuardar = new JButton("Guardar");
 				btnGuardar.addActionListener(new BtnGuardarActionListener());
 				btnGuardar.setIcon(new ImageIcon(paneGestionActividades.class.getResource("/presentacion/Icon/guardar.png")));
 				btnGuardar.setVisible(false);
-				btnGuardar.setToolTipText(Messages.getString("paneGestionActividades.btnGuardar.toolTipText")); //$NON-NLS-1$
+				btnGuardar.setToolTipText("Guardar datos");
 				toolBar.add(btnGuardar);
 			}
 			{
-				btnLimpiar = new JButton(Messages.getString("paneGestionActividades.btnLimpiar.text")); //$NON-NLS-1$
+				btnLimpiar = new JButton("Limpiar");
 				btnLimpiar.addActionListener(new BtnLimpiarActionListener());
 				btnLimpiar.setIcon(new ImageIcon(paneGestionActividades.class.getResource("/presentacion/Icon/limpio.png")));
 				btnLimpiar.setVisible(false);
-				btnLimpiar.setToolTipText(Messages.getString("paneGestionActividades.btnLimpiar.toolTipText")); //$NON-NLS-1$
+				btnLimpiar.setToolTipText("Limpiar cajas de texto");
 				toolBar.add(btnLimpiar);
 			}
 		}
@@ -148,62 +148,62 @@ public class paneGestionActividades extends JPanel {
 			}
 			{
 				pnlInfoActividades = new JPanel();
-				pnlInfoActividades.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), Messages.getString("paneGestionActividades.pnlInfoActividades.borderTitle"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
+				pnlInfoActividades.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Informacion de la actividad", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				pnlInfoActividades.setBounds(120, 11, 495, 387);
 				pnlInfo.add(pnlInfoActividades);
 				pnlInfoActividades.setLayout(null);
 				{
-					lblNombre = new JLabel(Messages.getString("paneGestionActividades.lblNombre.text")); //$NON-NLS-1$
+					lblNombre = new JLabel("Nombre:");
 					lblNombre.setBounds(40, 33, 67, 14);
 					pnlInfoActividades.add(lblNombre);
 				}
 				{
-					lblDia = new JLabel(Messages.getString("paneGestionActividades.lblDia.text")); //$NON-NLS-1$
+					lblDia = new JLabel("Dia:");
 					lblDia.setBounds(40, 77, 46, 14);
 					pnlInfoActividades.add(lblDia);
 				}
 				{
-					lblPrecioPorHora = new JLabel(Messages.getString("paneGestionActividades.lblPrecioPorHora.text")); //$NON-NLS-1$
+					lblPrecioPorHora = new JLabel("Precio por hora:");
 					lblPrecioPorHora.setBounds(40, 118, 98, 14);
 					pnlInfoActividades.add(lblPrecioPorHora);
 				}
 				{
-					lblHoraInicio = new JLabel(Messages.getString("paneGestionActividades.lblHoraInicio.text")); //$NON-NLS-1$
+					lblHoraInicio = new JLabel("Hora inicio:");
 					lblHoraInicio.setBounds(40, 166, 67, 14);
 					pnlInfoActividades.add(lblHoraInicio);
 				}
 				{
-					lblHoraFin = new JLabel(Messages.getString("paneGestionActividades.lblHoraFin.text")); //$NON-NLS-1$
+					lblHoraFin = new JLabel("Hora fin:");
 					lblHoraFin.setBounds(277, 166, 67, 14);
 					pnlInfoActividades.add(lblHoraFin);
 				}
 				{
-					lblMaximoDeParticipantes = new JLabel(Messages.getString("paneGestionActividades.lblMaximoDeParticipantes.text")); //$NON-NLS-1$
+					lblMaximoDeParticipantes = new JLabel("Maximo de participantes:");
 					lblMaximoDeParticipantes.setBounds(40, 212, 153, 14);
 					pnlInfoActividades.add(lblMaximoDeParticipantes);
 				}
 				{
-					lblMinimoDeParticipantes = new JLabel(Messages.getString("paneGestionActividades.lblMinimoDeParticipantes.text")); //$NON-NLS-1$
+					lblMinimoDeParticipantes = new JLabel("Minimo de participantes:");
 					lblMinimoDeParticipantes.setBounds(277, 215, 146, 14);
 					pnlInfoActividades.add(lblMinimoDeParticipantes);
 				}
 				{
-					lblMonitor = new JLabel(Messages.getString("paneGestionActividades.lblMonitor.text")); //$NON-NLS-1$
+					lblMonitor = new JLabel("Monitor:");
 					lblMonitor.setBounds(277, 33, 67, 14);
 					pnlInfoActividades.add(lblMonitor);
 				}
 				{
-					lblDescripcion = new JLabel(Messages.getString("paneGestionActividades.lblDescripcion.text")); //$NON-NLS-1$
+					lblDescripcion = new JLabel("Descripcion:");
 					lblDescripcion.setBounds(40, 258, 89, 14);
 					pnlInfoActividades.add(lblDescripcion);
 				}
 				{
-					lblPrecioPorMes = new JLabel(Messages.getString("paneGestionActividades.lblPrecioPorMes.text")); //$NON-NLS-1$
+					lblPrecioPorMes = new JLabel("Precio por mes:");
 					lblPrecioPorMes.setBounds(277, 118, 98, 14);
 					pnlInfoActividades.add(lblPrecioPorMes);
 				}
 				{
-					lblDestinado = new JLabel(Messages.getString("paneGestionActividades.lblDestinado.text")); //$NON-NLS-1$
+					lblDestinado = new JLabel("Destinado:");
 					lblDestinado.setBounds(277, 77, 67, 14);
 					pnlInfoActividades.add(lblDestinado);
 				}

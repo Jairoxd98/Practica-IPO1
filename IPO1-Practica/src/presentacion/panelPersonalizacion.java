@@ -3,7 +3,6 @@ package presentacion;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-
 import dominio.Usuario;
 
 import javax.swing.JLabel;
@@ -45,31 +44,31 @@ public class panelPersonalizacion extends JPanel {
 	public panelPersonalizacion() {
 		setForeground(Color.WHITE);
 		setBackground(Color.WHITE);
-		setBorder(new TitledBorder(null, Messages.getString("panelPersonalizacion.this.borderTitle"), TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
+		setBorder(new TitledBorder(null, "Personalizacion de la pagina", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
 		
 		{
-			lblSeleccionaElIdioma = new JLabel(Messages.getString("panelPersonalizacion.lblSeleccionaElIdioma.text")); //$NON-NLS-1$
+			lblSeleccionaElIdioma = new JLabel("Selecciona el idioma:");
 			lblSeleccionaElIdioma.setBounds(78, 58, 175, 14);
 			add(lblSeleccionaElIdioma);
 		}
 		{
-			lblSeleccionaElTipo = new JLabel(Messages.getString("panelPersonalizacion.lblSeleccionaElTipo.text")); //$NON-NLS-1$
+			lblSeleccionaElTipo = new JLabel("Selecciona el tipo de letra de la pagina:");
 			lblSeleccionaElTipo.setBounds(78, 169, 268, 14);
 			add(lblSeleccionaElTipo);
 		}
 		{
-			lblCambiaElColor = new JLabel(Messages.getString("panelPersonalizacion.lblCambiaElColor.text")); //$NON-NLS-1$
+			lblCambiaElColor = new JLabel("Selecciona el color del borde de la pagina:");
 			lblCambiaElColor.setBounds(78, 246, 268, 14);
 			add(lblCambiaElColor);
 		}
 		{
-			lbldeseaQueAprezca = new JLabel(Messages.getString("panelPersonalizacion.lbldeseaQueAprezca.text")); //$NON-NLS-1$
+			lbldeseaQueAprezca = new JLabel("¿Desea que aprezca la fecha de ultima acceso?");
 			lbldeseaQueAprezca.setBounds(78, 333, 295, 14);
 			add(lbldeseaQueAprezca);
 		}
 		{
-			rdbtnSi = new JRadioButton(Messages.getString("panelPersonalizacion.rdbtnSi.text")); //$NON-NLS-1$
+			rdbtnSi = new JRadioButton("Si");
 			rdbtnSi.addActionListener(new RdbtnSiActionListener());
 			buttonGroup.add(rdbtnSi);
 			rdbtnSi.setSelected(true);
@@ -77,7 +76,7 @@ public class panelPersonalizacion extends JPanel {
 			add(rdbtnSi);
 		}
 		{
-			rdbtnNo = new JRadioButton(Messages.getString("panelPersonalizacion.rdbtnNo.text")); //$NON-NLS-1$
+			rdbtnNo = new JRadioButton("No");
 			rdbtnNo.addActionListener(new RdbtnNoActionListener());
 			buttonGroup.add(rdbtnNo);
 			rdbtnNo.setBounds(425, 329, 53, 23);
@@ -130,22 +129,10 @@ public class panelPersonalizacion extends JPanel {
 	
 	private class BtnSpainActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Messages.setIdioma("Español");
-
-			login ventana = new login();
-			ventana.getFrame().setVisible(true);
-			MenuInicio.getFrame().dispose();
-			
-			
 		}
 	}
 	private class BtnEnglishActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Messages.setIdioma("inglés");
-			
-			login ventana = new login();
-			ventana.getFrame().setVisible(true);
-			MenuInicio.getFrame().dispose();
 		}
 	}
 	private class CmbColorItemListener implements ItemListener {
