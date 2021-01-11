@@ -2,6 +2,7 @@ package presentacion;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
@@ -38,12 +39,9 @@ public class panelGestionReservas extends JPanel {
 	private JScrollPane scrollPane;
 	private JLabel lblFoto;
 	private JScrollPane scrollPane_1;
-	private JTable miTabla;
+	private static JTable miTabla;
 	private JTextArea taFilaSeleccionada;
-	
-	private ArrayList<Reserva> list = new ArrayList<Reserva>();
-	private JSeparator separator;
-	private JButton btnGuardar;
+	private static ArrayList<Reserva> list = cargarReserva();
 
 	
 	/**
@@ -76,18 +74,6 @@ public class panelGestionReservas extends JPanel {
 				btnEliminar.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/borrar.png")));
 				toolBar.add(btnEliminar);
 			}
-			{
-				btnGuardar = new JButton("Guardar");
-				btnGuardar.addActionListener(new BtnGuardarActionListener());
-				btnGuardar.setToolTipText("Guardar Modificaciones");
-				btnGuardar.setVisible(false);
-				btnGuardar.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/guardar.png")));
-				toolBar.add(btnGuardar);
-			}
-			{
-				separator = new JSeparator();
-				toolBar.add(separator);
-			}
 		}
 		{
 			panel = new JPanel();
@@ -117,9 +103,6 @@ public class panelGestionReservas extends JPanel {
 				MiModeloTablaReservas modeloTabla = new MiModeloTablaReservas();
 				miTabla.setModel(modeloTabla);
 				
-				
-				list=cargarReserva();
-				
 				for(int i = 0; i<list.size();i++) {
 					Object[] fila= {new Integer(list.get(i).getId()), list.get(i).getNombre(), list.get(i).getFechaEntrada(), list.get(i).getFechaSalida(), new Integer(list.get(i).getOcupantes()), list.get(i).getTipo()};
 					modeloTabla.aniadeFila(fila);
@@ -140,22 +123,31 @@ public class panelGestionReservas extends JPanel {
 							int n= miTabla.getSelectedRow();
 							if (n != -1)
 							{
-								String contenido = "ID Reserva: "+ modeloTablaReservas.getValueAt(n, 0)+"\n"+
-										"Nombre: "+ modeloTablaReservas.getValueAt(n, 1)+"\n"+
-										"Fecha entrada: "+ modeloTablaReservas.getValueAt(n, 2)+"\n"+
-										"Fecha salida: "+ modeloTablaReservas.getValueAt(n, 3)+"\n"+
-										"Ocupantes :"+ modeloTablaReservas.getValueAt(n, 4)+"\n"+
-										"Tipo: "+ modeloTablaReservas.getValueAt(n, 5)+"\n";
+								String contenido="";
 										
 										try {
-											contenido+="Telefono: "+list.get(n).getTelefono()+"\n"+
+											contenido+=
+													"ID Reserva: "+list.get(n).getId()+"\n"+
+													"Nombre: "+ list.get(n).getNombre()+"\n"+
+													"Fecha entrada: "+ list.get(n).getFechaEntrada()+"\n"+
+													"Fecha salida: "+ list.get(n).getFechaSalida()+"\n"+
+													"Tipo: "+ list.get(n).getTipo()+"\n"+		
+													"Telefono: "+list.get(n).getTelefono()+"\n"+
 													"Email: "+list.get(n).getEmail()+"\n"+
+													"Ocupantes: "+ list.get(n).getOcupantes()+"\n"+
 													"Solicitud: "+list.get(n).getSolicitud()+"\n"+
 													"Hora entrega: "+list.get(n).getHoraEntrada()+"\n"+
 													"Hora salida: "+list.get(n).getHoraSalida()+"\n";
 										}catch(NullPointerException ne) {
-											contenido+="Telefono: \n"+
+											contenido+=
+													"ID Reserva: \n"+
+													"Nombre: \n"+
+													"Fecha entrada: \n"+
+													"Fecha salida: \n"+
+													"Tipo: \n"+		
+													"Telefono: \n"+
 													"Email: \n"+
+													"Ocupantes: \n"+
 													"Solicitud: \n"+
 													"Hora entrega: \n"+
 													"Hora salida: \n";
@@ -163,8 +155,8 @@ public class panelGestionReservas extends JPanel {
 										
 								taFilaSeleccionada.setText(contenido);
 								
-								lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/"+modeloTablaReservas.getValueAt(n, 5)+".png")));
-								lblFoto.setToolTipText("Foto "+modeloTablaReservas.getValueAt(n, 5));
+								lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/"+list.get(n).getTipo()+".png")));
+								lblFoto.setToolTipText("Foto "+list.get(n).getTipo());
 							}
 						}
 					}
@@ -197,44 +189,43 @@ public class panelGestionReservas extends JPanel {
 	
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			habilitarList(true);
-			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
-			Object[] nuevaFila = {"...", "...", "..." ,"...", "...", "..."};
-			modeloTablaReservas.aniadeFila(nuevaFila);
-			modeloTablaReservas.fireTableDataChanged();
+			PanelDatosReservas panel = new PanelDatosReservas(0);
+			panel.setVisible(true);
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			habilitarList(true);
-		}
-	}
-	public void habilitarList(boolean b) {
-		taFilaSeleccionada.setEditable(b);
-		btnGuardar.setVisible(b);
-	}
-	private class BtnGuardarActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			habilitarList(false);
+			PanelDatosReservas panel = new PanelDatosReservas(0);
+			panel.setVisible(true);
 		}
 	}
 	
 	private class BtnEliminarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar esta reserva?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que deseas borrar la reserva seleccionada?", "Cuidado",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
 				int n= miTabla.getSelectedRow();
-				if (n != -1) modeloTablaReservas.eliminaFila(miTabla.getSelectedRow());
-				modeloTablaReservas.fireTableDataChanged();
-				
-				taFilaSeleccionada.setText("");
+				if (n != -1) {
+					modeloTablaReservas.eliminaFila(miTabla.getSelectedRow());
+					modeloTablaReservas.fireTableDataChanged();
+					list.remove(n);
+				}else {
+					JOptionPane.showMessageDialog(null,"Debes seleccionar una reserva para eliminarla");
+				}
 				lblFoto.setIcon(null);
-				habilitarList(false);
+				taFilaSeleccionada.setText("");
 			} else {
 
 			}
 			
 		}
+	}
+	
+	public static ArrayList<Reserva> getListReserva(){
+		return list;
+	}
+	public static JTable getpanel() {
+		return miTabla;
 	}
 	
 }
