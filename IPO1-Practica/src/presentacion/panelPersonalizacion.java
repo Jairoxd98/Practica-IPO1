@@ -2,6 +2,9 @@ package presentacion;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import dominio.Usuario;
+
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
@@ -78,6 +81,7 @@ public class panelPersonalizacion extends JPanel {
 		}
 		{
 			cmbColor = new JComboBox();
+			cmbColor.addActionListener(new CmbColorActionListener());
 			cmbColor.setModel(new DefaultComboBoxModel(new String[] {"Verde", "Azul", "Amarillo"}));
 			cmbColor.setBounds(356, 243, 122, 20);
 			add(cmbColor);
@@ -118,6 +122,10 @@ public class panelPersonalizacion extends JPanel {
 			System.out.println(usuario);
 			MenuInicio mInicio= new MenuInicio(usuario);
 			mInicio.setVisibleHora(false);*/
+			/*Usuario usuario = new Usuario("Jairo","Jairo","a","a","a","a","a","a","a");
+			MenuInicio mInicio= new MenuInicio(usuario);
+			mInicio.setVisibleHora(false);
+			mInicio.frmMenuInicio.setVisible(true);*/
 		}
 	}
 	private class BtnSpainActionListener implements ActionListener {
@@ -126,6 +134,11 @@ public class panelPersonalizacion extends JPanel {
 	}
 	private class BtnEnglishActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	private class CmbColorActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
 		}
 	}
 }

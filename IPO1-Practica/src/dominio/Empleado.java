@@ -21,6 +21,7 @@ public class Empleado implements CRUD{
 		this.correo = correo;
 		this.idiomas = idiomas;
 		this.formacion = formacion;
+		this.empleadoDAO=new EmpleadoDAO();
 	}
 	public Empleado() {
 		this.empleadoDAO = new EmpleadoDAO();
@@ -82,7 +83,7 @@ public class Empleado implements CRUD{
 				+ empleadoDAO + "]";
 	}
 	@Override
-	public boolean insert() {
+	public boolean insert() {System.out.println(this.toString());
 		return empleadoDAO.insert(this);
 	}
 

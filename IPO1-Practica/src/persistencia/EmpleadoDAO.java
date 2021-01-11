@@ -23,9 +23,10 @@ public class EmpleadoDAO {
 	public boolean insert(Empleado empleado) {
 		boolean correcto=false;
 		
-		try {
-			Agente.getAgente().modificar("INSERT INTO empleado VALUES('"+empleado.getDNI()+"','"+empleado.getNombre()+"','"+empleado.getApellidos()+"',"
-					+empleado.getTelefono()+"',"+ empleado.getCorreo()+"',"+ empleado.getIdiomas()+"',"+ empleado.getFormacion()+";");
+		try {System.out.println("INSERT INTO empleado VALUES('"+empleado.getDNI()+"','"+empleado.getNombre()+"','"+empleado.getApellidos()+"','"
+					+empleado.getTelefono()+"','"+ empleado.getCorreo()+"','"+ empleado.getIdiomas()+"','"+ empleado.getFormacion()+"');");
+			Agente.getAgente().modificar("INSERT INTO empleado VALUES('"+empleado.getDNI()+"','"+empleado.getNombre()+"','"+empleado.getApellidos()+"','"
+					+empleado.getTelefono()+"','"+ empleado.getCorreo()+"','"+ empleado.getIdiomas()+"','"+ empleado.getFormacion()+"');");
 			correcto=true;
 		
 		} catch (SQLException e) {
@@ -41,9 +42,10 @@ public class EmpleadoDAO {
 	
 	public boolean update(Empleado empleado) {
 		boolean correcto = false;
-		try {
-			Agente.getAgente().modificar("UPDATE empleado SET nombre='"+empleado.getNombre()+"','"+empleado.getApellidos()+"',"
-					+empleado.getTelefono()+"',"+ empleado.getCorreo()+"',"+ empleado.getIdiomas()+"',"+ empleado.getFormacion()+"' WHERE DNI='"+empleado.getDNI()+"';");
+		try {System.out.println("UPDATE empleado SET nombre='"+empleado.getNombre()+"',apellidos='"+empleado.getApellidos()+"',telefono='"
+					+empleado.getTelefono()+"',correo='"+ empleado.getCorreo()+"',idiomas='"+ empleado.getIdiomas()+"',formacion='"+ empleado.getFormacion()+"' WHERE DNI='"+empleado.getDNI()+"';");
+			Agente.getAgente().modificar("UPDATE empleado SET nombre='"+empleado.getNombre()+"',apellidos='"+empleado.getApellidos()+"',telefono='"
+					+empleado.getTelefono()+"',correo='"+ empleado.getCorreo()+"',idiomas='"+ empleado.getIdiomas()+"',formacion='"+ empleado.getFormacion()+"' WHERE DNI='"+empleado.getDNI()+"';");
 			correcto=true;
 		
 		} catch (SQLException e) {

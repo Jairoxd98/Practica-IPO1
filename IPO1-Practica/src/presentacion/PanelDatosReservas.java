@@ -294,7 +294,7 @@ public class PanelDatosReservas extends JFrame {
 				//int fin= PanelDatosReservas.DISPOSE_ON_CLOSE;
 				//PanelDatosReservas.frame.setVisible(false);
 				//PanelDatosReservas.frame.dispose();
-				
+				//frame.dispose();
 				JOptionPane.showMessageDialog(null,"Reserva cargada correctamente");
 			}
 		}

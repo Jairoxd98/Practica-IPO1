@@ -39,7 +39,7 @@ public class Agente {
     }
     public int modificar(String SQL) throws SQLException, Exception {
         Statement st =mBD.createStatement();
-        int res = st.executeUpdate(SQL);
+        int res = st.executeUpdate(SQL);System.out.println(res);
         return res;
     }   
 }

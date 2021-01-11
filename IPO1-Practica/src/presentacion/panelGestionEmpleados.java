@@ -424,6 +424,8 @@ public class panelGestionEmpleados extends JPanel {
 					modeloTablaEmpleados.eliminaFila(miTabla.getSelectedRow());
 					modeloTablaEmpleados.fireTableDataChanged();
 					list.remove(n);
+					Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
+					empleado.delete();
 				}else {
 					JOptionPane.showMessageDialog(null,"Debes seleccionar un empleado para eliminarlo");
 				}
@@ -454,7 +456,7 @@ public class panelGestionEmpleados extends JPanel {
 			}else {//Si no, los guarda, 	
 				if(MODO==1) {//Cuando Guardas un empleado que estas añadiendo
 				Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
-				//empleado.insert();
+				empleado.insert();
 				list.add(empleado);
 				MiModeloTablaEmpleados modeloTablaEmpleados = (MiModeloTablaEmpleados) miTabla.getModel();
 				Object[] fila= {list.get(list.size()-1).getNombre(), list.get(list.size()-1).getFormacion()};
@@ -475,6 +477,9 @@ public class panelGestionEmpleados extends JPanel {
 						}
 						
 						actualizaList(n);
+						
+						Empleado empleado = new Empleado(txtDNI.getText(),txtNombre.getText(),txtApellidos.getText(),txtTelefono.getText(),txtCorreo.getText(),txtIdiomas.getText(),txtFormacion.getText());
+						empleado.update();
 					}
 					modeloTablaEmpleados.fireTableDataChanged();
 					JOptionPane.showMessageDialog(null,"Has modificado correctamente al empleado "+txtNombre.getText());
