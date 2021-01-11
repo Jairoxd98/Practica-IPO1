@@ -12,6 +12,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.JScrollPane;
 import java.awt.Dimension;
 import javax.swing.border.LineBorder;
@@ -42,8 +44,8 @@ public class panelGestionReservas extends JPanel {
 	private static JTable miTabla;
 	private JTextArea taFilaSeleccionada;
 	private static ArrayList<Reserva> list = cargarReserva();
-
-	
+	private static int ROW;
+	private ImageIcon imagen;
 	/**
 	 * Create the panel.
 	 */
@@ -155,7 +157,16 @@ public class panelGestionReservas extends JPanel {
 										
 								taFilaSeleccionada.setText(contenido);
 								
-								lblFoto.setIcon(new ImageIcon(panelGestionReservas.class.getResource("/presentacion/Icon/"+list.get(n).getTipo()+".png")));
+								ImageIcon miniatura = null;
+								try {
+									miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Icon/"+list.get(n).getTipo()+".png"));
+								} catch (Exception ei) {
+									miniatura = new ImageIcon(getClass().getClassLoader().getResource("presentacion/Icon/choza.png"));
+								} finally {
+									Image image = miniatura.getImage();
+									imagen = new ImageIcon(image);
+								}
+								lblFoto.setIcon(imagen);
 								lblFoto.setToolTipText("Foto "+list.get(n).getTipo());
 							}
 						}
@@ -189,14 +200,22 @@ public class panelGestionReservas extends JPanel {
 	
 	private class BtnAnadirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			PanelDatosReservas panel = new PanelDatosReservas(0);
-			panel.setVisible(true);
+				PanelDatosReservas panel = new PanelDatosReservas(0);
+				panel.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Para guardar una ruta rellena todos los campos y pulsa Guardar");
 		}
 	}
 	private class BtnModificarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			PanelDatosReservas panel = new PanelDatosReservas(0);
-			panel.setVisible(true);
+			MiModeloTablaReservas modeloTablaReservas = (MiModeloTablaReservas) miTabla.getModel();
+			int n= miTabla.getSelectedRow();
+			ROW=n;
+			if (n != -1) {
+				PanelDatosReservas panel = new PanelDatosReservas(0);
+				panel.setVisible(true);
+			}else {
+				JOptionPane.showMessageDialog(null,"Debes seleccionar una reserva para eliminarla");
+			}
 		}
 	}
 	
@@ -226,6 +245,9 @@ public class panelGestionReservas extends JPanel {
 	}
 	public static JTable getpanel() {
 		return miTabla;
+	}
+	public static int getRow() {
+		return ROW;
 	}
 	
 }
