@@ -85,7 +85,7 @@ public class PanelDatosReservas extends JFrame {
 	public PanelDatosReservas() {
 		setTitle("Datos de Reservas");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PanelDatosReservas.class.getResource("/presentacion/Icon/choza.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 329);
 		pnlInfo = new JPanel();
 		pnlInfo.setBorder(new EmptyBorder(5, 5, 5, 5));
