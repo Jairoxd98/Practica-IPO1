@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Frame;
+
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -58,7 +60,21 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 	private JButton modificarParcela;
 	private JButton modificarBungalow;
 	private ArrayList<Parcela> listaParcelas = new ArrayList<Parcela>();
+	private static panelDatosPropiedades frame;
 
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new panelDatosPropiedades();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -125,12 +141,12 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 		lblPrecio.setBounds(38, 129, 72, 14);
 		panelBungalow.add(lblPrecio);
 
-		JLabel lblestancia = new JLabel("Estancia min:");
+		JLabel lblestancia = new JLabel("Días min:");
 		lblestancia.setBounds(38, 174, 72, 14);
 		panelBungalow.add(lblestancia);
 
-		JLabel lblEquipamiento = new JLabel("Equipamiento:");
-		lblEquipamiento.setBounds(267, 174, 65, 14);
+		JLabel lblEquipamiento = new JLabel("Equipo:");
+		lblEquipamiento.setBounds(259, 174, 84, 14);
 		panelBungalow.add(lblEquipamiento);
 
 		JLabel lblDescripcion = new JLabel("Descripcion:");
@@ -296,6 +312,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaParcelas) j).aniadeFila(fila);
 				j.fireTableDataChanged();
 				JOptionPane.showMessageDialog(null, "La parcela se ha añadido perfectamente");
+				frame.setVisible(false);
 			}
 
 		}
@@ -344,6 +361,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaBungalows) j).aniadeFila(fila);
 				j.fireTableDataChanged();
 				JOptionPane.showMessageDialog(null, "El bungalow se ha añadido perfectamente");
+				frame.setVisible(false);
 			}
 		}
 	}
@@ -569,6 +587,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaParcelas) j).setValueAt(caracteristicas, tablaParcelas.getSelectedRow(), 5);
 				tablaParcelas.clearSelection();
 				JOptionPane.showMessageDialog(null, "La parcela se ha modificado perfectamente");
+				frame.setVisible(false);
 			}
 		}
 	}
@@ -619,6 +638,7 @@ public class panelDatosPropiedades extends JFrame implements ActionListener {
 				((MiModeloTablaBungalows) j).setValueAt(equipamiento, tablaBungalows.getSelectedRow(), 4);
 				tablaBungalows.clearSelection();
 				JOptionPane.showMessageDialog(null, "El bungalow se ha modificado perfectamente");
+				frame.setVisible(false);
 			}
 			
 		}
